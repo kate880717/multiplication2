@@ -1,1991 +1,1124 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>깊이 있는 학습을 위한 컨셉 영어 스튜디오: 2022 Digital Lab</title>
-    <script src="config.js"
-        onerror="console.warn('Local config.js not found - this is normal for GitHub Pages. Users will need to enter their own API Key.')"></script>
-    <script>
-        window.onerror = function (msg, url, line) {
-            if (url.includes('babel')) alert('Babel 라이브러리 로드 실패. 인터넷 연결을 확인해주세요.');
-            return false;
-        };
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        sky: { 50: '#F0F9FF', 500: '#0EA5E9' },
-                    },
-                    fontFamily: {
-                        sans: ['Noto Sans KR', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'neubrutalism': '4px 4px 0px #000000',
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-out',
-                        'pop-in': 'popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
-                        'fade-in-up': 'fadeInUp 0.5s ease-out',
-                        'pulse-slow': 'pulse 3s infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        popIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.5)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        },
-                        shake: {
-                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
-                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
-                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
-                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
-        rel="stylesheet">
-    <script type="importmap">
-    {
-        "imports": {
-            "react": "https://esm.sh/react@18.2.0",
-            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-            "lucide-react": "https://esm.sh/lucide-react@0.263.1"
-        }
-    }
-    </script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        /* Deep Thinking Guard Overlay */
-        .thinking-guard-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(2px);
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: inherit;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>몇의 몇 배 탐험대</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;
+  font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+html,body{width:100%;height:100%;overflow:hidden;background:#0c1f33;}
+#wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+#stage{position:absolute;width:1280px;height:800px;left:50%;top:50%;
+  transform:translate(-50%,-50%) scale(1);transform-origin:center center;overflow:hidden;border-radius:8px;
+  background:linear-gradient(165deg,#9b6ddc 0%,#7a4ec7 55%,#5a36a8 100%);}
+#decor{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.deco{position:absolute;opacity:.7;}
+.cloud{font-size:46px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.12));animation:drift linear infinite;}
+.float{animation:bob ease-in-out infinite;}
+@keyframes drift{from{transform:translateX(-200px);}to{transform:translateX(1480px);}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-14px) rotate(4deg);}}
+.twinkle{animation:tw 2.4s ease-in-out infinite;}
+@keyframes tw{0%,100%{opacity:.25;transform:scale(.8);}50%{opacity:.8;transform:scale(1.1);}}
+.screen{position:absolute;inset:0;display:none;padding:20px 34px;flex-direction:column;z-index:1;}
+.screen.on{display:flex;}
+.bigtxt{font-size:31px;font-weight:900;color:#fff6e0;text-align:center;
+  background:rgba(20,8,40,.55);padding:11px 30px;border-radius:999px;
+  display:inline-block;margin:0 auto;text-shadow:0 2px 4px rgba(0,0,0,.4);max-width:90%;}
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+.topbar .title{font-size:23px;font-weight:900;color:#fff;
+  background:rgba(20,8,40,.5);padding:9px 22px;border-radius:999px;}
+.topbar .prog{flex:1;display:flex;gap:8px;justify-content:center;}
+.dot{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.35);transition:.25s;}
+.dot.done{background:#7ee06a;box-shadow:0 0 8px #7ee06a;}
+.dot.cur{background:#ffd23f;transform:scale(1.4);box-shadow:0 0 12px #ffd23f;}
+.spk{width:54px;height:54px;border-radius:16px;border:4px solid #fff;background:#3a2a55;color:#fff;
+  font-size:25px;cursor:pointer;font-weight:900;transition:.15s;flex-shrink:0;}
+.spk.on{background:#ffd23f;color:#1f4258;}
+.btn{border:none;border-radius:999px;cursor:pointer;font-weight:900;transition:transform .12s,filter .12s;}
+.btn:active{transform:scale(.93);}
+.btn-go{background:linear-gradient(180deg,#ffd86b,#ffb01f);color:#7a4d00;font-size:27px;
+  padding:16px 42px;box-shadow:0 8px 0 #d68a00,0 10px 18px rgba(0,0,0,.25);animation:cta 1.5s ease-in-out infinite;}
+@keyframes cta{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+.btn-go:active{box-shadow:0 3px 0 #d68a00;animation:none;}
+.btn-go:disabled{filter:grayscale(.65);opacity:.5;animation:none;}
+.btn-sm{background:linear-gradient(180deg,#ffd86b,#ffb01f);color:#7a4d00;font-size:21px;
+  padding:12px 26px;box-shadow:0 5px 0 #d68a00;}
+.btn-blue{background:linear-gradient(180deg,#7bb8ff,#4287dd);color:#fff;font-size:22px;
+  padding:13px 30px;box-shadow:0 6px 0 #2c5fa8;}
+.btn-blue:disabled{filter:grayscale(.6);opacity:.5;}
+.btn-mint{background:linear-gradient(180deg,#5fe3b6,#2eb389);color:#fff;font-size:22px;
+  padding:14px 34px;box-shadow:0 7px 0 #1f8666;}
+.btn-skip{background:rgba(255,255,255,.94);color:#356;font-size:18px;padding:11px 22px;
+  box-shadow:0 4px 0 rgba(0,0,0,.18);}
+.btn-help{background:linear-gradient(180deg,#ffb84d,#f08a14);color:#fff;font-size:20px;
+  padding:11px 22px;box-shadow:0 5px 0 #bd6a08;}
+.btn-pink{background:linear-gradient(180deg,#ff95b3,#e0556a);color:#fff;font-size:22px;
+  padding:13px 28px;box-shadow:0 6px 0 #9c3340;}
+.goal{background:linear-gradient(180deg,#fffbe0,#fff2b0);border:6px solid #ffd23f;
+  border-radius:30px;padding:22px 30px;box-shadow:0 10px 24px rgba(0,0,0,.22);}
+.goal h3{font-size:30px;color:#9a7b00;text-align:center;margin-bottom:10px;}
+.goal p{font-size:25px;font-weight:800;color:#5e4b00;line-height:1.8;}
+.goal .hl{background:#fff;border-radius:11px;padding:3px 11px;box-shadow:0 2px 4px rgba(0,0,0,.1);}
+.bubble{background:#fff;border:4px solid #ffd23f;border-radius:20px;padding:11px 17px;
+  font-size:19px;font-weight:800;color:#356;max-width:340px;box-shadow:0 5px 12px rgba(0,0,0,.2);}
+.play{flex:1;display:flex;gap:14px;min-height:0;}
+.scene{flex:1;background:rgba(255,255,255,.18);border:3px solid rgba(255,255,255,.5);
+  border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;padding:14px;overflow:hidden;}
+.sidep{width:340px;display:flex;flex-direction:column;gap:9px;}
+.guidebox{background:#fff;border-radius:18px;padding:12px 16px;font-size:19px;font-weight:800;
+  color:#1f4258;line-height:1.5;text-align:center;box-shadow:0 5px 12px rgba(0,0,0,.16);}
+/* 그리드 (탭 묶기) */
+.gridwrap{position:relative;display:inline-block;}
+#tutGrid,#bdGrid,#sameGrid,#chalGrid{display:grid;gap:13px;position:relative;justify-content:center;}
+.obj{font-size:46px;cursor:pointer;width:58px;height:58px;display:flex;align-items:center;
+  justify-content:center;border-radius:50%;transition:transform .15s,background .15s,filter .2s;
+  user-select:none;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25));}
+.obj.pick{background:#fff3a8;transform:scale(1.18) rotate(-6deg);}
+.obj.bundled{transform:translateY(-3px);}
+.obj.glow{animation:glowB .6s ease;}
+@keyframes glowB{0%,100%{filter:drop-shadow(0 3px 4px rgba(0,0,0,.25));}
+  50%{filter:drop-shadow(0 0 14px #ffd23f) brightness(1.3);transform:scale(1.22);}}
+.ringSvg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;}
+.ringSvg ellipse{fill:none;stroke-width:7;stroke-linecap:round;}
+/* 4단계 통합 표현 패널 */
+.stepsbox{background:#fff;border-radius:22px;padding:14px 18px;box-shadow:0 7px 16px rgba(0,0,0,.18);
+  display:flex;flex-direction:column;gap:10px;}
+.steprow{font-size:23px;font-weight:900;color:#1f4258;display:flex;align-items:center;justify-content:center;
+  gap:8px;flex-wrap:wrap;padding:7px 4px;border-radius:12px;transition:.3s;}
+.steprow.dim{opacity:.5;}
+.steprow.lit{background:#fffbe6;outline:3px solid #ffd23f;animation:pulseLit 1.2s ease infinite;}
+@keyframes pulseLit{0%,100%{box-shadow:0 0 0 0 rgba(255,210,63,.5);}50%{box-shadow:0 0 0 8px rgba(255,210,63,0);}}
+.steprow .lbl{background:#9b6ddc;color:#fff;font-size:14px;padding:2px 10px;border-radius:999px;font-weight:900;}
+.steprow.r-plus .lbl{background:#3a86ff;}
+.steprow.r-bun .lbl{background:#5cc24a;}
+.steprow.r-times .lbl{background:#e0556a;}
+.fill-box{display:inline-block;min-width:48px;height:44px;line-height:44px;text-align:center;
+  border:4px solid #ff8a93;border-radius:11px;background:#fff;font-size:25px;font-weight:900;color:#e0556a;
+  padding:0 10px;vertical-align:middle;position:relative;}
+.fill-box.fill{border-color:#5cc24a;background:#eefbe9;color:#2f7fe0;animation:pop1 .4s;}
+@keyframes pop1{50%{transform:scale(1.25);}}
+.fill-box .ord{position:absolute;top:-12px;left:-9px;background:#e0556a;color:#fff;font-size:13px;
+  width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 4px rgba(0,0,0,.3);font-weight:900;}
+.fill-box.fill .ord{background:#5cc24a;}
+/* 막대 비교 */
+.barwrap{display:flex;flex-direction:column;gap:24px;align-items:flex-start;width:100%;padding:14px 30px;}
+.barlbl{font-size:21px;font-weight:900;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.4);min-width:80px;}
+.barlbl.right{align-self:flex-end;}
+.barrow{display:flex;align-items:center;gap:14px;width:100%;}
+.bar{height:54px;border-radius:14px;box-shadow:0 5px 14px rgba(0,0,0,.25);position:relative;
+  display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;
+  text-shadow:0 2px 3px rgba(0,0,0,.4);transition:width .4s ease;}
+.barrep{display:flex;gap:3px;height:54px;flex-wrap:nowrap;}
+.barrep .bar{height:54px;}
+.barrep .bar.rep{animation:slideIn .55s ease backwards;}
+@keyframes slideIn{from{transform:translateX(-90px);opacity:0;}}
+.barCounter{background:#fff;border:5px solid #ffd23f;border-radius:18px;padding:8px 22px;
+  font-size:27px;font-weight:900;color:#1f4258;display:inline-flex;align-items:center;gap:10px;}
+/* 키패드 */
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:260px;}
+.key{background:linear-gradient(180deg,#3d6072,#2c4a5c);color:#fff;font-size:26px;font-weight:900;
+  border:none;border-radius:14px;height:54px;cursor:pointer;box-shadow:0 5px 0 #16313f;}
+.key:active{transform:translateY(4px);box-shadow:none;}
+.key.act{background:linear-gradient(180deg,#f0697d,#e0556a);box-shadow:0 5px 0 #9c3340;}
+.key.ok{background:linear-gradient(180deg,#4a9eff,#2f7fe0);box-shadow:0 5px 0 #1f5cab;}
+.kdisp{background:#fff;border-radius:14px;height:64px;display:flex;align-items:center;
+  justify-content:center;font-size:40px;font-weight:900;color:#1f4258;
+  box-shadow:inset 0 3px 8px rgba(0,0,0,.12);}
+/* 같은 수, 다른 배 - 묶기 옵션 버튼 */
+.sameOpts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.sameOpts .btn{font-size:18px;padding:11px 0;}
+/* 녹음 */
+.recwrap{background:#fff;border-radius:26px;padding:18px 24px;display:flex;flex-direction:column;
+  gap:11px;align-items:center;box-shadow:0 10px 26px rgba(0,0,0,.25);max-width:680px;}
+.recnote{border-radius:20px;padding:12px 20px;font-size:21px;font-weight:800;text-align:center;line-height:1.5;}
+.recnote.pre{background:#e7f1ff;border:5px solid #8fb9e8;color:#1c3f6e;}
+.recnote.post{background:#e6f9f0;border:5px solid #7fd6b0;color:#13573c;}
+.micbtn{width:104px;height:104px;border-radius:50%;border:6px solid #fff;cursor:pointer;font-size:46px;
+  background:linear-gradient(180deg,#ff7d92,#e0455e);color:#fff;box-shadow:0 7px 0 #a8344a;}
+.micbtn.rec{animation:pulse 1s infinite;background:linear-gradient(180deg,#ff4d6a,#c5283e);}
+@keyframes pulse{50%{transform:scale(1.1);}}
+.transbox{width:540px;min-height:68px;background:#f3f9fc;border:4px solid #cfe6ea;border-radius:16px;
+  padding:10px 15px;font-size:20px;color:#1f4258;font-weight:700;}
+.transbox:empty:before{content:'여기에 말한 내용이 나타나요…';color:#9bb2bf;}
+textarea.kb{width:540px;height:68px;border:4px solid #cfe6ea;border-radius:16px;padding:9px 14px;
+  font-size:20px;font-weight:700;color:#1f4258;resize:none;display:none;}
+.stars{display:flex;gap:9px;}
+.star{font-size:46px;cursor:pointer;filter:grayscale(1) opacity(.6);transition:.14s;}
+.star.lit{filter:none;transform:scale(1.2) rotate(8deg);}
+/* 탐구질문 팝업 */
+.ov{position:absolute;inset:0;background:rgba(8,4,28,.85);display:none;
+  align-items:center;justify-content:center;z-index:50;overflow-y:auto;padding:20px;}
+.ov.on{display:flex;}
+.pop{background:#fff;border-radius:32px;padding:24px 30px;width:780px;text-align:center;
+  animation:popIn .4s;border:7px solid #ffd23f;box-shadow:0 16px 40px rgba(0,0,0,.4);max-height:96%;
+  overflow-y:auto;}
+@keyframes popIn{from{transform:scale(.3);opacity:0;}}
+.pop h2{font-size:30px;color:#9b6ddc;margin-bottom:8px;}
+.pop .q{font-size:24px;font-weight:900;color:#1f4258;line-height:1.4;margin-bottom:16px;}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px;}
+.qopt{background:linear-gradient(180deg,#fff8d6,#ffe89c);border:5px solid #ffd23f;border-radius:22px;
+  padding:18px 14px;font-size:22px;font-weight:900;color:#5e4b00;cursor:pointer;
+  box-shadow:0 6px 0 #d68a00;transition:.15s;line-height:1.3;}
+.qopt:hover{transform:translateY(-3px);box-shadow:0 9px 0 #d68a00;}
+.qopt:active{transform:translateY(3px);box-shadow:0 3px 0 #d68a00;}
+.qopt.right{background:linear-gradient(180deg,#a8f098,#5cc24a);border-color:#3c8c30;color:#fff;
+  animation:pop1 .5s;box-shadow:0 6px 0 #2d6921;}
+.qopt.wrong{background:linear-gradient(180deg,#ffc0c8,#ff8a93);border-color:#e0556a;color:#fff;
+  animation:shake .4s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+.qopt:disabled{cursor:default;}
+.hintbox{background:linear-gradient(180deg,#fff8d6,#fff2b0);border:5px solid #ffd23f;border-radius:18px;
+  padding:13px 18px;font-size:20px;font-weight:800;color:#5e4b00;text-align:left;line-height:1.5;
+  margin-bottom:10px;display:none;}
+.hintbox.show{display:block;animation:slideInH .4s;}
+@keyframes slideInH{from{transform:translateY(-12px);opacity:0;}}
+.popMicWrap{display:none;flex-direction:column;align-items:center;gap:9px;background:#f3f9fc;
+  border-radius:18px;padding:13px;margin-bottom:10px;}
+.popMicWrap.show{display:flex;}
+.popMicBtn{width:74px;height:74px;border-radius:50%;border:5px solid #fff;cursor:pointer;font-size:32px;
+  background:linear-gradient(180deg,#ff7d92,#e0455e);color:#fff;box-shadow:0 6px 0 #a8344a;}
+.popMicBtn.rec{animation:pulse 1s infinite;}
+.popTrans{width:100%;min-height:50px;background:#fff;border:3px solid #cfe6ea;border-radius:12px;
+  padding:8px 12px;font-size:18px;font-weight:700;color:#1f4258;}
+.popTrans:empty:before{content:'말한 내용이 여기에 나와요…';color:#9bb2bf;}
+.popKbArea{display:none;}
+.popKbArea.show{display:block;}
+textarea.popKb{width:100%;height:60px;border:4px solid #cfe6ea;border-radius:14px;padding:9px 14px;
+  font-size:19px;font-weight:700;color:#1f4258;resize:none;margin-bottom:8px;}
+.popRow{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:6px;}
+.dashlist{flex:1;overflow:auto;display:flex;flex-direction:column;gap:11px;padding:4px;}
+.dashrow{background:#fff;border-radius:18px;border-left:12px solid #5cc24a;padding:14px 22px;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);}
+.dashrow b{font-size:21px;color:#1f4258;}
+.dashrow span{font-size:18px;color:#5b7585;font-weight:700;}
+.kpi{display:flex;gap:15px;justify-content:center;margin:6px 0 13px;}
+.kpicard{background:#fff;border-radius:20px;padding:15px 28px;text-align:center;
+  box-shadow:0 6px 14px rgba(0,0,0,.18);}
+.kpicard .n{font-size:38px;font-weight:900;color:#9b6ddc;}
+.kpicard .l{font-size:16px;font-weight:800;color:#5b7585;}
+.cert{background:linear-gradient(180deg,#fffef6,#fff6d8);border:12px solid #ffd23f;border-radius:30px;
+  flex:1;padding:20px 34px;display:flex;flex-direction:column;align-items:center;
+  box-shadow:0 12px 30px rgba(0,0,0,.3);}
+.compare{display:flex;gap:18px;width:100%;}
+.cmp{flex:1;border-radius:20px;padding:14px 18px;}
+.cmp.pre{background:#e7f1ff;border:5px solid #8fb9e8;}
+.cmp.post{background:#e6f9f0;border:5px solid #7fd6b0;}
+.cmp h4{font-size:20px;margin-bottom:5px;}
+.cmp p{font-size:18px;font-weight:700;color:#36505e;line-height:1.5;}
+select.namesel{font-size:25px;font-weight:800;padding:12px 24px;border-radius:16px;
+  border:5px solid #ffd23f;color:#1f4258;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.2);}
+.fade{animation:fadeIn .45s;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px);}}
+.regIn{animation:regIn .45s backwards;}
+@keyframes regIn{from{transform:scale(.2);opacity:0;}}
+#confetti{position:absolute;inset:0;pointer-events:none;z-index:60;}
+.toast{position:absolute;left:50%;top:18px;transform:translateX(-50%);
+  background:linear-gradient(180deg,#3d6072,#1f4258);color:#fff;font-size:22px;font-weight:900;
+  padding:12px 28px;border-radius:999px;z-index:55;display:none;box-shadow:0 6px 16px rgba(0,0,0,.35);
+  border:3px solid #ffd23f;}
+.burst{position:absolute;font-size:46px;z-index:58;pointer-events:none;}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.4);opacity:0;}}
+.bigSticker{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) scale(0);
+  font-size:140px;z-index:59;}
+.bigSticker.go{animation:stk .8s forwards;}
+@keyframes stk{55%{transform:translate(-50%,-50%) scale(1.35) rotate(12deg);}
+  100%{transform:translate(-50%,-50%) scale(1) rotate(0);}}
+/* 동기유발 - 두 친구 비교 */
+.friends{display:flex;gap:40px;justify-content:center;align-items:flex-start;width:100%;padding:14px;}
+.friendCard{background:#fff;border-radius:22px;padding:16px 22px;box-shadow:0 7px 16px rgba(0,0,0,.18);
+  display:flex;flex-direction:column;align-items:center;gap:9px;min-width:280px;}
+.friendCard h3{font-size:24px;color:#1f4258;}
+.candies{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:240px;min-height:60px;}
+.candies .obj{width:44px;height:44px;font-size:34px;}
+.compareBox{background:#fff;border-radius:22px;border:5px solid #9b6ddc;padding:14px 22px;margin-top:10px;
+  font-size:23px;font-weight:900;color:#1f4258;text-align:center;line-height:1.4;}
+.compareBox b{color:#e0556a;}
+</style>
 </head>
+<body>
+<div id="wrap"><div id="stage">
+<div id="decor"></div>
 
-<body class="bg-[#F0F4F8]">
-    <div id="root">
-        <div
-            style="font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: #64748b;">
-            <div style="font-size: 24px; font-weight: bold; margin-bottom: 15px;">Loading Mastery Studio...</div>
-            <div style="font-size: 14px;">If this screen stays blank, please check your internet connection or API
-                settings.</div>
-        </div>
+<!-- 시작 -->
+<section class="screen on" id="scrStart" style="align-items:center;justify-content:center;gap:18px;">
+  <div style="font-size:66px;" class="float">✖️🧺🐧</div>
+  <div class="bigtxt" style="font-size:46px;">몇의 몇 배 탐험대</div>
+  <div class="goal" style="width:790px;">
+    <h3>🎯 오늘의 목표</h3>
+    <p style="text-align:center;">이 활동이 끝나면 우리는<br>
+      👉 <span class="hl">몇씩 몇 묶음 = 몇의 몇 배</span>를 말할 수 있어요!<br>
+      👉 <span class="hl">색 막대를 이어 붙여</span> 몇 배인지 알 수 있어요!<br>
+      👉 <span class="hl">같은 수를 여러 가지 배</span>로 나타낼 수 있어요!</p>
+  </div>
+  <div style="display:flex;gap:14px;align-items:center;">
+    <span style="font-size:25px;font-weight:900;color:#fff;">이름</span>
+    <select class="namesel" id="nameSel"></select>
+  </div>
+  <div style="display:flex;gap:14px;">
+    <button class="btn btn-go" id="startBtn">시작하기 ▶</button>
+    <button class="btn btn-skip" id="toDashBtn">📒 내 학습기록 보기</button>
+  </div>
+  <div style="font-size:15px;color:#e3d4f7;">※ 학생 이름·문제는 구글 시트에서 직접 바꿀 수 있어요</div>
+</section>
+
+<!-- 튜토리얼: "묶음 = 배" 미리보기 -->
+<section class="screen" id="scrTut">
+  <div class="topbar"><div class="title">🧺 사용법 배우기</div><div class="prog" id="pgTut"></div>
+    <button class="spk" id="spkTut">🔇</button></div>
+  <div class="bigtxt">묶음을 만들면 묶음 수와 배 수가 <b style="color:#ffd23f;">동시에</b> 채워져요!</div>
+  <div class="play" style="margin-top:8px;">
+    <div class="scene" style="gap:14px;">
+      <div style="font-size:18px;font-weight:900;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.4);">사과 카드를 눌러 3개씩 묶어 보세요</div>
+      <div class="gridwrap"><div id="tutGrid"></div><svg class="ringSvg" id="tutSvg"></svg></div>
     </div>
-    <script type="text/babel" data-type="module">
-        import React, { useState, useEffect, useRef } from 'react';
-        import { createRoot } from 'react-dom/client';
-        import {
-            Layout, BookOpen, PenTool, Mic, MonitorPlay,
-            Volume2, ChevronRight, CheckCircle,
-            Star, User, Play, Square, ArrowRight, MousePointer2,
-            Download, Sparkles, X, Menu, Palette, Grid,
-            Edit3, Music, Zap, Layers, Dices, Save, Headphones, Heart,
-            MessageCircle, AlertTriangle, MicOff, Send, Brain, Smile,
-            Clock, Target, Unlock, HelpCircle, Lightbulb, Info, Award, Cpu, RefreshCw, Rocket, Check, Github, Move, Settings, Loader, ChevronDown
-        } from 'lucide-react';
-
-        // ── Knowledge Type Definitions (Educational Foundation) ──
-        const KNOWLEDGE_TYPES = {
-            // Competencies (핵심 역량)
-            AES: { label: '심미적 감성', full: '심미적 감성 역량', color: 'bg-[#E2F2FF] text-[#0066A1] border-[#B8D9FB]', dot: 'bg-[#0066A1]', desc: '언어와 문화를 통해 아름다움을 느끼고 공감하는 힘을 길러요!' },
-            COL: { label: '협력적 소통', full: '협력적 소통 역량', color: 'bg-[#D6EFFF] text-[#0066A1] border-[#A1DFFF]', dot: 'bg-[#0066A1]', desc: '다른 사람과 조화롭게 의견을 나누고 협동하며 대화해요!' },
-            INF: { label: '지식정보처리', full: '지식정보처리 역량', color: 'bg-[#0066A1] text-white border-[#004D7A]', dot: 'bg-white', desc: '디지털 도구와 데이터를 활용하여 정보를 똑똑하게 찾아내고 활용해요!' },
-            CRE: { label: '창의적 사고', full: '창의적 사고 역량', color: 'bg-[#B8D994] text-[#1E3A1E] border-[#94C76E]', dot: 'bg-[#1E3A1E]', desc: '새로운 시각으로 생각하고 나만의 독창적인 아이디어를 표현해요!' },
-            SEL: { label: '자기관리', full: '자기관리 역량', color: 'bg-[#86C786] text-white border-[#5DA15D]', dot: 'bg-white', desc: '나의 학습 목표를 스스로 세우고 꾸준히 노력하며 성장해요!' },
-            COM: { label: '공동체', full: '공동체 역량', color: 'bg-[#00B5E2] text-white border-[#0092B3]', dot: 'bg-white', desc: '우리 사회의 구성원으로서 책임감을 느끼고 존중하며 함께 살아가요!' },
-
-            // Domains (언어 영역)
-            REC: { label: '이해 (REC)', full: '이해 (Reception)', color: 'bg-slate-100 text-slate-700 border-slate-300', dot: 'bg-slate-500', desc: '듣기, 읽기, 보기를 통해 정보를 정확하게 받아들이는 과정이에요.' },
-            PRO: { label: '표현 (PRO)', full: '표현 (Production)', color: 'bg-slate-100 text-slate-700 border-slate-300', dot: 'bg-slate-500', desc: '말하기, 쓰기, 제시하기를 통해 나의 생각을 밖으로 표현하는 과정이에요.' },
-            INT: { label: '상호작용 (INT)', full: '상호작용 (Interaction)', color: 'bg-slate-100 text-slate-700 border-slate-300', dot: 'bg-slate-500', desc: '다른 사람(또는 AI)과 소통하며 의미를 완성해가는 주고받기 과정이에요.' },
-        };
-
-        // ── Knowledge Badge Component ──
-        const KnowledgeBadge = ({ types, className = '' }) => (
-            <div className={`flex flex-wrap gap-2 ${className}`}>
-                {types.map(t => {
-                    const info = KNOWLEDGE_TYPES[t];
-                    return (
-                        <div key={t} className="">
-                            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 text-xs font-black tracking-wide cursor-default select-none ${info.color}`}>
-                                <span className={`w-2 h-2 rounded-full ${info.dot}`}></span>
-                                {info.label}
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
-        );
-
-        // ── Learning Tips Panel ──
-        const LearningTips = ({ title, items, color = 'indigo' }) => {
-            const colorMap = {
-                indigo: 'bg-indigo-50 border-indigo-200 text-indigo-800',
-                teal: 'bg-teal-50 border-teal-200 text-teal-800',
-                purple: 'bg-purple-50 border-purple-200 text-purple-800',
-                orange: 'bg-orange-50 border-orange-200 text-orange-800',
-                rose: 'bg-rose-50 border-rose-200 text-rose-800',
-            };
-            return (
-                <div className={`rounded-2xl border-2 p-5 mt-4 ${colorMap[color]}`}>
-                    <p className="text-sm font-black uppercase tracking-widest mb-3 opacity-60">{title}</p>
-                    <ul className="space-y-2.5">
-                        {items.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2 text-lg font-bold leading-relaxed">
-                                <span className="mt-0.5 shrink-0">💡</span>{item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            );
-        };
-        const formatTime = (seconds) => {
-            const m = Math.floor(seconds / 60);
-            const s = (seconds % 60).toString().padStart(2, '0');
-            return `${m}:${s}`;
-        };
-
-        const speak = (text) => {
-            if (!window.speechSynthesis) return;
-            window.speechSynthesis.cancel();
-
-            const utterance = new SpeechSynthesisUtterance(text);
-            const hasKorean = /[가-힣]/.test(text);
-
-            utterance.lang = hasKorean ? 'ko-KR' : 'en-US';
-            utterance.rate = hasKorean ? 1.0 : 0.85; // Normal speed for Korean, slightly slower for English
-
-            const voices = window.speechSynthesis.getVoices();
-            let voice;
-
-            if (hasKorean) {
-                voice = voices.find(v => (v.name.includes('Google') || v.name.includes('Yuna')) && v.lang.startsWith('ko'));
-                if (!voice) voice = voices.find(v => v.lang.startsWith('ko'));
-            } else {
-                voice = voices.find(v => (v.name.includes('Google US English') || v.name.includes('Samantha')) && v.lang.startsWith('en'));
-                if (!voice) voice = voices.find(v => v.lang.startsWith('en'));
-            }
-
-            if (voice) utterance.voice = voice;
-            window.speechSynthesis.speak(utterance);
-        };
-
-        const calculateSimilarity = (s1, s2) => {
-            const clean = (s) => s.toLowerCase().replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ").trim();
-            const a = clean(s1).split(" ");
-            const b = clean(s2).split(" ");
-            const intersection = a.filter(x => b.includes(x));
-            return (intersection.length * 2) / (a.length + b.length);
-        };
-
-
-
-        const JOB_DATABASE = [
-            { id: 'baker', job: "Baker", script: "I work in a sweet kitchen. I love baking fresh bread.", full: "I want to be a baker.", full_ko: "나는 제빵사가 되고 싶어.", reason: "making delicious cookies", icon: "🍪", value: "Bakers share happiness through warm food.", value_ko: "제빵사는 따뜻한 음식으로 행복을 나누어 줍니다." },
-            { id: 'pilot', job: "Pilot", script: "I fly a big airplane. I travel to many countries.", full: "I want to be a pilot.", full_ko: "나는 조종사가 되고 싶어.", reason: "flying in the sky", icon: "✈️", value: "Pilots connect people across the world.", value_ko: "조종사는 전 세계 사람들을 하나로 연결해 줍니다." },
-            { id: 'doctor', job: "Doctor", script: "I work in a hospital. I help sick people.", full: "I want to be a doctor.", full_ko: "나는 의사가 되고 싶어.", reason: "helping people", icon: "🩺", value: "Doctors protect our health and lives.", value_ko: "의사는 우리의 건강과 소중한 생명을 지켜 줍니다." },
-            { id: 'webtoon', job: "Webtoon Artist", script: "I use a tablet. I draw funny stories for readers.", full: "I want to be a webtoon artist.", full_ko: "나는 웹툰 작가가 되고 싶어.", reason: "drawing funny stories", icon: "🎨", value: "Artists give joy and imagination.", value_ko: "작가는 사람들에게 즐거움과 상상력을 선물합니다." },
-            { id: 'youtube', job: "YouTuber", script: "I hold a camera. I make fun videos for fans.", full: "I want to be a YouTuber.", full_ko: "나는 유튜버가 되고 싶어.", reason: "making fun videos", icon: "📹", value: "Creators share fun and knowledge.", value_ko: "크리에이터는 즐거운 재미와 유익한 지식을 공유합니다." },
-            { id: 'police', job: "Police Officer", script: "I keep the town safe. I help people in danger.", full: "I want to be a police officer.", full_ko: "나는 경찰관이 되고 싶어.", reason: "keeping the town safe", icon: "👮", value: "Police officers keep our community safe.", value_ko: "경찰관은 우리 사회를 안전하고 평화롭게 지켜 줍니다." },
-            { id: 'chef', job: "Chef", script: "I cook delicious meals in a restaurant.", full: "I want to be a chef.", full_ko: "나는 요리사가 되고 싶어.", reason: "cooking delicious food", icon: "🍳", value: "Chefs create culture with food.", value_ko: "요리사는 맛있는 요리로 새로운 문화를 만들어 갑니다." },
-            { id: 'astro', job: "Astronaut", script: "I wear a space suit. I travel to the moon.", full: "I want to be an astronaut.", full_ko: "나는 우주비행사가 되고 싶어.", reason: "traveling to space", icon: "🚀", value: "Astronauts explore the unknown future.", value_ko: "우주비행사는 미지의 세계와 새로운 미래를 탐험합니다." },
-            { id: 'ai', job: "AI Developer", script: "I write code. I make smart robots that talk.", full: "I want to be an AI developer.", full_ko: "나는 AI 개발자가 되고 싶어.", reason: "making smart robots", icon: "🤖", value: "Developers build a smarter world.", value_ko: "개발자는 기술로 더 똑똑하고 편리한 세상을 만듭니다." },
-            { id: 'florist', job: "Florist", script: "I love flowers. I make pretty bouquets.", full: "I want to be a florist.", full_ko: "나는 플로리스트가 되고 싶어.", reason: "touching beautiful flowers", icon: "💐", value: "Florists make moments beautiful.", value_ko: "플로리스트는 꽃으로 소중한 순간들을 아름답게 꾸며 줍니다." },
-            { id: 'idol', job: "K-Pop Idol", script: "I dance and sing on stage. Fans cheer for me.", full: "I want to be a K-Pop idol.", full_ko: "나는 K-팝 아이돌이 되고 싶어.", reason: "dancing on stage", icon: "🎤", value: "Idols give energy and dreams.", value_ko: "아이돌은 무대에서 에너지와 멋진 꿈을 전달합니다." },
-            { id: 'soccer', job: "Soccer Player", script: "I run on the field. I kick the ball into the goal.", full: "I want to be a soccer player.", full_ko: "나는 축구 선수가 되고 싶어.", reason: "playing soccer", icon: "⚽", value: "Athletes inspire us with passion.", value_ko: "운동선수는 뜨거운 열정으로 우리에게 감동을 줍니다." },
-            { id: 'scientist', job: "Scientist", script: "I work in a lab. I find new things for humanity.", full: "I want to be a scientist.", full_ko: "나는 과학자가 되고 싶어.", reason: "finding new things", icon: "🧪", value: "Scientists advance human knowledge.", value_ko: "과학자는 새로운 지식을 발견하여 인류를 발전시킵니다." },
-            { id: 'firefighter', job: "Firefighter", script: "I put out fires. I save people from danger.", full: "I want to be a firefighter.", full_ko: "나는 소방관이 되고 싶어.", reason: "saving people", icon: "👨‍🚒", value: "Firefighters protect our community.", value_ko: "소방관은 위험한 상황에서 우리의 생명과 재산을 지켜줍니다." },
-            { id: 'architect', job: "Architect", script: "I design beautiful houses and tall buildings.", full: "I want to be an architect.", full_ko: "나는 건축가가 되고 싶어.", reason: "designing buildings", icon: "🏗️", value: "Architects build comfortable spaces.", value_ko: "건축가는 우리가 안전하고 편안하게 쉴 수 있는 공간을 만듭니다." },
-            { id: 'vet', job: "Vet", script: "I help sick animals. I work at an animal clinic.", full: "I want to be a vet.", full_ko: "나는 수의사가 되고 싶어.", reason: "helping pets", icon: "🐾", value: "Vets take care of precious lives.", value_ko: "수의사는 아픈 동물을 치료하며 소중한 생명을 돌봅니다." },
-            { id: 'gamer', job: "Pro-Gamer", script: "I play games very well. I win many tournaments.", full: "I want to be a pro-gamer.", full_ko: "나는 프로게이머가 되고 싶어.", reason: "playing games", icon: "🎮", value: "Gamers bring excitement and fun.", value_ko: "프로게이머는 멋진 경기로 사람들에게 즐거움과 박진감을 줍니다." },
-            { id: 'fashion', job: "Designer", script: "I love clothes. I make stylish dresses for people.", full: "I want to be a designer.", full_ko: "나는 디자이너가 되고 싶어.", reason: "making clothes", icon: "👗", value: "Designers express beauty through fashion.", value_ko: "디자이너는 아름다운 옷으로 사람들의 개성과 아름다움을 표현합니다." },
-            { id: 'farmer', job: "Farmer", script: "I grow healthy plants on my green farm.", full: "I want to be a farmer.", full_ko: "나는 농부가 되고 싶어.", reason: "growing food", icon: "👨‍🌾", value: "Farmers provide healthy food for us.", value_ko: "농부는 우리에게 필요한 건강하고 정직한 먹거리를 키워줍니다." },
-            { id: 'actor', job: "Actor", script: "I act in a movie. I express many feelings on stage.", full: "I want to be an actor.", full_ko: "나는 배우가 되고 싶어.", reason: "acting on stage", icon: "🎭", value: "Actors share emotions and stories.", value_ko: "배우는 다양한 삶과 감정을 연기하며 우리에게 감동을 줍니다." },
-        ];
-
-        const CARD_THEMES = [
-            { id: 'sky', name: '☁️ Sky', bg: 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)', text: '#1e3a8a', accent: '#3b82f6' },
-            { id: 'peach', name: '🍑 Peach', bg: 'linear-gradient(120deg, #fccb90 0%, #d57eeb 100%)', text: '#701a75', accent: '#d946ef' },
-            { id: 'mint', name: '🌿 Mint', bg: 'linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)', text: '#064e3b', accent: '#10b981' },
-            { id: 'lemon', name: '🍋 Lemon', bg: 'linear-gradient(120deg, #f6d365 0%, #fda085 100%)', text: '#7c2d12', accent: '#f59e0b' },
-        ];
-
-        const LESSON_STAGES = [
-            {
-                id: 'planning', title: '목표 설정', sub: 'GOAL SETTING', icon: '🎯',
-                inquiry: "나만의 학습 계획을 세워볼까요?", competency: "SEL", lifeConnection: "스스로 계획을 세우는 것이 성장의 시작이에요.",
-                theme: { active: 'bg-indigo-600 text-white border-slate-900 shadow-neubrutalism', completed: 'bg-white border-indigo-200 text-indigo-600', locked: 'bg-white border-slate-100 text-slate-300' }
-            },
-            {
-                id: 'warmup', title: 'NOVA 대화', sub: 'FREE TALK', icon: '🤖',
-                inquiry: "내 꿈의 조각을 자유롭게 떠올려 볼까요?", competency: "COL", lifeConnection: "생각을 나누면 꿈이 더 선명해져요.",
-                theme: { active: 'bg-indigo-600 text-white border-slate-900 shadow-neubrutalism', completed: 'bg-white border-indigo-200 text-indigo-600', locked: 'bg-white border-slate-110 text-slate-300' }
-            },
-            {
-                id: 'discovery', title: '직업 탐구', sub: 'DISCOVERY', icon: '🔍',
-                inquiry: "사람들은 왜 서로 다른 일을 할까요?", competency: "COM", lifeConnection: "각 직업이 우리 사회를 함께 만들어요.",
-                theme: { active: 'bg-indigo-600 text-white border-slate-900 shadow-neubrutalism', completed: 'bg-white border-indigo-200 text-indigo-600', locked: 'bg-white border-slate-100 text-slate-300' }
-            },
-            {
-                id: 'structure', title: '문장 조립', sub: 'BUILDER', icon: '🧩',
-                inquiry: "직업의 가치를 문장으로 완성해 볼까요?", competency: "INF", lifeConnection: "문장은 생각을 단단하게 묶어주는 힘이 있어요.",
-                theme: { active: 'bg-indigo-600 text-white border-slate-900 shadow-neubrutalism', completed: 'bg-white border-indigo-200 text-indigo-600', locked: 'bg-white border-slate-100 text-slate-300' }
-            },
-            {
-                id: 'speaking', title: 'AI 대화', sub: 'SPEAKING', icon: '🎤',
-                inquiry: "내 꿈을 자신 있게 영어로 말할 수 있나요?", competency: "COL", lifeConnection: "말로 표현하면 꿈이 더 선명해져요.",
-                theme: { active: 'bg-indigo-600 text-white border-slate-900 shadow-neubrutalism', completed: 'bg-white border-indigo-200 text-indigo-600', locked: 'bg-white border-slate-100 text-slate-300' }
-            },
-            {
-                id: 'writing', title: 'AI 글쓰기', sub: 'WRITING', icon: '✍️',
-                inquiry: "나만의 미래를 글로 그려볼까요?", competency: "CRE", lifeConnection: "기록하는 순간, 꿈은 현실이 되기 시작해요.",
-                theme: { active: 'bg-indigo-600 text-white border-slate-900 shadow-neubrutalism', completed: 'bg-white border-indigo-200 text-indigo-600', locked: 'bg-white border-slate-100 text-slate-300' }
-            },
-            {
-                id: 'project', title: 'Dream Card', sub: 'PROJECT', icon: '🌟',
-                inquiry: "나만의 드림 카드를 완성했나요?", competency: "SEL", lifeConnection: "꿈을 시각화하면 미래의 내가 더 가까워져요.",
-                theme: { active: 'bg-indigo-600 text-white border-slate-900 shadow-neubrutalism', completed: 'bg-white border-indigo-200 text-indigo-600', locked: 'bg-white border-slate-100 text-slate-300' }
-            }
-        ];
-
-        // --- Custom Hook: Deep Thinking Guard (See-Think-Wonder) ---
-        const useDeepThinking = (trigger, duration = 6000) => {
-            const [isLocked, setIsLocked] = useState(false);
-            const [timeLeft, setTimeLeft] = useState(0);
-
-            useEffect(() => {
-                if (trigger) {
-                    setIsLocked(true);
-                    setTimeLeft(duration / 1000);
-                    const interval = setInterval(() => {
-                        setTimeLeft((prev) => {
-                            if (prev <= 1) {
-                                clearInterval(interval);
-                                setIsLocked(false);
-                                return 0;
-                            }
-                            return prev - 1;
-                        });
-                    }, 1000);
-                    return () => clearInterval(interval);
-                }
-            }, [trigger, duration]);
-
-            return { isLocked, timeLeft };
-        };
-
-        const DeepThinkingGuard = ({ isLocked, timeLeft }) => {
-            if (!isLocked) return null;
-
-            // See-Think-Wonder stages
-            let stage = { icon: '✨', title: 'Ready!', prompt: 'Let\'s go!', color: 'emerald' };
-            if (timeLeft >= 5) {
-                stage = { icon: '👀', title: 'SEE', prompt: 'Look at the picture carefully.', color: 'blue' };
-            } else if (timeLeft >= 3) {
-                stage = { icon: '🧠', title: 'THINK', prompt: 'What does this person do?', color: 'purple' };
-            } else if (timeLeft >= 1) {
-                stage = { icon: '💭', title: 'WONDER', prompt: 'Why is this job important?', color: 'pink' };
-            }
-
-            const colorMap = {
-                blue: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-200' },
-                purple: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-purple-200' },
-                pink: { bg: 'bg-pink-50', text: 'text-pink-600', border: 'border-pink-200' },
-                emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-200' }
-            };
-            const colors = colorMap[stage.color];
-
-            return (
-                <div className="absolute inset-0 bg-white/85 backdrop-blur-[6px] z-50 flex flex-col items-center justify-center rounded-[inherit] border-4 border-slate-900 border-dashed animate-fade-in">
-                    <div className="bg-white p-10 rounded-[2.5rem] shadow-neubrutalism border-4 border-slate-900 flex flex-col items-center animate-pop-in max-w-md text-center">
-                        <div className={`text-7xl mb-6 animate-bounce-slow`}>{stage.icon}</div>
-                        <p className={`text-3xl font-black mb-3 ${colors.text}`}>{stage.title}</p>
-                        <p className="text-slate-700 font-bold text-lg mb-6">{stage.prompt}</p>
-
-                        {/* Progress Bar */}
-                        <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden border-2 border-slate-200 mb-3">
-                            <div className={`h-full ${colors.bg} ${colors.border} border-r-4 transition-all duration-1000`} style={{ width: `${((6 - timeLeft) / 6) * 100}%` }}></div>
-                        </div>
-                        <p className="text-slate-400 text-sm font-bold">{timeLeft}s remaining</p>
-                    </div>
-                </div>
-            );
-        };
-
-        const aiCache = {};
-        function VibeLearningBig() {
-            const resolvedDefaultKey = window.defaultKey || "";
-            // Priority: localStorage (Manual) > config.js (Shared Default) > "" (Canned Mode)
-            const initialKey = localStorage.getItem('mastery_api_key') || resolvedDefaultKey;
-
-            const [apiKey, setApiKey] = useState(initialKey);
-            const [aiProvider, setAiProvider] = useState(localStorage.getItem('mastery_ai_provider') || 'google');
-            const [modelId, setModelId] = useState(localStorage.getItem('mastery_model_id') || 'google/gemma-3-12b-it:free');
-            const [showSaved, setShowSaved] = useState(false);
-            const [testStatus, setTestStatus] = useState({ state: 'idle', msg: '' });
-            const [rawError, setRawError] = useState(null);
-            const [currentStage, setCurrentStage] = useState('planning');
-            const [completedStages, setCompletedStages] = useState([]);
-            const [userData, setUserData] = useState({ name: '', job: '', reason: '', theme: 'sky' });
-            const [goal, setGoal] = useState({ questions: 5, time: 10 });
-            const [quizPool, setQuizPool] = useState([]);
-            const [timeLeft, setTimeLeft] = useState(600);
-            const [showSettings, setShowSettings] = useState(false);
-
-            // Only auto-open if BOTH localStorage and config.js default are missing
-            useEffect(() => {
-                const storedKey = localStorage.getItem('mastery_api_key');
-                const resolvedDefaultKey = window.defaultKey || "";
-                if ((!storedKey || storedKey.trim() === '') && resolvedDefaultKey === "") {
-                    setShowSettings(true);
-                }
-            }, []);
-
-            useEffect(() => {
-                localStorage.setItem('mastery_api_key', apiKey.trim());
-                const resolvedDefaultKey = window.defaultKey || "";
-                // Show "Saved" alert only when manual input differs from the shared default
-                if (apiKey.trim() !== '' && apiKey.trim() !== resolvedDefaultKey) {
-                    setShowSaved(true);
-                    const timer = setTimeout(() => setShowSaved(false), 2000);
-                    return () => clearTimeout(timer);
-                }
-            }, [apiKey]);
-
-            useEffect(() => {
-                localStorage.setItem('mastery_ai_provider', aiProvider);
-                localStorage.setItem('mastery_model_id', modelId);
-            }, [aiProvider, modelId]);
-
-            useEffect(() => {
-                const timer = setInterval(() => {
-                    setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-                }, 1000);
-                return () => clearInterval(timer);
-            }, []);
-
-            // Model Validation & Migration
-            useEffect(() => {
-                const currentModel = localStorage.getItem('mastery_model_id');
-                const outdatedModels = ['google/gemini-2.5-flash-lite', 'gemini-1.5-flash', 'undi95/toppy-m-7b:free'];
-                if (outdatedModels.includes(currentModel)) {
-                    console.log("Outdated or defunct model detected, resetting to recommended default.");
-                    setModelId('google/gemma-3-12b-it:free');
-                }
-            }, []);
-
-            const [isThinking, setIsThinking] = useState(false);
-            const [lastModel, setLastModel] = useState('');
-
-            const OPENROUTER_MODELS = [
-                { id: "google/gemma-3-12b-it:free", name: "Gemma 3 12B (추천)" },
-                { id: "meta-llama/llama-3.2-3b-instruct:free", name: "Llama 3.2 3B (빠름)" },
-                { id: "nousresearch/hermes-3-llama-3.1-405b:free", name: "Hermes 3 405B (고성능)" },
-                { id: "qwen/qwen-2.5-7b-instruct:free", name: "Qwen 2.5 7B (언어능력)" },
-                { id: "openrouter/auto:free", name: "OpenRouter Auto (자동)" },
-                { separator: true },
-                { id: "google/gemma-3-4b-it:free", name: "Gemma 3 4B" },
-                { id: "google/gemma-3-2b-it:free", name: "Gemma 3n 2B" },
-                { id: "meta-llama/llama-3.1-8b-instruct:free", name: "Llama 3.1 8B" },
-                { id: "meta-llama/llama-3.1-405b:free", name: "Llama 3.1 405B" },
-                { id: "meta-llama/llama-3.1-70b-instruct:free", name: "Llama 3.1 70B" },
-                { id: "qwen/qwen-3-4b-instruct:free", name: "Qwen 3 4B" },
-                { id: "qwen/qwen-2.5-72b-instruct:free", name: "Qwen 2.5 72B" },
-                { id: "google/gemma-2-9b-it:free", name: "Gemma 2 9B" },
-                { id: "mistralai/mistral-7b-instruct:free", name: "Mistral 7B" },
-                { id: "mistralai/mistral-nemo:free", name: "Mistral Nemo 12B" },
-                { id: "microsoft/phi-3-mini-128k-instruct:free", name: "Phi-3 Mini" },
-                { id: "microsoft/phi-3-medium-128k-instruct:free", name: "Phi-3 Medium" },
-                { id: "google/gemma-2-27b-it:free", name: "Gemma 2 27B" },
-                { id: "qwen/qwen-2-7b-instruct:free", name: "Qwen 2 7B" },
-                { id: "qwen/qwen-2-1.5b-instruct:free", name: "Qwen 2 1.5B" },
-                { id: "meta-llama/llama-3-8b-instruct:free", name: "Llama 3 8B" },
-                { id: "gryphe/mythomax-l2-13b:free", name: "Gryphe Mythomax 13B" },
-                { id: "huggingfaceh4/zephyr-7b-beta:free", name: "HuggingFace Zephyr 7B" },
-                { id: "openchat/openchat-7b:free", name: "OpenChat 3.5" },
-                { id: "intel/neural-chat-7b-v3-1:free", name: "Neural Chat 7B" }
-            ];
-
-            const delay = (ms) => new Promise(res => setTimeout(res, ms));
-
-            const callAI = async (prompt, retryModel = null, depth = 0, allowDemo = true) => {
-                const targetModel = retryModel || modelId;
-                const trimmedKey = apiKey?.trim();
-                const cacheKey = `${targetModel}:${prompt}`;
-
-                if (aiCache[cacheKey]) return aiCache[cacheKey];
-
-                // Canned Mode (Simulator) - Triggers if no key is present at all OR if allowDemo is true and apiKey is empty
-                if (allowDemo && !trimmedKey) {
-                    console.log("Canned Mode Active (Simulator)");
-                    let mock;
-                    const r = Math.random();
-                    if (prompt.includes("JSON") && (prompt.includes("evaluate") || prompt.includes("evaluateWithAI"))) {
-                        mock = JSON.stringify({
-                            correct: true,
-                            grade: "잘함",
-                            feedback: "Excellent! Your English is very natural and clear.",
-                            korean_feedback: "완벽해요! 발음과 표현이 아주 정확하고 자연스럽습니다.",
-                            summary: "Great job! (Shared Canned Version)",
-                            korean_summary: "전체적으로 문장 구성과 발음이 훌륭합니다.",
-                            learning_tip: "체험 버전에서도 실시간처럼 피드백을 받을 수 있어요!",
-                            closing: "앞으로도 계속해서 꿈을 키워나가길 응원해요! (체험 버전)",
-                            pronunciation_score: 95
-                        });
-                    } else if (prompt.includes("writing") || (prompt.includes("JSON") && prompt.includes("학생이 작성한 문단"))) {
-                        mock = JSON.stringify({
-                            grade: "잘함",
-                            summary: "Your essay is well-structured and very persuasive!",
-                            korean_summary: "문단의 구조가 완벽하고 주장하는 내용이 매우 설득력 있습니다. 특히 중심 문장을 아주 잘 뒷받침하고 있네요!",
-                            closing: "정말 멋진 글쓰기 실력이에요! (체험 버전)",
-                            learning_tip: "체험 버전에서도 논리적인 피드백을 경험해 보세요."
-                        });
-                    } else {
-                        mock = JSON.stringify({
-                            text: "That sounds like a wonderful dream! I'm NOVA, and I'll help you reach it. What makes you interested in that?",
-                            ko: "정말 멋진 꿈이네요! 저는 노바예요. 친구가 그 꿈을 이룰 수 있게 제가 도와줄게요. 왜 그 일에 관심을 갖게 되었나요? (체험 버전)"
-                        });
-                    }
-                    setLastModel("Demo Mode (Canned)");
-                    return mock;
-                }
-
-                setIsThinking(true);
-                try {
-                    // Exponential Backoff for 429 errors (1s, 2s, 4s...)
-                    if (depth > 0) {
-                        const waitTime = Math.pow(2, depth - 1) * 1000;
-                        console.log(`Waiting ${waitTime}ms before retry depth ${depth}...`);
-                        await delay(waitTime);
-                    }
-
-                    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${trimmedKey}`,
-                            "HTTP-Referer": window.location.href,
-                            "X-Title": "Mastery Studio"
-                        },
-                        body: JSON.stringify({
-                            model: targetModel,
-                            messages: [{ role: "user", content: prompt }]
-                        })
-                    });
-
-                    const data = await response.json();
-
-                    if (!response.ok) {
-                        // Fallback/Retry logic for 429, 500 etc.
-                        if (depth < 3) {
-                            console.warn(`Model ${targetModel} failed (${response.status}). Retrying with backoff...`);
-                            // On 429, keep same model but wait. On other errors, maybe try different model.
-                            const freeModels = OPENROUTER_MODELS.filter(m => m.id && !m.separator);
-                            const nextModel = response.status === 429 ? targetModel : freeModels[Math.floor(Math.random() * freeModels.length)].id;
-                            return callAI(prompt, nextModel, depth + 1, allowDemo);
-                        }
-                        throw { status: response.status, data };
-                    }
-
-                    const result = data.choices[0].message.content;
-                    aiCache[cacheKey] = result;
-                    setLastModel(data.model || targetModel);
-                    return result;
-                } catch (e) {
-                    // Critical: If allowDemo is false (meaning this is a testConnection call), 
-                    // we MUST throw the error so the test UI can catch and display it.
-                    if (!allowDemo) throw e;
-
-                    console.error("AI Error:", e);
-                    if (prompt.includes("JSON")) {
-                        const status = parseInt(e.status) || "Error";
-                        const errorMsg = e.data?.error?.message || e.message || "Network issue";
-
-                        let advice = "연결 상태나 API Key 값을 점검해 주세요. 확인을 위해 체험 모드로 자동 전환되었습니다.";
-                        if (status === 401) advice = "API Key가 올바르지 않거나 만료되었습니다. [설정]에서 키를 다시 확인해 주세요.";
-                        if (status === 429) advice = "요청이 너무 많아 잠시 차단되었습니다. 1분만 기다린 후 다시 시도해 주세요.";
-                        if (status === 404) advice = "선택한 AI 모델을 찾을 수 없습니다. 다른 모델로 변경해 보세요.";
-                        if (status === 400) advice = "요청 형식이 잘못되었습니다. (HTTP 400)";
-
-                        // Unified Fallback Object for ALL components
-                        return JSON.stringify({
-                            correct: true,
-                            grade: "보통",
-                            summary: `연결 지연 (${status})`,
-                            feedback: `I'm cheering for you! (Connectivity fallback)`,
-                            korean_summary: `연결 오류(${status}): ${errorMsg}`,
-                            closing: advice,
-                            korean_feedback: `연결 오류(${status})로 인해 기본 결과가 제공되었습니다.`,
-                            learning_tip: "인터넷 환경이나 API 설정을 확인하면 곧 AI 피드백을 받을 수 있어요!",
-                            pronunciation_score: 80,
-                            text: "I'm having a little connectivity issue, but I'm still cheering for you!",
-                            ko: "연결이 잠시 끊겼지만, 친구의 열정은 제가 잘 알고 있어요!"
-                        });
-                    }
-                    return "I'm having a little connectivity issue, but I'm still cheering for you!";
-                } finally {
-                    setIsThinking(false);
-                }
-            };
-
-            useEffect(() => {
-                const count = goal.questions === 'Challenge' ? 20 : goal.questions;
-                const shuffled = [...JOB_DATABASE].sort(() => 0.5 - Math.random());
-                setQuizPool(shuffled.slice(0, Math.min(count, JOB_DATABASE.length)));
-                setTimeLeft(typeof goal.time === 'number' ? goal.time * 60 : 600);
-            }, [goal]);
-
-            const testConnection = async () => {
-                setTestStatus({ state: 'loading', msg: 'Testing...' });
-                try {
-                    setRawError(null);
-                    if (!apiKey?.trim()) throw { status: 'Key Missing', message: 'API Key를 입력하지 않았습니다.' };
-
-                    // Force a real call to OpenRouter to check key validity
-                    await callAI("Hello, are you there? Reply only 'OK'", null, 0, false);
-                    setTestStatus({ state: 'success', msg: 'Connected! AI와 정상적으로 연결되었습니다.' });
-                } catch (e) {
-                    const data = e.data || {};
-                    const status = e.status || "Error";
-                    setRawError(JSON.stringify(data, null, 2));
-
-                    let hint = `에러 (${status})`;
-                    if (status === 401) hint = "API Key가 잘못되었습니다. (401)";
-                    if (status === 429) hint = "요청 한도 초과 (429) - 1분 후 다시 시도";
-                    if (status === 404) hint = "모델을 찾을 수 없음 (404)";
-                    if (status === 'Key Missing') hint = e.message;
-
-                    setTestStatus({ state: 'error', msg: hint });
-                }
-                setTimeout(() => setTestStatus({ state: 'idle', msg: '' }), 10000); // 10s for better readability
-            };
-
-            const resetKey = () => {
-                const resolvedDefaultKey = window.defaultKey || "";
-                setApiKey(resolvedDefaultKey);
-                localStorage.removeItem('mastery_api_key');
-                setTestStatus({ state: 'success', msg: 'Key Reset' });
-                setTimeout(() => setTestStatus({ state: 'idle', msg: '' }), 2000);
-            };
-
-            const getStudentLevel = () => {
-                const count = completedStages.length;
-                if (count >= 7) return { title: 'Lv.4 Master', ko: '마스터' };
-                if (count >= 5) return { title: 'Lv.3 Creator', ko: '창작자' };
-                if (count >= 3) return { title: 'Lv.2 Dreamer', ko: '꿈꾸는 자' };
-                return { title: 'Lv.1 Explorer', ko: '탐험가' };
-            };
-
-            const formatTime = (seconds) => {
-                const m = Math.floor(seconds / 60);
-                const s = seconds % 60;
-                return `${m}:${s < 10 ? '0' : ''}${s}`;
-            };
-
-            const completeStage = (stageId) => {
-                if (!completedStages.includes(stageId)) {
-                    setCompletedStages([...completedStages, stageId]);
-                }
-            };
-
-            return (
-                <div className="h-screen w-full bg-[#F0F4F8] font-sans text-slate-800 flex overflow-hidden selection:bg-indigo-100">
-                    {/* Sidebar */}
-                    <aside className="w-80 bg-white border-r border-slate-100 flex flex-col z-20 shadow-sm hidden md:flex shrink-0 h-full">
-                        <div className="p-8 flex items-center gap-4 shrink-0">
-                            <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg relative overflow-hidden">
-                                <Rocket className="relative z-10" size={32} />
-                                <div className="absolute inset-0 bg-indigo-500 translate-y-1"></div>
-                            </div>
-                            <div>
-                                <div className="font-black text-2xl text-slate-800 tracking-tight leading-tight">Mastery Studio</div>
-                                <div className="text-sm text-slate-400 font-bold mt-1">{getStudentLevel().title} <span className="text-indigo-400">({getStudentLevel().ko})</span></div>
-                                <div className="text-xs text-indigo-400 font-black mt-0.5">{userData.name || 'Dreamer'}</div>
-                            </div>
-                        </div>
-
-                        <nav className="flex-1 px-4 space-y-4 overflow-y-auto custom-scrollbar pt-2">
-                            {LESSON_STAGES.map((stage, idx) => {
-                                const isCompleted = completedStages.includes(stage.id);
-                                const isActive = currentStage === stage.id;
-                                const isUnlocked = idx === 0 || completedStages.includes(LESSON_STAGES[idx - 1].id) || isCompleted;
-
-                                let styleClass = stage.theme.locked;
-                                if (isActive) styleClass = stage.theme.active;
-                                else if (isCompleted) styleClass = stage.theme.completed;
-
-                                return (
-                                    <button
-                                        key={stage.id}
-                                        onClick={() => setCurrentStage(stage.id)}
-                                        className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group border-2 text-left relative
-                                            ${styleClass} hover:scale-[1.02] cursor-pointer
-                                        `}
-                                    >
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition-colors
-                                            ${isActive ? 'bg-white text-indigo-600 border-white' :
-                                                isCompleted ? 'bg-indigo-50 text-indigo-600 border-indigo-200' :
-                                                    'bg-slate-50 text-slate-400 border-slate-200'}
-                                        `}>
-                                            {isCompleted ? <Check size={20} strokeWidth={3} /> : <span className="font-black text-sm">{idx + 1}</span>}
-                                        </div>
-                                        <div>
-                                            <div className={`text-[10px] font-black uppercase tracking-widest leading-none mb-1.5 ${isActive ? 'text-white/70' : 'text-slate-400'}`}>
-                                                {stage.sub}
-                                            </div>
-                                            <div className={`text-lg font-black flex items-center gap-2 ${isActive ? 'text-white' : 'text-slate-700'}`}>
-                                                <span>{stage.icon}</span>
-                                                {stage.title}
-                                            </div>
-                                        </div>
-                                    </button>
-                                );
-                            })}
-                        </nav>
-
-                        <div className="pt-4 border-t border-slate-200/60">
-                            <div className="flex justify-between text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest">
-                                <span>My Progress</span>
-                                <span>{Math.round((completedStages.length / 7) * 100)}%</span>
-                            </div>
-                            <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
-                                <div className="bg-indigo-600 h-full transition-all duration-700" style={{ width: `${(completedStages.length / 7) * 100}%` }}></div>
-                            </div>
-                        </div>
-                        <div className="p-4 mt-auto border-t border-slate-100 bg-slate-50/50">
-                            <button
-                                onClick={() => setShowSettings(true)}
-                                className="w-full flex items-center justify-center gap-2 py-3 bg-white border-2 border-slate-200 rounded-xl font-bold text-slate-500 hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-sm"
-                            >
-                                <Settings size={18} /> AI 모델 & API 설정
-                            </button>
-                        </div>
-                    </aside>
-
-                    {/* Main Content */}
-                    <main className="flex-1 flex flex-col h-full relative bg-[#F0F4F8] min-w-0">
-                        {isThinking && (
-                            <div className="absolute top-24 left-1/2 -translate-x-1/2 z-[60] bg-indigo-600 text-white px-6 py-2 rounded-full font-black text-sm shadow-neubrutalism flex items-center gap-2 animate-bounce">
-                                <Loader size={18} className="animate-spin" /> 생각 중...
-                            </div>
-                        )}
-
-                        <header className="h-auto py-4 flex flex-col items-center justify-between px-10 bg-white/90 backdrop-blur-md sticky top-0 z-10 border-b border-slate-100 shrink-0 shadow-sm">
-                            <div className="flex w-full items-center justify-between mb-2">
-                                <div className="flex items-center gap-4">
-                                    <span className="bg-indigo-100 text-indigo-600 text-sm px-3 py-1.5 rounded-xl font-bold border border-indigo-200">Unit 11</span>
-                                    <span className="font-bold text-xl text-slate-500">Career Exploration</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className={`flex items-center gap-3 bg-white px-5 py-2.5 rounded-full border-2 border-slate-200 shadow-sm hover:shadow-md transition-shadow ${timeLeft < 60 ? 'animate-pulse border-red-400' : ''}`}>
-                                        <User size={20} className="text-indigo-400" />
-                                        <span className="font-bold text-base text-slate-600">{userData.name}</span>
-                                        <div className="h-4 w-px bg-slate-300 mx-2"></div>
-                                        <span className={`text-sm font-bold flex items-center gap-1 ${timeLeft < 60 ? 'text-red-500' : 'text-slate-400'}`}>
-                                            <Clock size={14} /> {formatTime(timeLeft)}
-                                        </span>
-                                    </div>
-                                    <button
-                                        onClick={() => setShowSettings(true)}
-                                        className="p-2.5 bg-white rounded-full border-2 border-slate-200 shadow-sm hover:bg-slate-50 transition-all text-slate-400 hover:text-indigo-500"
-                                    >
-                                        <Settings size={22} />
-                                    </button>
-                                </div>
-                            </div>
-                            {/* ... Content remains same ... */}
-                            {/* Core Inquiry Question Banner - SIMPLIFIED */}
-                            <div className="w-full bg-gradient-to-r from-indigo-50 to-blue-50 border-2 border-indigo-100 rounded-xl py-2 px-6 text-center shadow-sm relative overflow-hidden group">
-                                <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500"></div>
-                                <h1 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight mb-0.5 group-hover:scale-105 transition-transform duration-300">
-                                    "Who do I want to be?"
-                                </h1>
-                                <p className="text-slate-500 font-bold text-xs md:text-sm mb-1">(나는 어떤 사람이 되고 싶나요?)</p>
-                                <Lightbulb className="absolute right-4 top-1/2 -translate-y-1/2 text-indigo-200 opacity-40 group-hover:opacity-100 group-hover:text-indigo-400 transition-all" size={28} />
-                            </div>
-
-                            {/* Stage-Specific Inquiry Banner */}
-                            {LESSON_STAGES.find(s => s.id === currentStage) && (
-                                <div className="w-full mt-3 animate-fade-in-up">
-                                    <div className={`bg-white rounded-2xl p-4 border-2 shadow-sm transition-all flex items-center justify-between gap-4
-                                        ${currentStage === 'planning' ? 'border-slate-200 bg-slate-50/30' :
-                                            currentStage === 'warmup' ? 'border-pink-100 bg-pink-50/20' :
-                                                currentStage === 'discovery' ? 'border-blue-100 bg-blue-50/20' :
-                                                    currentStage === 'structure' ? 'border-purple-100 bg-purple-50/20' :
-                                                        currentStage === 'speaking' ? 'border-orange-100 bg-orange-50/20' :
-                                                            currentStage === 'writing' ? 'border-rose-100 bg-rose-50/20' :
-                                                                'border-emerald-100 bg-emerald-50/20'}
-                                    `}>
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-2 mb-1 text-left">
-                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">단계 탐구 질문</span>
-                                                {LESSON_STAGES.find(s => s.id === currentStage).competency && (
-                                                    <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-full border-2 
-                                                        ${KNOWLEDGE_TYPES[LESSON_STAGES.find(s => s.id === currentStage).competency].color}
-                                                    `}>
-                                                        {KNOWLEDGE_TYPES[LESSON_STAGES.find(s => s.id === currentStage).competency].label}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="flex items-start gap-2 text-base font-black text-slate-700 leading-tight text-left">
-                                                <span className="text-indigo-500 text-sm">🔍</span>
-                                                {LESSON_STAGES.find(s => s.id === currentStage).inquiry}
-                                            </div>
-                                            {LESSON_STAGES.find(s => s.id === currentStage).lifeConnection && (
-                                                <div className="mt-1 flex items-center gap-2 text-[11px] font-bold text-slate-400 text-left">
-                                                    <span className="text-yellow-500">💡</span>
-                                                    삶의 연결: {LESSON_STAGES.find(s => s.id === currentStage).lifeConnection}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </header>
-
-                        <div className="flex-1 overflow-y-auto p-8 relative scroll-smooth custom-scrollbar">
-                            {!apiKey && (
-                                <div className="max-w-4xl mx-auto mb-8 animate-pop-in">
-                                    <div className="bg-amber-50 border-4 border-amber-400 rounded-3xl p-8 shadow-neubrutalism flex flex-col md:flex-row items-center gap-6">
-                                        <div className="text-6xl">🔑</div>
-                                        <div className="flex-1 text-center md:text-left">
-                                            <h3 className="text-2xl font-black text-amber-700 mb-2">AI 모델 설정이 필요합니다!</h3>
-                                            <p className="text-amber-600 font-bold mb-4 leading-relaxed">
-                                                이 앱은 OpenRouter를 통한 고성능 AI 기반 학습 도구입니다. 계속하려면 우측 상단의 **톱니바퀴 아이콘(Settings)**을 눌러 API 키와 모델을 설정해 주세요.
-                                            </p>
-                                            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                                                <a href="https://openrouter.ai/keys" target="_blank" className="bg-amber-500 text-white px-6 py-2 rounded-xl font-bold shadow-sm hover:bg-amber-600 transition-colors border-2 border-amber-700">OpenRouter 키 발급 (무료 모델용)</a>
-                                                <button onClick={() => setShowSettings(true)} className="bg-white text-amber-500 px-6 py-2 rounded-xl font-bold border-2 border-amber-200 flex items-center gap-2"><Settings size={18} /> 설정 열기</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                            <div className="max-w-6xl mx-auto pb-40">
-                                {currentStage === 'planning' && <StagePlanning userData={userData} setUserData={setUserData} goal={goal} setGoal={setGoal} onComplete={() => { completeStage('planning'); setCurrentStage('warmup'); }} />}
-                                {currentStage === 'warmup' && <StageFreeTalk callAI={callAI} lastModel={lastModel} onComplete={() => { completeStage('warmup'); setCurrentStage('discovery'); }} />}
-                                {currentStage === 'discovery' && <StageDiscovery pool={quizPool} onComplete={() => { completeStage('discovery'); setCurrentStage('structure'); }} />}
-                                {currentStage === 'structure' && <StageBuilder pool={quizPool} onComplete={() => { completeStage('structure'); setCurrentStage('speaking'); }} />}
-                                {currentStage === 'speaking' && <StageSpeaking callAI={callAI} lastModel={lastModel} pool={quizPool} onComplete={() => { completeStage('speaking'); setCurrentStage('writing'); }} />}
-                                {currentStage === 'writing' && <StageWriting callAI={callAI} lastModel={lastModel} onComplete={() => { completeStage('writing'); setCurrentStage('project'); }} />}
-                                {currentStage === 'project' && <StageProject userData={userData} setUserData={setUserData} goal={goal} onComplete={() => completeStage('project')} />}
-                            </div>
-                        </div>
-                    </main>
-
-                    {/* Settings Modal */}
-                    {
-                        showSettings && (
-                            <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-[100] flex items-center justify-center p-6 animate-fade-in">
-                                <div className="bg-white rounded-[2.5rem] w-full max-w-lg border-4 border-slate-900 shadow-neubrutalism p-10 relative animate-pop-in">
-                                    <button onClick={() => setShowSettings(false)} className="absolute top-6 right-6 p-2 hover:bg-slate-100 rounded-full transition-all text-slate-400 hover:text-red-500 hover:rotate-90">
-                                        <X size={28} />
-                                    </button>
-                                    <h2 className="text-3xl font-black text-slate-800 mb-8 flex items-center gap-3">
-                                        <Settings className="text-indigo-500 animate-spin-slow" size={32} /> AI Settings
-                                    </h2>
-
-                                    <div className="space-y-8">
-                                        <div>
-                                            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">OpenRouter API Key</label>
-                                            <input
-                                                type="password"
-                                                placeholder="sk-or-v1-..."
-                                                className="w-full bg-slate-50 border-4 border-slate-100 p-5 rounded-2xl font-bold focus:border-indigo-400 outline-none transition-all shadow-inner"
-                                                value={apiKey}
-                                                onChange={(e) => setApiKey(e.target.value)}
-                                            />
-                                            <p className="mt-2 text-[10px] text-slate-400 font-bold">입력한 키는 브라우저(localStorage)에 안전하게 저장됩니다.</p>
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">AI Model Selection</label>
-                                            <div className="relative">
-                                                <select
-                                                    className="w-full bg-slate-50 border-4 border-slate-100 p-5 rounded-2xl font-black text-slate-700 focus:border-indigo-400 outline-none transition-all cursor-pointer appearance-none"
-                                                    value={modelId}
-                                                    onChange={(e) => setModelId(e.target.value)}
-                                                >
-                                                    <optgroup label="✨ 추천 무료 모델 (Top 5)">
-                                                        {OPENROUTER_MODELS.filter(m => !m.separator).slice(0, 5).map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-                                                    </optgroup>
-                                                    <optgroup label="🌐 기타 무료 모델 (All Free Models)">
-                                                        {OPENROUTER_MODELS.filter(m => !m.separator).slice(5).map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
-                                                    </optgroup>
-                                                </select>
-                                                <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                                                    <ChevronDown size={20} />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex gap-4 pt-4">
-                                            <button
-                                                onClick={testConnection}
-                                                disabled={testStatus.state === 'loading'}
-                                                className="flex-1 bg-slate-900 text-white p-5 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl hover:-translate-y-1 active:translate-y-0"
-                                            >
-                                                {testStatus.state === 'loading' ? "Testing..." : (testStatus.msg || "Test Connection")}
-                                            </button>
-                                            <button
-                                                onClick={resetKey}
-                                                className="bg-red-50 text-red-500 px-8 rounded-2xl font-black border-2 border-red-100 hover:bg-red-100 transition-all uppercase text-xs"
-                                            >
-                                                Reset
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                </div>
-            );
-        }
-
-        function StagePlanning({ userData, setUserData, goal, setGoal, onComplete }) {
-            const QUESTIONS_OPTIONS = [5, 10, 15, '전체 도전 (20Q)'];
-            const TIME_OPTIONS = [5, 10, 15, 20, 30];
-
-            return (
-                <div className="flex flex-col items-center justify-center animate-fade-in w-full min-h-[600px]">
-                    <div className="bg-white rounded-[3rem] p-12 shadow-neubrutalism shadow-slate-200 w-full max-w-4xl border-4 border-slate-900 text-center relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-slate-700 to-slate-500 border-b-4 border-slate-900"></div>
-
-                        <div className="mb-8">
-                            <span className="bg-slate-100 text-slate-600 px-5 py-2 rounded-full text-sm font-bold tracking-wide border-2 border-slate-300">STEP 1. PLANNING</span>
-                            <h2 className="text-4xl font-black text-slate-800 mt-6 mb-2">Design Your Mission</h2>
-                            <p className="text-slate-500 font-bold text-lg">오늘의 학습 목표를 스스로 정해보세요.</p>
-                            {/* TPACK Badges */}
-                            <div className="flex justify-center mt-4">
-                                <KnowledgeBadge types={['SEL', 'INF']} />
-                            </div>
-                            <LearningTips
-                                title="이 단계에서 나는..."
-                                color="indigo"
-                                items={[
-                                    '자기관리: 오늘 내가 배울 양과 시간을 직접 정했어요! 스스로 정한 목표는 더 잘 지켜지는 법이에요.',
-                                    '지식정보처리: 이 앱과 디지털 도구를 어떻게 사용하는지 알게 되면 더 똑똑하게 공부할 수 있어요!',
-                                    '심미적 감성: 오늘 배울 직업들에 대해 이미 알고 있는 것을 생각해보세요. 흥미로운 사실이 많아요!',
-                                ]}
-                            />
-                        </div>
-
-                        <div className="bg-indigo-50 p-8 rounded-[2.5rem] border-2 border-indigo-200 mb-8 max-w-2xl mx-auto">
-                            <h3 className="text-2xl font-black text-indigo-700 mb-4 flex items-center justify-center gap-2"><User size={24} /> What is your name?</h3>
-                            <input
-                                type="text"
-                                placeholder="이름을 입력해 주세요 (Enter your name)"
-                                value={userData.name}
-                                onChange={(e) => setUserData({ ...userData, name: e.target.value })}
-                                className="w-full p-4 rounded-2xl border-4 border-slate-900 font-bold text-xl text-center focus:ring-4 focus:ring-indigo-200 outline-none transition-all"
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
-                            {/* Question Count */}
-                            <div className="bg-slate-50 p-8 rounded-[2.5rem] border-2 border-slate-200">
-                                <h3 className="text-2xl font-black text-slate-700 mb-6 flex items-center justify-center gap-2"><Target className="text-indigo-500" /> Questions</h3>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {QUESTIONS_OPTIONS.map(opt => (
-                                        <button
-                                            key={opt}
-                                            onClick={() => setGoal({ ...goal, questions: opt === '전체 도전 (20Q)' ? 'Challenge' : opt })}
-                                            className={`py-4 rounded-2xl font-bold text-lg transition-all border-b-4 active:border-b-0 active:translate-y-1 ${goal.questions === (opt === '전체 도전 (20Q)' ? 'Challenge' : opt)
-                                                ? 'bg-indigo-500 text-white border-indigo-700 shadow-lg scale-105'
-                                                : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-100'}`}
-                                        >
-                                            {typeof opt === 'number' ? opt + ' Q' : opt}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Time */}
-                            <div className="bg-slate-50 p-8 rounded-[2.5rem] border-2 border-slate-200">
-                                <h3 className="text-2xl font-black text-slate-700 mb-6 flex items-center justify-center gap-2"><Clock className="text-pink-500" /> Time</h3>
-                                <div className="grid grid-cols-2 gap-4">
-                                    {TIME_OPTIONS.map(opt => (
-                                        <button
-                                            key={opt}
-                                            onClick={() => setGoal({ ...goal, time: opt })}
-                                            className={`py-4 rounded-2xl font-bold text-lg transition-all border-b-4 active:border-b-0 active:translate-y-1 ${goal.time === opt
-                                                ? 'bg-pink-500 text-white border-pink-700 shadow-lg scale-105'
-                                                : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-100'}`}
-                                        >
-                                            {opt} min
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <button onClick={onComplete} className="bg-slate-900 text-white px-16 py-6 rounded-3xl font-black text-2xl shadow-neubrutalism hover:bg-slate-800 flex items-center gap-4 mx-auto animate-bounce border-4 border-slate-900 hover:scale-105 transition-transform">
-                            Mission Start! <ArrowRight size={32} />
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        function StageFreeTalk({ callAI, lastModel, onComplete }) {
-            const [history, setHistory] = useState([
-                { role: 'ai', text: "Hello! I'm NOVA. How are you today?", ko: "안녕! 나는 노바야. 오늘 기분이 어때?" }
-            ]);
-            const [isRecording, setIsRecording] = useState(false);
-            const [isProcessing, setIsProcessing] = useState(false);
-            const recognitionRef = useRef(null);
-            const scrollRef = useRef(null);
-
-            useEffect(() => {
-                const timer = setTimeout(() => speak("Hello! I'm NOVA. How are you today?"), 500);
-                return () => clearTimeout(timer);
-            }, []);
-
-            useEffect(() => {
-                if (scrollRef.current) {
-                    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-                }
-            }, [history]);
-
-            // Speech Recognition Setup - Persistent Instance for UX
-            useEffect(() => {
-                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                    const recognition = new SpeechRecognition();
-                    recognition.continuous = false;
-                    recognition.lang = 'en-US';
-
-                    recognition.onresult = (event) => {
-                        const text = event.results[0][0].transcript;
-                        setIsRecording(false);
-                        handleUserMessage(text);
-                    };
-
-                    recognition.onend = () => setIsRecording(false);
-                    recognition.onerror = () => setIsRecording(false);
-
-                    recognitionRef.current = recognition;
-                }
-            }, []);
-
-            const toggleRecord = () => {
-                if (isRecording) {
-                    recognitionRef.current?.stop();
-                } else {
-                    try {
-                        recognitionRef.current?.start();
-                        setIsRecording(true);
-                    } catch (e) {
-                        console.error("Mic error:", e);
-                        setIsRecording(false);
-                    }
-                }
-            };
-
-            const handleUserMessage = async (text) => {
-                const newHistory = [...history, { role: 'user', text }];
-                setHistory(newHistory);
-                setIsProcessing(true);
-
-                try {
-                    console.log("NOVA sending user message:", text);
-                    const prompt = `Role: Friendly English Robot Tutor named NOVA. User: 6th grader.
-                    Task: Chat naturally. Keep it short (1-2 sentences).
-                    Respond in JSON format: {"text": "English reply", "ko": "Korean translation"}
-                    [IMPORTANT]
-                    1. "ko" must be simple, friendly Korean.
-                    2. Provide short English first, then easy Korean translation.
-                    User said: "${text}"`;
-
-                    const raw = await callAI(prompt);
-                    console.log("NOVA raw response:", raw);
-
-                    const jsonMatch = raw.match(/\{[\s\S]*\}/);
-                    let aiResult;
-                    if (jsonMatch) {
-                        try {
-                            aiResult = JSON.parse(jsonMatch[0]);
-                        } catch (parseError) {
-                            console.error("JSON Parse Error:", parseError);
-                            aiResult = { text: raw, ko: "번역에 오류가 발생했어요. (JSON)" };
-                        }
-                    } else {
-                        aiResult = { text: raw, ko: "번역에 오류가 발생했어요." };
-                    }
-
-                    setHistory(prev => [...prev, { role: 'ai', text: aiResult.text, ko: aiResult.ko }]);
-                    speak(aiResult.text);
-                } catch (e) {
-                    console.error("NOVA AI Error (FreeTalk):", e);
-                    const status = e.status || 0;
-                    const is429 = status === 429;
-                    const statusDetail = is429 ? "AI가 잠시 쉬고 싶어해요! 1분만 기다려주세요 (429)" :
-                        status === 401 ? "Unauthorized: API Key가 올바르지 않습니다." :
-                            e.message || "Unknown error";
-                    const fallback = `I'm sorry, I'm having trouble. (${statusDetail})`;
-                    const ko_fallback = `미안해! 연결에 문제가 생겼어. (${statusDetail})`;
-                    setHistory(prev => [...prev, { role: 'ai', text: fallback, ko: ko_fallback }]);
-                    speak(fallback);
-                } finally {
-                    setIsProcessing(false);
-                }
-            };
-
-            return (
-                <div className="flex flex-col items-center justify-center animate-fade-in w-full">
-                    <div className="bg-white rounded-[3rem] p-10 shadow-neubrutalism shadow-pink-100 w-full max-w-4xl border-4 border-slate-900 min-h-[700px] flex flex-col relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-pink-300 to-rose-300 border-b-4 border-slate-900"></div>
-
-                        <div className="mb-8 flex justify-between items-center shrink-0">
-                            <span className="bg-pink-50 text-pink-600 px-5 py-2 rounded-full text-sm font-bold tracking-wide flex items-center gap-2 border-2 border-pink-200"><Smile size={18} /> STEP 2. WARM UP</span>
-                            <button onClick={onComplete} className="text-slate-400 hover:text-pink-500 font-bold text-sm flex items-center gap-1">Skip <ChevronRight size={16} /></button>
-                        </div>
-
-                        <div ref={scrollRef} className="flex-1 bg-slate-50 rounded-[2.5rem] p-8 overflow-y-auto custom-scrollbar mb-8 flex flex-col gap-6 border-2 border-slate-200">
-                            {history.map((msg, i) => (
-                                <div key={i} className={`flex ${msg.role === 'ai' ? 'justify-start' : 'justify-end'}`}>
-                                    {msg.role === 'ai' && <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-3xl mr-3 shrink-0 border-4 border-slate-900 shadow-sm">🤖</div>}
-                                    <div className={`px-6 py-4 rounded-3xl text-lg font-bold shadow-sm max-w-[80%] leading-relaxed ${msg.role === 'ai' ? 'bg-white text-slate-700 rounded-tl-none border-2 border-slate-200' : 'bg-pink-500 text-white rounded-tr-none border-2 border-pink-600'}`}>
-                                        {msg.role === 'ai' && <div className="text-[9px] font-black text-slate-400 mb-1 uppercase tracking-widest">{lastModel || "AI"}</div>}
-                                        <div className="text-xl mb-1">{msg.text}</div>
-                                        {msg.ko && <div className="text-sm opacity-60 font-medium text-indigo-700 border-t border-slate-100 mt-2 pt-1">{msg.ko}</div>}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Topic Suggestions */}
-                        <div className="mb-6 flex flex-wrap gap-2 justify-center">
-                            <span className="text-xs font-black text-slate-400 w-full mb-1">💡 대화 주제 추천 (Try saying these):</span>
-                            {["What's your favorite job?", "Tell me about bakers.", "How are you today?"].map(topic => (
-                                <button key={topic} onClick={() => handleUserMessage(topic)} className="px-4 py-2 bg-white border-2 border-pink-100 rounded-xl text-sm font-bold text-pink-500 hover:border-pink-400 hover:bg-pink-50 transition-all uppercase leading-tight">"{topic}"</button>
-                            ))}
-                        </div>
-
-                        <div className="flex flex-col items-center justify-center gap-4 shrink-0 relative">
-                            <button onClick={toggleRecord} className={`w-24 h-24 rounded-full flex items-center justify-center shadow-neubrutalism transition-all hover:scale-105 border-4 border-slate-900 ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-pink-500'}`}><Mic size={40} className="text-white" /></button>
-                            <div className="text-sm font-bold text-slate-400 flex flex-col items-center gap-1">
-                                <span>{isRecording ? "듣고 있어요..." : "클릭해서 말하기"}</span>
-                            </div>
-                            <button onClick={onComplete} className="absolute right-0 bg-slate-800 text-white px-8 py-4 rounded-2xl font-bold shadow-neubrutalism hover:bg-slate-700 flex items-center gap-3 text-lg transition-transform hover:scale-105 border-4 border-slate-900">수업 시작 <ArrowRight size={20} /></button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function StageDiscovery({ pool, onComplete }) {
-            const [idx, setIdx] = useState(0);
-            const [revealed, setRevealed] = useState(false);
-            const [options, setOptions] = useState([]);
-            const [phase, setPhase] = useState('word-list'); // 'word-list' -> 'quiz'
-            const [showSubtitle, setShowSubtitle] = useState(false);
-            const { isLocked, timeLeft } = useDeepThinking(phase === 'quiz' ? idx : null, 6000);
-
-            if (pool.length === 0) return null;
-            const current = pool[idx];
-
-            useEffect(() => {
-                if (phase === 'quiz' && current) {
-                    const distractors = JOB_DATABASE.filter(j => j.id !== current.id).sort(() => 0.5 - Math.random()).slice(0, 3);
-                    const newOptions = [current, ...distractors].sort(() => 0.5 - Math.random());
-                    setOptions(newOptions);
-                }
-            }, [idx, current, phase]);
-
-            const handleNext = () => {
-                if (idx < pool.length - 1) {
-                    setIdx(prev => prev + 1);
-                    setRevealed(false);
-                    setShowSubtitle(false);
-                } else {
-                    onComplete();
-                }
-            };
-
-            const handleAnswer = (job) => {
-                if (isLocked) return;
-                if (job === current.job) {
-                    speak(`Great job! ${current.job}. ${current.full}`);
-                    setRevealed(true);
-                } else {
-                    speak("Nice try! Listen again carefully.");
-                }
-            };
-
-            if (phase === 'word-list') {
-                return (
-                    <div className="flex flex-col items-center justify-center w-full animate-fade-in py-8">
-                        <div className="bg-white rounded-[3rem] p-12 shadow-neubrutalism shadow-blue-100 w-full max-w-5xl border-4 border-slate-900 text-center relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-blue-400 to-cyan-300 border-b-4 border-slate-900"></div>
-                            <div className="mb-8">
-                                <span className="bg-blue-50 text-blue-600 px-5 py-2 rounded-full text-sm font-bold tracking-wide border-2 border-blue-200">STAGE PREVIEW</span>
-                                <h2 className="text-4xl font-black text-slate-800 mt-6 mb-2">오늘 배울 핵심 단어들</h2>
-                                <p className="text-slate-500 font-bold text-lg">단어의 의미와 소리를 미리 확인해 보세요.</p>
-                            </div>
-
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                                {pool.map(job => (
-                                    <div key={job.id} className="bg-slate-50 p-6 rounded-3xl border-2 border-slate-100 hover:border-blue-300 transition-colors flex flex-col items-center gap-3">
-                                        <span className="text-5xl">{job.icon}</span>
-                                        <div className="text-center">
-                                            <p className="font-black text-slate-800 text-xl">{job.job}</p>
-                                            <p className="text-sm font-bold text-slate-400">{job.reason}</p>
-                                        </div>
-                                        <button onClick={() => speak(job.job)} className="p-2 bg-white rounded-full shadow-sm hover:bg-blue-50 text-blue-500 border border-slate-200"><Volume2 size={20} /></button>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <button onClick={() => setPhase('quiz')} className="bg-slate-900 text-white px-16 py-6 rounded-3xl font-black text-2xl shadow-neubrutalism hover:bg-slate-800 flex items-center gap-4 mx-auto border-4 border-slate-900 hover:scale-105 transition-transform animate-bounce">
-                                퀴즈 시작하기 <Play size={32} />
-                            </button>
-                        </div>
-                    </div>
-                );
-            }
-
-            return (
-                <div className="flex flex-col items-center justify-center w-full animate-fade-in relative py-8">
-                    <div className="bg-white rounded-[3rem] p-12 shadow-neubrutalism shadow-blue-100 w-full max-w-4xl text-center relative overflow-hidden border-4 border-slate-900">
-                        <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-blue-400 to-cyan-300 border-b-4 border-slate-900"></div>
-
-                        <div className="mb-6 flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                                <span className="bg-blue-50 text-blue-600 px-5 py-2 rounded-full text-sm font-bold tracking-wide border-2 border-blue-200 uppercase">STEP 3. DISCOVERY</span>
-                                <span className="text-slate-400 text-sm font-bold">{idx + 1} / {pool.length}</span>
-                            </div>
-                        </div>
-
-                        <h2 className="text-4xl font-black text-slate-800 mb-6 mt-4">Who am I?</h2>
-
-                        <div className="relative">
-                            <DeepThinkingGuard isLocked={isLocked && !revealed} timeLeft={timeLeft} />
-
-                            <div className="flex flex-col items-center mb-12">
-                                <div className="flex items-center gap-6">
-                                    <button onClick={() => speak(current.script + " Who am I?")} className={`w-32 h-32 rounded-full flex items-center justify-center shadow-neubrutalism transition-all duration-300 group border-4 border-slate-900 ${revealed ? 'bg-blue-500 text-white rotate-12 scale-110' : 'bg-white text-blue-500 hover:scale-105'}`}>
-                                        <Volume2 size={64} className={revealed ? "" : "group-hover:animate-pulse"} />
-                                    </button>
-                                    {!revealed && (
-                                        <button onClick={() => setShowSubtitle(!showSubtitle)} className={`px-6 py-4 rounded-2xl border-2 font-bold transition-all ${showSubtitle ? 'bg-amber-100 border-amber-400 text-amber-700' : 'bg-white border-slate-200 text-slate-400 hover:border-blue-400'}`}>
-                                            {showSubtitle ? "Hide Script 자막 끄기" : "Show Script 자막 보기"}
-                                        </button>
-                                    )}
-                                </div>
-                                {!revealed && !showSubtitle && <div className="mt-6 text-blue-400 font-bold text-lg animate-bounce">👆 Click to Listen!</div>}
-                                {showSubtitle && !revealed && (
-                                    <div className="mt-8 bg-amber-50 p-6 rounded-2xl border-2 border-amber-200 animate-fade-in text-xl font-bold text-amber-800">
-                                        <div className="text-sm uppercase tracking-widest opacity-60 mb-1">STORY SCRIPT</div>
-                                        {current.script}
-                                    </div>
-                                )}
-                            </div>
-
-                            {!revealed ? (
-                                <div className={`grid grid-cols-2 gap-6 transition-opacity ${isLocked ? 'opacity-50' : 'opacity-100'}`}>
-                                    {options.map((job) => (
-                                        <button key={job.id} onClick={() => handleAnswer(job.job)} disabled={isLocked} className="py-6 bg-slate-50 rounded-3xl font-bold text-xl text-slate-600 hover:bg-blue-50 hover:text-blue-600 hover:shadow-neubrutalism transition-all flex flex-col items-center gap-3 border-4 border-slate-200 hover:border-slate-900 disabled:opacity-50">
-                                            <span className="text-4xl">{job.icon}</span>{job.job}
-                                        </button>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="animate-fade-in-up">
-                                    <div className="bg-blue-50 p-8 rounded-3xl border-2 border-blue-200 mb-8 flex flex-col items-center">
-                                        <div className="text-7xl mb-4 animate-pop-in">{current.icon}</div>
-                                        <p className="text-3xl font-black text-blue-600 mb-2">{current.job}</p>
-                                        <p className="text-xl font-bold text-slate-600 italic mb-2">"{current.full}"</p>
-                                        <p className="text-lg font-bold text-blue-400 mb-4">(나는 {current.job}이 되고 싶어요.)</p>
-                                        <div className="mt-8 w-full bg-blue-50/50 rounded-3xl p-6 border-2 border-blue-100/50 text-left relative overflow-hidden group/value">
-                                            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover/value:opacity-30 transition-opacity">
-                                                <Sparkles size={40} className="text-blue-400" />
-                                            </div>
-                                            <p className="text-xs font-black text-blue-400 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                                                <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
-                                                사회적 가치 Social Value
-                                            </p>
-                                            <p className="text-xl font-black text-slate-800 leading-tight mb-3">
-                                                {current.value}
-                                            </p>
-                                            <div className="h-0.5 w-12 bg-blue-200 mb-3"></div>
-                                            <p className="text-base font-bold text-slate-500 leading-relaxed italic">
-                                                {current.value_ko}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <button onClick={handleNext} className="w-full bg-slate-800 text-white py-6 rounded-3xl font-bold text-2xl shadow-neubrutalism hover:bg-slate-700 flex items-center justify-center gap-4 transition-all hover:scale-[1.02] border-4 border-slate-900">
-                                        {idx < pool.length - 1 ? "Next Question" : "Finish Stage"} <ArrowRight size={28} />
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function StageBuilder({ pool, onComplete }) {
-            const [idx, setIdx] = useState(0);
-            const [slots, setSlots] = useState([]);
-            const [bank, setBank] = useState([]);
-            const [status, setStatus] = useState('idle');
-            const [phase, setPhase] = useState('builder'); // Added phase state for DeepThinking
-            const { isLocked, timeLeft } = useDeepThinking(phase, 0); // Removed wait time
-
-            if (pool.length === 0) return null;
-            const currentJob = pool[idx];
-            const sentenceWords = currentJob.full.split(' ');
-
-            useEffect(() => {
-                setBank([...sentenceWords].sort(() => 0.5 - Math.random()));
-                setSlots([]);
-                setStatus('idle');
-            }, [idx]);
-
-            const handleBankClick = (word, i) => {
-                if (isLocked) return;
-                const newBank = [...bank]; newBank.splice(i, 1);
-                setBank(newBank);
-                setSlots([...slots, word]);
-                setStatus('idle');
-            };
-
-            const handleSlotClick = (word, i) => {
-                const newSlots = [...slots]; newSlots.splice(i, 1);
-                setSlots(newSlots);
-                setBank([...bank, word]);
-                setStatus('idle');
-            };
-
-            // Reordering via drag and drop
-            const [draggedIndex, setDraggedIndex] = useState(null);
-            const [dragSource, setDragSource] = useState(null); // 'bank' or 'slots'
-
-            const handleBankDragStart = (e, index) => {
-                setDraggedIndex(index);
-                setDragSource('bank');
-                e.dataTransfer.effectAllowed = "move";
-            };
-
-            const handleDragStart = (e, index) => {
-                setDraggedIndex(index);
-                setDragSource('slots');
-                e.dataTransfer.effectAllowed = "move";
-            };
-
-            const handleDragOver = (e, index) => {
-                e.preventDefault();
-                if (draggedIndex === null) return;
-
-                if (dragSource === 'slots') {
-                    if (draggedIndex === index) return;
-                    const newSlots = [...slots];
-                    const item = newSlots[draggedIndex];
-                    newSlots.splice(draggedIndex, 1);
-                    newSlots.splice(index, 0, item);
-                    setDraggedIndex(index);
-                    setSlots(newSlots);
-                }
-            };
-
-            const handleDropAreaOver = (e) => {
-                e.preventDefault();
-            };
-
-            const handleDropOnArea = (e) => {
-                e.preventDefault();
-                if (dragSource === 'bank' && draggedIndex !== null) {
-                    const word = bank[draggedIndex];
-                    const newBank = [...bank];
-                    newBank.splice(draggedIndex, 1);
-                    setBank(newBank);
-                    setSlots([...slots, word]);
-                    setDraggedIndex(null);
-                    setDragSource(null);
-                }
-            };
-
-            const handleDrop = () => {
-                setDraggedIndex(null);
-                setDragSource(null);
-            };
-
-            const checkAnswer = () => {
-                if (slots.join(' ') === currentJob.full) {
-                    setStatus('success');
-                    speak(currentJob.full);
-                } else {
-                    setStatus('error');
-                    speak("다시 한번 생각해보세요.");
-                }
-            };
-
-            const next = () => {
-                if (idx < pool.length - 1) {
-                    setIdx(prev => prev + 1);
-                } else {
-                    onComplete();
-                }
-            };
-
-            return (
-                <div className="flex flex-col items-center justify-center w-full animate-fade-in relative">
-                    <div className="bg-white rounded-[3rem] p-12 shadow-neubrutalism shadow-purple-100 w-full max-w-5xl text-center border-4 border-slate-900 relative">
-                        <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-purple-400 to-pink-300 rounded-t-[3rem] border-b-4 border-slate-900"></div>
-
-                        <h2 className="text-4xl font-black text-slate-800 mb-2 mt-8">문장 조립소</h2>
-                        {/* Learning Badges */}
-                        <div className="flex justify-center mb-3">
-                            <KnowledgeBadge types={['PRO', 'CRE']} />
-                        </div>
-                        <LearningTips
-                            title="이 단계에서 나는..."
-                            color="purple"
-                            items={[
-                                '표현 (PRO): 단어를 순서대로 놓으면서 나만의 영어 문장을 정확하게 만들어 보세요!',
-                                '창의적 사고: 중심 문장과 뒷받침 문장이 어떻게 연결되는지 생각하며 문장을 완성해 보세요!',
-                            ]}
-                        />
-                        <div className="mt-4 mb-6 inline-flex items-center bg-slate-50 px-8 py-4 rounded-[2rem] border-2 border-slate-200 shadow-sm">
-                            <span className="text-5xl mr-6">{currentJob.icon}</span>
-                            <span className="font-bold text-slate-600 text-2xl">Target: {currentJob.job}</span>
-                        </div>
-
-                        <div className="relative">
-                            <DeepThinkingGuard isLocked={isLocked} timeLeft={timeLeft} />
-
-                            <div
-                                onDragOver={handleDropAreaOver}
-                                onDrop={handleDropOnArea}
-                                className={`min-h-[140px] rounded-3xl border-4 border-dashed flex flex-wrap items-center justify-center gap-4 p-8 mb-10 transition-colors ${status === 'success' ? 'border-emerald-400 bg-emerald-50' : (status === 'error' ? 'border-red-300 bg-red-50' : 'border-slate-300 bg-slate-50/50')}`}
-                            >
-                                {slots.length === 0 && <span className="text-slate-400 font-bold text-xl flex items-center gap-3 select-none"><MousePointer2 size={24} /> 단어를 순서대로 클릭하거나 끌어서 놓으세요</span>}
-                                {slots.map((w, i) => (
-                                    <button
-                                        key={`${w}-${i}`}
-                                        draggable
-                                        onDragStart={(e) => handleDragStart(e, i)}
-                                        onDragOver={(e) => handleDragOver(e, i)}
-                                        onDragEnd={handleDrop}
-                                        onClick={() => handleSlotClick(w, i)}
-                                        className={`bg-white shadow-neubrutalism border-2 border-slate-900 px-6 py-4 rounded-2xl font-bold text-2xl text-purple-600 animate-pop-in hover:bg-red-50 hover:border-red-200 flex items-center gap-2 cursor-grab active:cursor-grabbing ${draggedIndex === i ? 'opacity-50 scale-95 shadow-none ring-4 ring-purple-200' : ''}`}
-                                    >
-                                        <Move size={16} className="text-slate-300 pointer-events-none" />
-                                        {w}
-                                    </button>
-                                ))}
-                            </div>
-
-                            <div className="mb-12 min-h-[100px] flex flex-wrap justify-center gap-4">
-                                {bank.map((w, i) => (
-                                    <button
-                                        key={i}
-                                        draggable
-                                        onDragStart={(e) => handleBankDragStart(e, i)}
-                                        onDragEnd={handleDrop}
-                                        onClick={() => handleBankClick(w, i)}
-                                        disabled={isLocked}
-                                        className="bg-purple-600 text-white border-b-8 border-purple-800 px-6 py-4 rounded-2xl font-bold text-2xl hover:-translate-y-1 hover:shadow-xl transition-all active:border-b-0 active:translate-y-2 border-2 border-t-purple-400 border-l-purple-400 border-r-purple-800 disabled:opacity-50 cursor-grab active:cursor-grabbing"
-                                    >
-                                        {w}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="min-h-[80px]">
-                            {status === 'success' ? (
-                                <div className="animate-fade-in-up">
-                                    {/* PCK Success Feedback */}
-                                    <div className="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-4 mb-4 text-left">
-                                        <p className="text-sm font-black text-emerald-500 uppercase tracking-widest mb-1">✅ 학습 피드백</p>
-                                        <p className="text-lg font-bold text-slate-600 leading-relaxed">완벽해요! <span className="text-emerald-600 mb-2 block">"I want to be a {currentJob.job}."</span>주어(I) + 동사(want) + 목적어(to be a {currentJob.job}) 구조를 정확히 완성했습니다.</p>
-                                        <p className="text-sm text-slate-400 mt-2">이 문장 패턴으로 어떤 직업이든 표현할 수 있어요!</p>
-                                    </div>
-                                    <button onClick={next} className="bg-emerald-500 text-white px-16 py-5 rounded-3xl font-bold text-2xl shadow-neubrutalism hover:bg-emerald-600 flex items-center gap-4 mx-auto border-4 border-slate-900">
-                                        {idx < pool.length - 1 ? "Next Sentence" : "Go to Step 3"} <ArrowRight size={32} />
-                                    </button>
-                                </div>
-                            ) : (
-                                <button onClick={checkAnswer} className="bg-slate-800 text-white px-16 py-5 rounded-3xl font-bold text-2xl shadow-neubrutalism hover:bg-slate-700 transition-transform hover:scale-[1.02] border-4 border-slate-900">
-                                    Check Answer
-                                </button>
-                            )}
-                            {status === 'error' && (
-                                <div className="mt-3 bg-red-50 border-2 border-red-200 rounded-2xl p-3 text-left">
-                                    <p className="text-red-600 font-bold text-sm">🔄 순서가 맞지 않아요! 문장의 첫 단어는 무엇일까요? 주어부터 시작해 보세요.</p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        // Speaking and Project stages remain similar but with consistent styling
-        function StageSpeaking({ callAI, lastModel, pool, onComplete }) {
-            // (Same implementation as before, abbreviated for brevity, but assuring full functionality in output)
-            const [phase, setPhase] = useState(0);
-            const [transcript, setTranscript] = useState("");
-            const [aiFeedback, setAiFeedback] = useState(null);
-            const [isEvaluating, setIsEvaluating] = useState(false);
-            const [isRecording, setIsRecording] = useState(false);
-            const recognitionRef = useRef(null);
-
-            if (pool.length === 0) return null;
-            const currentJob = pool[0];
-
-            const DIALOGUE = [
-                { role: 'AI', text: "Hello! What do you want to be?" },
-                { role: 'USER', text: currentJob.full, hint: `I want to be a...` },
-                { role: 'AI', text: "That sounds great! Why?" },
-                { role: 'USER', text: `Because I like ${currentJob.reason}.`, hint: `Because I like...` },
-                { role: 'FINISH', text: "Excellent! Good luck!" }
-            ];
-
-            const currentStepData = DIALOGUE[phase];
-
-            useEffect(() => {
-                if (currentStepData.role === 'AI' || currentStepData.role === 'FINISH') {
-                    const timer = setTimeout(() => speak(currentStepData.text), 600);
-                    if (currentStepData.role === 'AI') {
-                        const nextTimer = setTimeout(() => setPhase(prev => prev + 1), 4000);
-                        return () => clearTimeout(nextTimer);
-                    }
-                    return () => clearTimeout(timer);
-                }
-            }, [phase]);
-
-            useEffect(() => {
-                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                    recognitionRef.current = new SpeechRecognition();
-                    recognitionRef.current.continuous = false;
-                    recognitionRef.current.lang = 'en-US';
-                    recognitionRef.current.onresult = (e) => { setTranscript(e.results[0][0].transcript); setIsRecording(false); };
-                    recognitionRef.current.onerror = () => setIsRecording(false);
-                }
-            }, []);
-
-            const handleRecord = () => {
-                if (isRecording) { recognitionRef.current?.stop(); setIsRecording(false); }
-                else { setTranscript(""); setAiFeedback(null); recognitionRef.current?.start(); setIsRecording(true); }
-            };
-
-            const evaluateWithAI = async () => {
-                const targetText = currentStepData.text;
-                const similarity = calculateSimilarity(transcript, targetText);
-
-                // Local Optimization: If similarity is > 85%, skip AI call
-                if (similarity > 0.85) {
-                    setAiFeedback({
-                        correct: true,
-                        feedback: "Excellent! Your pronunciation is very clear.",
-                        korean_feedback: "완벽해요! 발음이 아주 정확합니다.",
-                        learning_tip: "AI를 호출하지 않고 로컬에서 즉시 채점했습니다. (API 절약)"
-                    });
-                    speak("Excellent! Well done!");
-                    setTimeout(() => { setPhase(p => p + 1); setTranscript(""); setAiFeedback(null); }, 3000);
-                    return;
-                }
-
-                setIsEvaluating(true);
-                try {
-                    const prompt = `You are an English teacher evaluating a 6th grade student's spoken response.
-                    Target sentence: "${currentStepData.text}"
-                    Student said: "${transcript}"
-
-                    Evaluate and respond in JSON format ONLY:
-                    {
-                        "correct": boolean,
-                    "feedback": "Encouraging feedback in English",
-                    "korean_feedback": "Friendly Korean translation of English feedback",
-                    "learning_tip": "One short sentence in Korean about the learning goal"
+    <div class="sidep">
+      <div class="guidebox">사과를 <b style="color:#e0556a;">3개씩</b> 콕콕 짚으면<br>오른쪽 두 칸이 동시에 채워져요!</div>
+      <div class="stepsbox">
+        <div class="steprow r-bun lit" id="tutR1"><span class="lbl">묶음</span>3씩 <span class="fill-box" id="tutBun"><span class="ord">①</span></span> 묶음</div>
+        <div class="steprow r-times" id="tutR2"><span class="lbl">배</span>3의 <span class="fill-box" id="tutTimes"><span class="ord">①</span></span> 배</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:11px 14px;font-size:17px;font-weight:800;color:#5e4b00;text-align:center;line-height:1.4;background:#fff8d6;border:4px solid #ffd23f;">
+        💡 <b>몇 묶음</b>과 <b>몇 배</b>는<br>같은 뜻이에요!
+      </div>
+      <button class="btn btn-go" id="tutGo" disabled style="font-size:22px;padding:13px 26px;">이해했어요, 학습 시작!</button>
+    </div>
+  </div>
+</section>
+
+<!-- 사전 녹음 -->
+<section class="screen" id="scrPre" style="align-items:center;justify-content:center;gap:14px;">
+  <div class="recnote pre" style="width:780px;">📌 활동 전 녹음이에요!<br>
+    지금 알고 있는 만큼만 말해도 괜찮아요. <span style="color:#7b3fc2;">활동 후 다시 녹음해서 비교해볼 거예요!</span> 🌱</div>
+  <div class="bigtxt" style="font-size:24px;">"몇 배"가 뭔지 아는 만큼 말해 보세요</div>
+  <div id="preRec"></div>
+</section>
+
+<!-- 동기유발: 두 친구 사탕 비교 -->
+<section class="screen" id="scrMot">
+  <div class="topbar"><div class="title">🍬 누가 얼마나 더 많아?</div>
+    <div class="prog" id="pgMot"></div><button class="spk" id="spkMot">🔇</button></div>
+  <div class="bigtxt">두 친구의 사탕 개수를 비교해 봐요</div>
+  <div class="play" style="margin-top:8px;flex-direction:column;align-items:center;justify-content:flex-start;padding:12px;">
+    <div class="friends" id="motFriends"></div>
+    <div style="display:flex;gap:14px;margin-top:6px;">
+      <button class="btn btn-blue" id="motBtn1">➕ 더하기로 비교</button>
+      <button class="btn btn-pink" id="motBtn2">✖️ 배로 비교</button>
+    </div>
+    <div class="compareBox" id="motMsg" style="margin-top:10px;">두 버튼을 모두 눌러 비교해 봐요!</div>
+    <button class="btn btn-go" id="motNext" style="display:none;font-size:22px;padding:13px 28px;margin-top:8px;">다음으로 ➡️</button>
+  </div>
+</section>
+
+<!-- 이산량: 묶음 → 배 -->
+<section class="screen" id="scrBundle">
+  <div class="topbar"><div class="title" id="bdTitle">🧺 묶음과 배</div>
+    <div class="prog" id="pgBundle"></div><button class="spk" id="spkBd">🔇</button></div>
+  <div class="bigtxt" id="bdInstr">물건을 묶어 봐요</div>
+  <div class="play" style="margin-top:8px;">
+    <div class="scene">
+      <div class="gridwrap"><div id="bdGrid"></div><svg class="ringSvg" id="bdSvg"></svg></div>
+    </div>
+    <div class="sidep">
+      <div class="guidebox" id="bdGuide"></div>
+      <div class="stepsbox" id="bdSteps"></div>
+      <button class="btn btn-skip" id="bdReset">↺ 다시 묶기</button>
+      <button class="btn btn-help" id="bdHelp">💡 도와줘</button>
+      <button class="btn btn-go" id="bdNext" style="display:none;font-size:22px;padding:13px 28px;">다음으로 ➡️</button>
+    </div>
+  </div>
+</section>
+
+<!-- 연속량: 막대 이어 붙이기 -->
+<section class="screen" id="scrBar">
+  <div class="topbar"><div class="title">📏 색 막대로 알아보는 배</div>
+    <div class="prog" id="pgBar"></div><button class="spk" id="spkBar">🔇</button></div>
+  <div class="bigtxt" id="barInstr">기준 막대를 이어 붙여서 같아지면 몇 배인지 알 수 있어요</div>
+  <div class="play" style="margin-top:8px;">
+    <div class="scene" style="align-items:stretch;">
+      <div class="barwrap" id="barArea"></div>
+    </div>
+    <div class="sidep">
+      <div class="guidebox" id="barGuide"></div>
+      <div class="barCounter" id="barCounter">🟥 기준을 <b style="color:#e0556a;">0</b>번 이어 붙였어요</div>
+      <button class="btn btn-blue" id="barAdd" style="font-size:22px;">🟥 기준 막대 한 번 더 이어 붙이기</button>
+      <button class="btn btn-skip" id="barReset">↺ 처음부터</button>
+      <div class="stepsbox" id="barSteps" style="display:none;">
+        <div class="steprow r-times lit"><span class="lbl">배</span><span id="barTargName">대상</span>은 <span id="barBaseName">기준</span>의 <span class="fill-box fill" id="barTimes"></span> 배</div>
+      </div>
+      <button class="btn btn-go" id="barNext" style="display:none;font-size:22px;padding:13px 28px;">다음으로 ➡️</button>
+    </div>
+  </div>
+</section>
+
+<!-- 같은 수, 다른 배 -->
+<section class="screen" id="scrSame">
+  <div class="topbar"><div class="title">🔄 같은 수, 다른 배</div>
+    <div class="prog" id="pgSame"></div><button class="spk" id="spkSame">🔇</button></div>
+  <div class="bigtxt">쌓기나무는 모두 <b style="color:#ffd23f;">12개</b>! 여러 가지 배로 나타내 봐요</div>
+  <div class="play" style="margin-top:8px;">
+    <div class="scene"><div class="gridwrap"><div id="sameGrid"></div><svg class="ringSvg" id="sameSvg"></svg></div></div>
+    <div class="sidep">
+      <div class="guidebox">버튼을 누르면 쌓기나무가<br>그 크기로 다시 묶여요!</div>
+      <div class="sameOpts" id="sameOpts"></div>
+      <div class="stepsbox" id="sameSteps">
+        <div class="steprow r-bun lit"><span class="lbl">묶음</span><span class="fill-box" id="sameSize"></span> 씩 <span class="fill-box" id="sameG"></span> 묶음</div>
+        <div class="steprow r-times lit"><span class="lbl">배</span>12는 <span class="fill-box" id="sameSize2"></span> 의 <span class="fill-box" id="sameTimes"></span> 배</div>
+      </div>
+      <button class="btn btn-go" id="sameNext" style="display:none;font-size:22px;padding:13px 28px;">다음으로 ➡️</button>
+    </div>
+  </div>
+</section>
+
+<!-- 도전 -->
+<section class="screen" id="scrChal">
+  <div class="topbar"><div class="title">⏱️ 도전! 몇의 몇 배</div><div class="prog" id="pgChal"></div>
+    <button class="spk" id="spkChal">🔇</button></div>
+  <div class="bigtxt">그림을 보고 빈칸을 채워 보세요</div>
+  <div class="play" style="margin-top:10px;">
+    <div class="scene" style="gap:14px;">
+      <div class="gridwrap"><div id="chalGrid" style="display:grid;gap:13px;justify-content:center;"></div><svg class="ringSvg" id="chalSvg"></svg></div>
+      <div class="stepsbox" id="chalSteps" style="background:rgba(255,255,255,.95);"></div>
+    </div>
+    <div class="sidep">
+      <div class="guidebox">빨간 칸을 차례대로 채워요!</div>
+      <div class="kdisp" id="chalDisp"></div>
+      <div class="keypad" id="chalKey"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 사후 녹음 -->
+<section class="screen" id="scrPost" style="align-items:center;justify-content:center;gap:12px;">
+  <div class="recnote post" style="width:780px;">🌟 활동 후 녹음이에요!<br>
+    처음과 비교해서 새롭게 알게 된 점을 말해주세요.
+    <span style="color:#7b3fc2;">"이제는 몇 배 박사예요!"</span> 처럼요 🌱</div>
+  <div class="bigtxt" style="font-size:24px;">"몇의 몇 배"에 대해 새로 알게 된 점은 무엇인가요?</div>
+  <div id="postRec"></div>
+</section>
+
+<!-- 수료증 -->
+<section class="screen" id="scrCert">
+  <div class="cert">
+    <div style="font-size:32px;font-weight:900;color:#7b3fc2;">🏅 몇의 몇 배 탐험 수료증 🏅</div>
+    <div style="font-size:34px;font-weight:900;color:#1f4258;margin:4px 0;" id="certName"></div>
+    <div style="font-size:19px;font-weight:800;color:#5b7585;margin-bottom:10px;">
+      위 어린이는 몇 묶음과 몇 배의 관계를 멋지게 탐험했습니다.</div>
+    <div class="compare">
+      <div class="cmp pre"><h4 style="color:#1c3f6e;">💡 활동 전 — 내가 알던 것</h4><p id="certPre"></p></div>
+      <div class="cmp post"><h4 style="color:#13573c;">🌟 활동 후 — 새로 알게 된 것</h4><p id="certPost"></p></div>
+    </div>
+    <div style="display:flex;gap:24px;margin-top:10px;font-size:21px;font-weight:900;color:#1f4258;">
+      <div id="certStars"></div><div id="certStk"></div>
+    </div>
+    <div style="margin-top:auto;display:flex;gap:12px;">
+      <button class="btn btn-mint" id="certDash">📒 내 학습기록 보기</button>
+      <button class="btn btn-skip" id="certAgain">🔁 다시 하기</button>
+    </div>
+  </div>
+</section>
+
+<!-- 대시보드 -->
+<section class="screen" id="scrDash">
+  <div class="topbar"><div class="title">📒 내 학습기록</div><div style="flex:1;"></div>
+    <button class="btn btn-skip" id="dashBack">← 돌아가기</button></div>
+  <div class="kpi" id="dashKpi"></div>
+  <div class="dashlist" id="dashList"></div>
+  <div style="font-size:15px;color:#e3d4f7;text-align:center;margin-top:6px;">
+    💡 활동을 마칠 때마다 내 기록이 스스로 쌓여요. 등급·점수가 아니라 "오늘 내가 한 것"이에요.</div>
+</section>
+
+<!-- 탐구질문 팝업 -->
+<div class="ov" id="ovPop"><div class="pop">
+  <h2>🤔 탐구 질문</h2>
+  <div class="q" id="popQ"></div>
+  <div class="qopts" id="popOpts"></div>
+  <div class="hintbox" id="popHint"></div>
+  <div class="popMicWrap" id="popMicWrap">
+    <div style="font-size:17px;font-weight:900;color:#1f4258;">🎤 내 생각을 말로 더 표현해 봐요 (선택)</div>
+    <button class="popMicBtn" id="popMicBtn">🎤</button>
+    <div style="font-size:14px;font-weight:800;color:#e0455e;" id="popMicStatus">마이크를 눌러 말해 보세요</div>
+    <div class="popTrans" id="popTrans"></div>
+  </div>
+  <div class="popKbArea" id="popKbArea">
+    <textarea class="popKb" id="popKb" placeholder="키보드로 내 생각을 적어 봐요 (선택)"></textarea>
+  </div>
+  <div class="popRow">
+    <button class="btn btn-help" id="popHintBtn">💡 힌트 보기</button>
+    <button class="btn btn-blue" id="popMicToggle" style="font-size:18px;padding:10px 18px;">🎤 말로 더 답하기</button>
+    <button class="btn btn-blue" id="popKbToggle" style="font-size:18px;padding:10px 18px;">⌨️ 키보드</button>
+  </div>
+  <div class="popRow" style="margin-top:10px;">
+    <button class="btn btn-skip" id="popSkip">⏭️ 건너뛰기</button>
+    <button class="btn btn-go" id="popBtn" disabled>다음으로 ➡️</button>
+  </div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+<div class="bigSticker" id="bigSticker"></div>
+<canvas id="confetti"></canvas>
+</div></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const SVGNS='http://www.w3.org/2000/svg';
+const stage=$('#stage');
+function fit(){const s=Math.min(innerWidth/1280,innerHeight/800);
+  stage.style.transform=`translate(-50%,-50%) scale(${s})`;}
+addEventListener('resize',fit);fit();
+
+/* 장식 — 가장자리에만 */
+(function(){const d=$('#decor');
+  [[14,'30s'],[40,'36s']].forEach(([top,dur],i)=>{
+    const c=document.createElement('div');c.className='deco cloud';c.textContent='☁️';
+    c.style.top=top+'px';c.style.animationDuration=dur;c.style.animationDelay=(-i*12)+'s';d.appendChild(c);});
+  [['🎈',14,'2%'],['🎈',30,'95%'],['⭐',748,'4%'],['⭐',756,'93%'],
+   ['🌟',768,'48%'],['✨',6,'48%'],['✨',748,'24%'],['✨',752,'72%']].forEach(([e,top,left],i)=>{
+    const s=document.createElement('div');s.className='deco float';s.textContent=e;
+    s.style.fontSize=(e==='🎈'?28:20)+'px';s.style.top=top+'px';s.style.left=left;
+    s.style.animationDuration=(3+i*.4)+'s';s.style.animationDelay=(-i)+'s';
+    if(e!=='🎈'){s.classList.add('twinkle');s.style.animationName='tw';}d.appendChild(s);});
+})();
+
+const NAMES=['가은','나래','다온','라엘','민준','서아','수호','시우','예준','지아','하린','현우'];
+const sel=$('#nameSel');NAMES.forEach(n=>{const o=document.createElement('option');o.textContent=n;sel.appendChild(o);});
+let S={name:'',helpUsed:0,stickers:0,stars:0,preText:'',postText:'',bundlesDone:0,barsDone:0,sameTried:0,chalRight:0};
+let speaker=false;
+
+/* TTS */
+let voice=null;
+function pickVoice(){const v=speechSynthesis.getVoices();
+  voice=v.find(x=>x.lang==='ko-KR'&&x.name.toLowerCase().includes('google')&&!x.localService)
+    ||v.find(x=>/wavenet|neural2?/i.test(x.name)&&x.lang==='ko-KR')
+    ||v.find(x=>/premium|enhanced|natural/i.test(x.name)&&x.lang==='ko-KR')
+    ||v.find(x=>x.lang==='ko-KR')||null;}
+if('speechSynthesis'in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function say(t){if(!speaker||!('speechSynthesis'in window))return;
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);
+  u.lang='ko-KR';u.rate=.96;u.pitch=1.0;if(voice)u.voice=voice;speechSynthesis.speak(u);}
+
+let AC=null;
+function tone(f,d,type){if(!speaker)return;try{AC=AC||new(AudioContext||webkitAudioContext)();
+  const o=AC.createOscillator(),g=AC.createGain();o.type=type||'sine';o.frequency.value=f;
+  o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(.18,AC.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.start();o.stop(AC.currentTime+d);}catch(e){}}
+function sndOk(){tone(660,.13);setTimeout(()=>tone(880,.22),120);}
+function sndNo(){tone(200,.25,'triangle');}
+function sndPop(){tone(520,.09);}
+function sndHop(){tone(440,.08);setTimeout(()=>tone(620,.12),70);}
+
+$$('.spk').forEach(b=>b.onclick=()=>{speaker=!speaker;
+  $$('.spk').forEach(x=>{x.textContent=speaker?'🔊':'🔇';x.classList.toggle('on',speaker);});
+  if(speaker){if(AC&&AC.state==='suspended')AC.resume();say('소리가 켜졌어요.');}
+  else if('speechSynthesis'in window)speechSynthesis.cancel();});
+
+function show(id){$$('.screen').forEach(s=>s.classList.remove('on'));
+  const el=$('#'+id);el.classList.add('on','fade');setTimeout(()=>el.classList.remove('fade'),460);}
+function progress(box,n,cur){box.innerHTML='';for(let i=0;i<n;i++){const d=document.createElement('div');
+  d.className='dot'+(i<cur?' done':i===cur?' cur':'');box.appendChild(d);}}
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';
+  clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',1800);}
+function rollNum(el,from,to,dur){const t0=performance.now();
+  (function step(t){let p=Math.min(1,(t-t0)/dur);p=1-Math.pow(1-p,3);
+    el.textContent=Math.round(from+(to-from)*p);
+    if(p<1)requestAnimationFrame(step);})(t0);}
+
+/* 폭죽 */
+const cv=$('#confetti'),cx=cv.getContext('2d');cv.width=1280;cv.height=800;
+let parts=[];
+function confetti(){const c=['#ffd23f','#ff6b81','#4aa3ff','#5cc24a','#b07bff','#ff9a3c'];
+  for(let i=0;i<120;i++)parts.push({x:640,y:280,vx:(Math.random()-.5)*18,vy:Math.random()*-15-4,
+    g:.45,c:c[i%6],s:Math.random()*11+5,r:Math.random()*6});}
+(function loop(){cx.clearRect(0,0,1280,800);parts=parts.filter(p=>p.y<880);
+  parts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=.2;
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;
+    cx.fillRect(-p.s/2,-p.s/2,p.s,p.s);cx.restore();});requestAnimationFrame(loop);})();
+function stickerBurst(){
+  const big=$('#bigSticker');big.textContent=['🌟','💖','🌈','🏅'][S.stickers%4];
+  big.classList.remove('go');void big.offsetWidth;big.classList.add('go');
+  const ems=['⭐','💖','🌸','🎉','✨','🌟','💫','🌼'];
+  for(let i=0;i<16;i++){const sp=document.createElement('div');sp.className='burst';
+    sp.textContent=ems[i%ems.length];sp.style.left='640px';sp.style.top='350px';
+    const ang=(i/16)*Math.PI*2,dist=260+Math.random()*120;
+    sp.style.setProperty('--dx',Math.cos(ang)*dist+'px');
+    sp.style.setProperty('--dy',Math.sin(ang)*dist+'px');
+    sp.style.setProperty('--rot',(Math.random()*720-360)+'deg');
+    sp.style.animation=`fly ${.9+Math.random()*.5}s cubic-bezier(.2,.8,.3,1) forwards`;
+    stage.appendChild(sp);setTimeout(()=>sp.remove(),1500);}
+  confetti();sndOk();}
+
+/* SVG 동그라미 */
+const RINGCOL=['#ff6b81','#4aa3ff','#5cc24a','#b07bff','#ff9a3c','#2ec4c4'];
+function sizeSvg(svg,grid){svg.setAttribute('width',grid.clientWidth);
+  svg.setAttribute('height',grid.clientHeight);
+  svg.setAttribute('viewBox',`0 0 ${grid.clientWidth} ${grid.clientHeight}`);}
+function drawRing(svg,objs,colorIdx){
+  let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
+  objs.forEach(o=>{minX=Math.min(minX,o.offsetLeft);minY=Math.min(minY,o.offsetTop);
+    maxX=Math.max(maxX,o.offsetLeft+o.offsetWidth);maxY=Math.max(maxY,o.offsetTop+o.offsetHeight);});
+  const pad=12,cx2=(minX+maxX)/2,cy2=(minY+maxY)/2,
+    rx=(maxX-minX)/2+pad,ry=(maxY-minY)/2+pad;
+  const el=document.createElementNS(SVGNS,'ellipse');
+  el.setAttribute('cx',cx2);el.setAttribute('cy',cy2);
+  el.setAttribute('rx',rx);el.setAttribute('ry',ry);
+  el.setAttribute('stroke',RINGCOL[colorIdx%6]);
+  const C=2*Math.PI*Math.sqrt((rx*rx+ry*ry)/2);
+  el.style.strokeDasharray=C;el.style.strokeDashoffset=C;
+  svg.appendChild(el);
+  requestAnimationFrame(()=>{el.style.transition='stroke-dashoffset .55s ease';
+    el.style.strokeDashoffset=0;});
+  return el;
 }
-                    [IMPORTANT]
-                    1. "korean_feedback" must be simple and easy for a 6th grader.
-                    2. Be strict: if pronunciation is too different from "${currentStepData.text}", mark "correct": false.
-                    Strictly use pure JSON.`;
-                    const rawText = await callAI(prompt);
-                    const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-                    if (!jsonMatch) throw new Error('Invalid JSON format');
-                    const result = JSON.parse(jsonMatch[0]);
-                    setAiFeedback(result);
-                    if (result.correct) {
-                        speak("Excellent! Well done!");
-                        setTimeout(() => { setPhase(p => p + 1); setTranscript(""); setAiFeedback(null); }, 3000);
-                    } else {
-                        speak("Good try! Let's try again.");
-                    }
-                } catch (e) {
-                    console.error("AI Evaluation Error (Speaking):", e);
-                    const is429 = e.status === 429 || e.message.includes('429');
-                    if (is429) {
-                        setAiFeedback({
-                            correct: false,
-                            feedback: "Rate limit reached. Please wait 60 seconds.",
-                            korean_feedback: "API 호출 한도에 도달했습니다. 1분만 기다려 주세요.",
-                            learning_tip: "무료 API는 1분에 호출 횟수가 제한되어 있습니다. 잠시 쉬어가는 시간!"
-                        });
-                    } else {
-                        const statusDetail = e.message.includes('Failed to fetch') ? "Network Error (Blocked by browser)" : e.message || "Unknown error";
-                        setAiFeedback({
-                            correct: false,
-                            feedback: `Connection issue. (${statusDetail})`,
-                            korean_feedback: `연결이 원활하지 않아 잘 듣지 못했어요. (${statusDetail})`,
-                            learning_tip: "네트워크 상태나 API 키 설정을 다시 확인해 주세요."
-                        });
-                    }
-                }
-                setIsEvaluating(false);
-            };
 
-            return (
-                <div className="flex flex-col items-center justify-center w-full animate-fade-in-up py-8">
-                    <div className="bg-white rounded-[3rem] p-12 shadow-neubrutalism shadow-orange-100 w-full max-w-4xl text-center border-4 border-slate-900">
-                        <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-amber-400 to-orange-400 rounded-t-[3rem] border-b-4 border-slate-900"></div>
-                        <span className="bg-amber-50 text-amber-600 px-5 py-2 rounded-full text-sm font-bold tracking-wide border-2 border-amber-200">STEP 5. DIALOGUE</span>
-                        <h2 className="text-4xl font-black text-slate-800 mt-4 mb-3">AI Dialogue</h2>
-                        {/* Learning Badges */}
-                        <div className="flex justify-center mb-3">
-                            <KnowledgeBadge types={['INT', 'COL']} />
-                        </div>
-                        <LearningTips
-                            title="이 단계에서 나는..."
-                            color="orange"
-                            items={[
-                                '상호작용 (INT): AI 친구와 진짜로 대화해보세요! 실시간으로 소통하며 의미를 완성해요.',
-                                '협력적 소통: 배운 직업 이름과 문장을 활용하여 AI와 즐겁게 대화하면 소통 능력이 쑥쑥 늘어요!',
-                            ]}
-                        />
+/* 녹음기 */
+function buildRecorder(host,opts){
+  host.innerHTML='';
+  const w=document.createElement('div');w.className='recwrap';
+  w.innerHTML=`
+    <div class="guidebox" style="font-size:17px;">🎤 버튼을 누르고 말하거나, ⌨️ 키보드로 써도 돼요. 안 해도 건너뛸 수 있어요.</div>
+    <button class="micbtn" data-mic>🎤</button>
+    <div style="font-size:17px;font-weight:900;color:#e0455e;" data-status>마이크를 눌러 시작해요</div>
+    <div class="transbox" data-trans></div>
+    <textarea class="kb" data-kb placeholder="여기에 키보드로 써도 돼요"></textarea>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-skip" data-kbtoggle>⌨️ 키보드로 쓰기</button>
+      <button class="btn btn-skip" data-play style="display:none;">▶️ 내 녹음 듣기</button></div>
+    <div data-rate style="display:none;flex-direction:column;align-items:center;gap:6px;">
+      <div style="font-size:19px;font-weight:900;color:#9a7b00;">⭐ 내 녹음, 어떤 것 같아요? (먼저 ▶️ 듣기를 눌러요)</div>
+      <div class="stars" data-stars></div></div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-skip" data-redo style="display:none;">🔁 다시 녹음하기</button>
+      <button class="btn btn-go" data-next style="font-size:22px;padding:13px 32px;">건너뛰기 / 다음 ➡️</button></div>`;
+  host.appendChild(w);
+  const q=s=>w.querySelector(s);
+  const mic=q('[data-mic]'),status=q('[data-status]'),trans=q('[data-trans]'),kb=q('[data-kb]'),
+    play=q('[data-play]'),next=q('[data-next]'),redo=q('[data-redo]'),rate=q('[data-rate]');
+  let rec=null,recObj=null,chunks=[],blob=null,heard=false,finalText='';
+  q('[data-kbtoggle]').onclick=()=>{kb.style.display=kb.style.display==='block'?'none':'block';};
+  kb.oninput=()=>finalText=kb.value;
+  if(opts.rating){rate.style.display='flex';const sc=q('[data-stars]');
+    for(let i=1;i<=5;i++){const st=document.createElement('span');st.className='star';st.textContent='⭐';
+      st.onclick=()=>{if(!heard){toast('먼저 ▶️ 내 녹음 듣기를 눌러요');return;}
+        S.stars=i;[...sc.children].forEach((x,k)=>x.classList.toggle('lit',k<i));
+        sndPop();redo.style.display='inline-block';
+        next.textContent=i<=3?'🔁 다시 녹음해볼래요':'✨ 칭찬 스티커 받기!';};
+      sc.appendChild(st);}}
+  function startSR(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR){trans.textContent='(이 기기는 음성 인식이 안 돼요. 키보드로 써 주세요!)';return;}
+    recObj=new SR();recObj.lang='ko-KR';recObj.continuous=true;recObj.interimResults=true;
+    let fin='';
+    recObj.onresult=e=>{let itm='';for(let i=e.resultIndex;i<e.results.length;i++){
+      const r=e.results[i];if(r.isFinal)fin+=r[0].transcript;else itm+=r[0].transcript;}
+      finalText=(fin+itm).trim();trans.textContent=finalText;};
+    recObj.onerror=()=>{};try{recObj.start();}catch(e){}}
+  mic.onclick=async()=>{
+    if(mic.classList.contains('rec')){mic.classList.remove('rec');mic.textContent='🎤';
+      status.textContent='녹음 완료! 들어볼까요?';
+      if(recObj)try{recObj.stop();}catch(e){}
+      if(rec&&rec.state!=='inactive')rec.stop();
+      play.style.display='inline-block';redo.style.display='inline-block';return;}
+    finalText='';trans.textContent='';blob=null;heard=false;
+    mic.classList.add('rec');mic.textContent='⏹️';status.textContent='🔴 녹음 중… 또박또박 말해요';
+    startSR();
+    try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      rec=new MediaRecorder(stream);chunks=[];
+      rec.ondataavailable=e=>chunks.push(e.data);
+      rec.onstop=()=>{blob=new Blob(chunks,{type:'audio/webm'});
+        stream.getTracks().forEach(t=>t.stop());};
+      rec.start();}catch(e){status.textContent='🔴 녹음 중… (소리 저장은 안 되지만 글로 기록돼요)';}
+  };
+  play.onclick=()=>{heard=true;
+    if(blob){new Audio(URL.createObjectURL(blob)).play();}else toast('녹음한 소리가 없어요. 글은 잘 저장돼요!');
+    if(opts.rating)toast('이제 별점을 눌러 평가해요 ⭐');};
+  redo.onclick=()=>{finalText='';trans.textContent='';kb.value='';blob=null;heard=false;S.stars=0;
+    if(opts.rating){[...w.querySelectorAll('.star')].forEach(x=>x.classList.remove('lit'));
+      next.textContent='✨ 칭찬 스티커 받기!';}
+    play.style.display='none';redo.style.display='none';status.textContent='다시 녹음해요!';};
+  next.onclick=()=>{if(opts.rating&&S.stars>0&&S.stars<=3&&next.textContent.includes('다시')){redo.onclick();return;}
+    opts.onDone(finalText.trim(),S.stars);};
+}
 
-                        <div className="bg-slate-50 rounded-[2.5rem] p-8 border-2 border-slate-200 min-h-[400px] relative flex flex-col justify-center">
-                            <div className={`transition-opacity duration-500 mb-8 ${currentStepData.role === 'AI' || phase > 0 ? 'opacity-100' : 'opacity-0'}`}>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl border-4 border-slate-900 shadow-sm">🤖</div>
-                                    <div className="bg-white border-4 border-slate-900 px-6 py-4 rounded-3xl rounded-tl-none font-bold text-xl">
-                                        <div className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">{lastModel || "NOVA"}</div>
-                                        {currentStepData.text}
-                                    </div>
-                                </div>
-                            </div>
+/* ================= 튜토리얼 ================= */
+function initTut(){
+  progress($('#pgTut'),1,0);
+  const grid=$('#tutGrid');grid.style.gridTemplateColumns='repeat(3,58px)';grid.innerHTML='';
+  for(let i=0;i<9;i++){const o=document.createElement('div');o.className='obj';o.textContent='🍎';
+    grid.appendChild(o);
+    o.onclick=()=>tutClick(o);}
+  $('#tutSvg').innerHTML='';$('#tutBun').innerHTML='<span class="ord">①</span>';$('#tutBun').classList.remove('fill');
+  $('#tutTimes').innerHTML='<span class="ord">①</span>';$('#tutTimes').classList.remove('fill');
+  $('#tutGo').disabled=true;
+  tutPicked=[];tutBundles=0;
+  say('사과를 3개씩 묶어 보세요. 묶음 수와 배 수가 동시에 채워져요!');
+}
+let tutPicked=[],tutBundles=0;
+function tutClick(o){
+  if(o.dataset.b)return;
+  if(o.classList.contains('pick')){o.classList.remove('pick');tutPicked=tutPicked.filter(x=>x!==o);sndPop();return;}
+  o.classList.add('pick');tutPicked.push(o);sndPop();
+  if(tutPicked.length===3){
+    const svg=$('#tutSvg'),grid=$('#tutGrid');sizeSvg(svg,grid);
+    drawRing(svg,tutPicked,tutBundles);
+    tutPicked.forEach(x=>{x.dataset.b='1';x.classList.remove('pick');x.classList.add('bundled');});
+    tutBundles++;tutPicked=[];
+    // 묶음과 배 동시 채우기
+    const bun=$('#tutBun'),tim=$('#tutTimes');
+    bun.innerHTML=`<span class="ord">①</span>${tutBundles}`;bun.classList.add('fill');
+    tim.innerHTML=`<span class="ord">①</span>${tutBundles}`;tim.classList.add('fill');
+    sndOk();say(`${tutBundles}묶음! 그러니까 ${tutBundles}배!`);
+    if(tutBundles===3){
+      confetti();toast('3씩 3묶음 = 3의 3배! 정말 잘했어요 🎉');
+      $('#tutGo').disabled=false;
+      say('잘했어요! 3씩 3묶음은 3의 3배예요. 묶음과 배는 같은 뜻!');
+    }
+  }
+}
+$('#tutGo').onclick=()=>{show('scrPre');buildPre();say('이제 활동 전 녹음을 해 볼까요?');};
 
-                            {currentStepData.role === 'USER' && (
-                                <div className="flex flex-col items-center w-full animate-fade-in-up">
-                                    <p className="text-2xl font-black text-indigo-700 mb-4">"{currentStepData.text}"</p>
-                                    <p className="text-sm text-slate-400 font-bold mb-4">💡 힌트: {currentStepData.hint}</p>
-                                    <div className="w-full bg-white border-2 border-slate-200 p-6 rounded-2xl mb-4 text-xl text-center min-h-[80px] flex items-center justify-center">{transcript || "Press Record..."}</div>
-                                    {/* AI Feedback with TPACK */}
-                                    {aiFeedback && (
-                                        <div className={`w-full rounded-2xl border-4 p-5 mb-4 text-left animate-fade-in ${aiFeedback.correct ? 'bg-emerald-50 border-emerald-400' : 'bg-red-50 border-red-400'}`}>
-                                            <p className={`text-lg font-black mb-2 ${aiFeedback.correct ? 'text-emerald-600' : 'text-red-600'}`}>{aiFeedback.correct ? '✅ AI 평가: Excellent!' : '🔄 AI 평가: Try Again!'}</p>
-                                            <p className="text-xl font-bold text-slate-800 mb-2 leading-tight">{aiFeedback.feedback}</p>
-                                            <p className="text-lg font-bold text-indigo-600 mb-3 leading-relaxed bg-white/60 p-3 rounded-xl border border-indigo-100">{aiFeedback.korean_feedback}</p>
-                                            {aiFeedback.learning_tip && (
-                                                <div className="bg-white/80 rounded-xl p-3 border-2 border-indigo-200 shadow-sm">
-                                                    <p className="text-sm font-black text-indigo-400 uppercase tracking-widest mb-1">🔬 성장 데이터</p>
-                                                    <p className="text-base font-bold text-slate-600">{aiFeedback.learning_tip}</p>
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
-                                    <div className="flex gap-4">
-                                        <button onClick={handleRecord} className={`px-8 py-4 rounded-2xl font-bold text-white border-4 border-slate-900 shadow-neubrutalism ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-slate-800'}`}>{isRecording ? "중지" : "녹음하기"}</button>
-                                        <button onClick={evaluateWithAI} disabled={isEvaluating || !transcript} className="px-8 py-4 rounded-2xl font-bold bg-indigo-600 text-white border-4 border-slate-900 shadow-neubrutalism disabled:opacity-50 flex items-center gap-2">{isEvaluating ? <><Loader size={18} className="animate-spin" /> 확인 중...</> : 'AI 확인'}</button>
-                                    </div>
-                                </div>
-                            )}
-                            {currentStepData.role === 'FINISH' && (
-                                <button onClick={onComplete} className="bg-slate-800 text-white px-12 py-5 rounded-3xl font-bold text-xl shadow-neubrutalism hover:bg-slate-700 flex items-center gap-3 animate-bounce border-4 border-slate-900 mx-auto">
-                                    AI 글쓰기로 가기 <ArrowRight size={20} />
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+/* ================= 사전 녹음 ================= */
+function buildPre(){
+  buildRecorder($('#preRec'),{rating:false,onDone:t=>{S.preText=t||'(녹음하지 않았어요)';startMot();}});
+  say('활동 전이에요. 몇 배가 무엇인지 아는 만큼 말해 주세요.');
+}
 
-        function StageWriting({ callAI, lastModel, onComplete }) {
-            const [paragraph, setParagraph] = useState('');
-            const [isEvaluating, setIsEvaluating] = useState(false);
-            const [result, setResult] = useState(null);
+/* ================= 동기유발: 두 친구 사탕 비교 ================= */
+let motOneDone=false,motGroupDone=false;
+function startMot(){
+  show('scrMot');progress($('#pgMot'),1,0);
+  motOneDone=false;motGroupDone=false;
+  const fr=$('#motFriends');fr.innerHTML='';
+  // 민준 3개, 연우 9개 (3배)
+  const minjun={name:'민준',count:3,color:'#5fb6f0'},yeonwoo={name:'연우',count:9,color:'#f08a93'};
+  [minjun,yeonwoo].forEach(p=>{
+    const c=document.createElement('div');c.className='friendCard';
+    let candies='';for(let i=0;i<p.count;i++)candies+='<span class="obj">🍬</span>';
+    c.innerHTML=`<h3 style="color:${p.color};">${p.name}</h3>
+      <div class="candies">${candies}</div>
+      <div style="font-size:19px;font-weight:900;color:#5b7585;">사탕 ${p.count}개</div>`;
+    fr.appendChild(c);});
+  $('#motMsg').textContent='두 버튼을 모두 눌러 비교해 봐요!';
+  $('#motNext').style.display='none';
+  $('#motBtn1').disabled=false;$('#motBtn2').disabled=false;
+  say('민준이는 사탕 3개, 연우는 9개. 어떻게 비교할까요?');
+}
+function motCheck(){
+  if(motOneDone&&motGroupDone){
+    $('#motMsg').innerHTML='⚡ <b>두 가지 비교 모두 해봤어요!</b><br>"몇 배"는 새로운 비교 방법이에요!';
+    $('#motNext').style.display='inline-block';confetti();
+  }
+}
+$('#motBtn1').onclick=()=>{
+  if(motOneDone)return;motOneDone=true;$('#motBtn1').disabled=true;
+  $('#motMsg').innerHTML='➕ <b>더하기로 비교:</b> 연우는 민준이보다 <b style="color:#e0556a;">6개</b> 더 많아요 (9 − 3 = 6)';
+  sndOk();say('연우는 민준이보다 6개 더 많아요.');motCheck();
+};
+$('#motBtn2').onclick=()=>{
+  if(motGroupDone)return;motGroupDone=true;$('#motBtn2').disabled=true;
+  // 연우의 사탕을 3개씩 묶어주는 시각화
+  const yeonwooCandies=$$('#motFriends .friendCard:nth-child(2) .candies .obj');
+  let idx=0;
+  const iv=setInterval(()=>{
+    if(idx>=3){clearInterval(iv);
+      $('#motMsg').innerHTML='✖️ <b>배로 비교:</b> 연우는 민준이의 <b style="color:#e0556a;">3배</b>! (3개씩 3묶음)';
+      sndOk();say('연우는 민준이의 3배예요. 3개씩 3묶음.');motCheck();return;}
+    yeonwooCandies.slice(idx*3,idx*3+3).forEach(o=>{o.style.background='#fff3a8';o.style.borderRadius='50%';});
+    sndHop();idx++;
+  },500);
+};
+$('#motNext').onclick=()=>{
+  popup({
+    q:'두 가지 비교를 해 봤어요!<br>"○의 ○배"는 어떤 비교 방법이에요?',
+    opts:[
+      {text:'✖️ 몇 묶음으로<br>나누는 비교',right:true,fb:'맞아요! 작은 양을 단위로 만들어 큰 양에 몇 묶음 들어있는지 보는 거예요!'},
+      {text:'➕ 차이를<br>더하는 비교',right:false,fb:'그건 "몇 개 더 많아"에요!'}
+    ],
+    hints:[
+      '🍬 연우 9개를 어떻게 했는지 떠올려 봐요',
+      '민준이의 3개를 한 묶음으로 보고, 연우 안에 몇 묶음 들어있는지 셌어요',
+      '👉 답은 "✖️ 몇 묶음으로 나누는 비교"예요'
+    ]
+  },()=>{bdIdx=0;startBundle();});
+};
 
-            const GRADE_CONFIG = {
-                '잘함': { color: 'bg-emerald-50 border-emerald-300', badge: 'bg-emerald-500', icon: '🌟' },
-                '보통': { color: 'bg-amber-50 border-amber-300', badge: 'bg-amber-500', icon: '👍' },
-                '노력요함': { color: 'bg-rose-50 border-rose-300', badge: 'bg-rose-500', icon: '💪' },
-            };
+/* ================= 이산량: 묶음 → 배 ================= */
+const BD_PROBLEMS=[
+  {size:2,groups:4,emoji:'🍓',ctx:'딸기'},
+  {size:3,groups:3,emoji:'🍇',ctx:'포도'},
+  {size:4,groups:3,emoji:'🥕',ctx:'당근'}
+];
+let bdIdx=0,BD=null;
+function startBundle(){show('scrBundle');renderBundle();}
+function renderBundle(){
+  const P=BD_PROBLEMS[bdIdx];
+  BD={P,picked:[],bundles:[],done:false};
+  progress($('#pgBundle'),BD_PROBLEMS.length,bdIdx);
+  $('#bdTitle').textContent=`🧺 묶음 = 배 (${bdIdx+1}/${BD_PROBLEMS.length})`;
+  $('#bdInstr').textContent=`${P.ctx}을(를) ${P.size}개씩 묶고, 오른쪽 두 칸이 함께 채워지는 걸 봐요!`;
+  $('#bdGuide').innerHTML=`<b style="color:#e0556a;">${P.size}개씩</b> 콕콕 짚어요.<br>묶을 때마다 <b>묶음 수</b>와 <b>배 수</b>가 함께 채워져요!`;
+  $('#bdSteps').innerHTML=`
+    <div class="steprow r-plus dim" id="bdR1"><span class="lbl">덧셈</span><span id="bdPlus">${P.size}</span> = <span class="fill-box" id="bdPlusAns"><span class="ord">③</span></span></div>
+    <div class="steprow r-bun lit" id="bdR2"><span class="lbl">묶음</span>${P.size}씩 <span class="fill-box" id="bdBun"><span class="ord">①</span></span> 묶음</div>
+    <div class="steprow r-times lit" id="bdR3"><span class="lbl">배</span>${P.size}의 <span class="fill-box" id="bdTimes"><span class="ord">②</span></span> 배</div>`;
+  $('#bdNext').style.display='none';
+  const grid=$('#bdGrid'),svg=$('#bdSvg');
+  grid.style.gridTemplateColumns=`repeat(${P.size},58px)`;grid.innerHTML='';svg.innerHTML='';
+  const total=P.size*P.groups;
+  for(let i=0;i<total;i++){const o=document.createElement('div');o.className='obj';o.textContent=P.emoji;
+    o.dataset.b='-1';grid.appendChild(o);
+    o.onclick=()=>bdClick(o);}
+  say(`${P.ctx}을 ${P.size}개씩 묶어 봐요.`);
+}
+function bdClick(o){
+  if(BD.done||o.dataset.b!=='-1')return;
+  if(o.classList.contains('pick')){o.classList.remove('pick');BD.picked=BD.picked.filter(x=>x!==o);sndPop();return;}
+  o.classList.add('pick');BD.picked.push(o);sndPop();
+  if(BD.picked.length===BD.P.size)bdClose();
+}
+function bdClose(){
+  const grid=$('#bdGrid'),svg=$('#bdSvg');sizeSvg(svg,grid);
+  const bi=BD.bundles.length;
+  drawRing(svg,BD.picked,bi);
+  BD.picked.forEach(o=>{o.dataset.b=bi;o.classList.remove('pick');o.classList.add('bundled');});
+  BD.bundles.push(BD.picked);BD.picked=[];
+  const n=BD.bundles.length;
+  // 묶음과 배 동시 채우기 — 핵심 애니메이션!
+  $('#bdBun').innerHTML=`<span class="ord">①</span>${n}`;$('#bdBun').classList.add('fill');
+  $('#bdTimes').innerHTML=`<span class="ord">②</span>${n}`;$('#bdTimes').classList.add('fill');
+  // 덧셈 표현 업데이트
+  const plus=new Array(n).fill(BD.P.size).join(' + ');
+  $('#bdPlus').textContent=plus;
+  sndOk();say(`${n}묶음! 그러니까 ${BD.P.size}의 ${n}배!`);
+  if(n===BD.P.groups){
+    // 마지막: 덧셈 합 표시
+    const total=BD.P.size*BD.P.groups;
+    $('#bdPlusAns').innerHTML=`<span class="ord">③</span>${total}`;$('#bdPlusAns').classList.add('fill');
+    $('#bdR1').classList.remove('dim');$('#bdR1').classList.add('lit');
+    BD.done=true;S.bundlesDone++;
+    $('#bdInstr').textContent=`${BD.P.size}씩 ${n}묶음 = ${BD.P.size}의 ${n}배 = 모두 ${total}! 🎉`;
+    $('#bdNext').style.display='inline-block';
+    confetti();say(`${BD.P.size}씩 ${n}묶음은 ${BD.P.size}의 ${n}배예요. 정말 잘했어요!`);
+  }
+}
+$('#bdReset').onclick=()=>renderBundle();
+$('#bdHelp').onclick=()=>{S.helpUsed++;
+  toast(`💡 ${BD.P.size}개씩 콕콕 짚으면 묶음·배가 함께 채워져요`);
+  say(`${BD.P.size}개씩 짚어 묶어요. 묶음 수와 배 수는 같아요.`);};
+$('#bdNext').onclick=()=>{
+  bdIdx++;
+  if(bdIdx===2){
+    popup({
+      q:'몇 묶음과 몇 배는 어떤 관계인가요?',
+      opts:[
+        {text:'🤝 같은 뜻이에요<br>(같은 수)',right:true,fb:'딩동댕! 2씩 3묶음 = 2의 3배. 같은 뜻이에요!'},
+        {text:'🔀 서로 다른<br>수예요',right:false,fb:'다시 봐요! 묶음 수와 배 수가 늘 같이 변했죠?'}
+      ],
+      hints:[
+        '🧺 한 묶음 만들 때마다 묶음 수와 배 수가 어떻게 됐어요?',
+        '같이 1, 2, 3… 같은 숫자로 올라갔어요!',
+        '👉 답은 "🤝 같은 뜻이에요"'
+      ]
+    },()=>startBundle());
+  }else if(bdIdx>=BD_PROBLEMS.length){barIdx=0;startBar();}
+  else startBundle();
+};
 
-            const evaluate = async () => {
-                if (!paragraph.trim() || paragraph.trim().length < 10) return;
-                setIsEvaluating(true);
-                setResult(null);
-                try {
-                    const prompt = `다음 규칙에 따라 학생이 작성한 문단을 평가해주세요.
+/* ================= 연속량: 막대 이어 붙이기 ================= */
+const BAR_PROBLEMS=[
+  {baseLen:70,baseColor:'#e0556a',baseName:'🟥 빨강',targColor:'#a06030',targName:'🟫 갈색',mult:2},
+  {baseLen:55,baseColor:'#3a86ff',baseName:'🟦 파랑',targColor:'#5cc24a',targName:'🟩 초록',mult:3},
+  {baseLen:48,baseColor:'#ffb01f',baseName:'🟨 노랑',targColor:'#9b6ddc',targName:'🟪 보라',mult:4}
+];
+let barIdx=0,BR=null;
+function startBar(){show('scrBar');renderBar();}
+function renderBar(){
+  const P=BAR_PROBLEMS[barIdx];
+  BR={P,reps:0,done:false};
+  progress($('#pgBar'),BAR_PROBLEMS.length,barIdx);
+  $('#barInstr').textContent=`${P.baseName} 막대를 이어 붙여 ${P.targName} 막대와 같아지면 몇 배인지 알 수 있어요`;
+  $('#barGuide').innerHTML=`<b style="color:#e0556a;">${P.baseName} 막대</b>를 한 번씩 이어 붙여요!<br>${P.targName}과 같아지면 몇 배!`;
+  $('#barArea').innerHTML=`
+    <div class="barrow"><div class="barlbl">기준</div>
+      <div class="bar" style="width:${P.baseLen}px;background:${P.baseColor};">${P.baseName}</div></div>
+    <div class="barrow"><div class="barlbl">복제</div>
+      <div class="barrep" id="barRep"></div></div>
+    <div class="barrow"><div class="barlbl right">대상</div>
+      <div class="bar" style="width:${P.baseLen*P.mult}px;background:${P.targColor};">${P.targName}</div></div>`;
+  $('#barCounter').innerHTML=`🟥 기준을 <b style="color:#e0556a;">0</b>번 이어 붙였어요`;
+  $('#barSteps').style.display='none';
+  $('#barNext').style.display='none';
+  $('#barAdd').disabled=false;
+  say(`${P.baseName} 막대를 이어 붙여 ${P.targName}과 같은 길이를 만들어 봐요.`);
+}
+$('#barAdd').onclick=()=>{
+  if(!BR||BR.done)return;
+  const P=BR.P;BR.reps++;
+  const rep=$('#barRep');
+  const seg=document.createElement('div');seg.className='bar rep';
+  seg.style.width=P.baseLen+'px';seg.style.background=P.baseColor;
+  seg.textContent=BR.reps;
+  rep.appendChild(seg);
+  sndHop();
+  $('#barCounter').innerHTML=`🟥 기준을 <b style="color:#e0556a;">${BR.reps}</b>번 이어 붙였어요`;
+  say(String(BR.reps));
+  if(BR.reps===P.mult){
+    BR.done=true;
+    $('#barAdd').disabled=true;
+    $('#barTargName').textContent=P.targName;
+    $('#barBaseName').textContent=P.baseName;
+    $('#barTimes').textContent=P.mult;
+    $('#barSteps').style.display='block';
+    $('#barNext').style.display='inline-block';
+    S.barsDone++;
+    confetti();say(`딱 같아요! ${P.targName}은 ${P.baseName}의 ${P.mult}배예요!`);
+  }else if(BR.reps>P.mult){
+    toast('이미 같아졌어요! ↺ 처음부터를 눌러요');
+  }
+};
+$('#barReset').onclick=()=>renderBar();
+$('#barNext').onclick=()=>{
+  barIdx++;
+  if(barIdx>=BAR_PROBLEMS.length){
+    popup({
+      q:'색 막대로 알아본 "○배"는 어떤 의미인가요?',
+      opts:[
+        {text:'📏 기준을 그만큼<br>이어 붙인 길이',right:true,fb:'정답! 3배 = 기준 막대를 3번 이어 붙인 만큼!'},
+        {text:'➕ 기준에 그 수만큼<br>더한 길이',right:false,fb:'음… "배"는 더하기가 아니에요!'}
+      ],
+      hints:[
+        '🟥🟥🟥 빨강을 3번 이어 붙였더니 어떻게 됐죠?',
+        '갈색과 똑같은 길이가 됐어요! 그래서 "3배"라고 한 거예요',
+        '👉 답은 "📏 기준을 그만큼 이어 붙인 길이"'
+      ]
+    },()=>startSame());
+  }else renderBar();
+};
 
-                    [기본 평가 사항]
-                    1. 중심 문장: 문단의 처음이나 마지막에 위치하는지, 모든 뒷받침 문장을 포괄하는지 확인. 너무 단순하거나 짧으면 수정 방법 안내.
-                    2. 뒷받침 문장: 중심 문장을 잘 뒷받침하는지, 문단에 어울리지 않는 문장이 있는지 확인.
-                    3. 맞춤법: 틀린 맞춤법이 있으면 정확한 표기와 함께 설명.
+/* ================= 같은 수, 다른 배 ================= */
+const SAME_TOTAL=12;
+const SAME_OPTS=[{size:2,g:6},{size:3,g:4},{size:4,g:3},{size:6,g:2},{size:12,g:1}];
+function startSame(){
+  show('scrSame');progress($('#pgSame'),1,0);
+  S.sameTried=0;
+  const btns=$('#sameOpts');btns.innerHTML='';
+  SAME_OPTS.forEach(o=>{const b=document.createElement('button');
+    b.className='btn btn-blue';b.textContent=o.size===12?'12씩 묶기 (1배!)':`${o.size}씩 묶기`;
+    b.dataset.tried='0';b.onclick=()=>sameRegroup(o,b);btns.appendChild(b);});
+  $('#sameSize').textContent='';$('#sameSize').classList.remove('fill');
+  $('#sameG').textContent='';$('#sameG').classList.remove('fill');
+  $('#sameSize2').textContent='';$('#sameSize2').classList.remove('fill');
+  $('#sameTimes').textContent='';$('#sameTimes').classList.remove('fill');
+  $('#sameNext').style.display='none';
+  const grid=$('#sameGrid');grid.style.gridTemplateColumns='repeat(4,58px)';grid.innerHTML='';
+  for(let i=0;i<SAME_TOTAL;i++){const o=document.createElement('div');o.className='obj';o.textContent='🧊';
+    grid.appendChild(o);}
+  $('#sameSvg').innerHTML='';
+  say('쌓기나무 12개를 여러 가지 배로 나타내 봐요.');
+}
+function sameRegroup(o,btn){
+  const grid=$('#sameGrid'),svg=$('#sameSvg');
+  grid.style.gridTemplateColumns=`repeat(${o.size},58px)`;
+  grid.innerHTML='';svg.innerHTML='';
+  const objs=[];
+  for(let i=0;i<SAME_TOTAL;i++){const e=document.createElement('div');e.className='obj regIn';e.textContent='🧊';
+    e.style.animationDelay=(i*.03)+'s';grid.appendChild(e);objs.push(e);}
+  setTimeout(()=>{sizeSvg(svg,grid);
+    for(let r=0;r<o.g;r++)drawRing(svg,objs.slice(r*o.size,r*o.size+o.size),r);},360);
+  // 두 표현 동시 갱신
+  $('#sameSize').textContent=o.size;$('#sameSize').classList.add('fill');
+  $('#sameG').textContent=o.g;$('#sameG').classList.add('fill');
+  $('#sameSize2').textContent=o.size;$('#sameSize2').classList.add('fill');
+  $('#sameTimes').textContent=o.g;$('#sameTimes').classList.add('fill');
+  sndOk();
+  if(o.size===12)say(`12씩 1묶음! 그러니까 12는 12의 1배예요!`);
+  else say(`12은 ${o.size}씩 ${o.g}묶음! 그러니까 12의 ${o.size}배… 아니, ${o.size}의 ${o.g}배예요!`);
+  if(btn.dataset.tried==='0'){btn.dataset.tried='1';S.sameTried++;btn.style.filter='brightness(1.15)';}
+  if(S.sameTried>=3&&$('#sameNext').style.display==='none'){
+    $('#sameNext').style.display='inline-block';
+    toast('여러 가지 배로 나타냈어요! 🎉');confetti();
+  }
+}
+$('#sameNext').onclick=()=>{
+  popup({
+    q:'12는 모두 같은데, 왜 "몇의 몇 배"는 여러 가지로<br>나타낼 수 있을까요?',
+    opts:[
+      {text:'📏 묶음 한 개의<br>크기를 바꾸면<br>배도 달라져요',right:true,fb:'정답! 단위(한 묶음 크기)가 달라지면 배도 달라져요!'},
+      {text:'🔢 12가 매번<br>달라져서요',right:false,fb:'아니에요! 12는 그대로였어요!'}
+    ],
+    hints:[
+      '🧊 12개는 항상 12개였어요. 무엇이 달라졌나요?',
+      '한 묶음을 2개로 보면 6묶음(2의 6배), 3개로 보면 4묶음(3의 4배)…',
+      '👉 답은 "📏 묶음 한 개의 크기를 바꾸면 배도 달라져요"'
+    ]
+  },()=>startChal());
+};
 
-                    [평가 기준]
-                    - 잘함: 문장 4~5개 이상, 중심+뒷받침 조건 잘 갖춤, 짜임새 있고 생각이 효과적으로 드러남
-                    - 보통: 조건 일부 갖춤, 부족한 부분 1~2가지, 구조는 지켜짐, 표현이 다소 서툴지만 내용은 적합
-                    - 노력요함: 중심/뒷받침 부분적, 내용 연결 매끄럽지 않음, 어울리지 않는 문장 포함, 맞춤법 3~4개 이상 틀림
+/* ================= 도전 ================= */
+const CHAL=[
+  {size:3,groups:4,emoji:'🍪'},
+  {size:5,groups:3,emoji:'🌟'},
+  {size:4,groups:5,emoji:'🐟'}
+];
+let chalIdx=0,CH=null;
+function startChal(){show('scrChal');chalIdx=0;S.chalRight=0;renderChal();}
+function renderChal(){
+  const P=CHAL[chalIdx];CH={P,cur:0,vals:['','']};
+  progress($('#pgChal'),CHAL.length,chalIdx);
+  const grid=$('#chalGrid'),svg=$('#chalSvg');
+  grid.style.gridTemplateColumns=`repeat(${P.size},52px)`;grid.innerHTML='';svg.innerHTML='';
+  const objs=[];
+  for(let i=0;i<P.size*P.groups;i++){const o=document.createElement('div');o.className='obj';
+    o.style.width='52px';o.style.height='52px';o.style.fontSize='40px';o.textContent=P.emoji;
+    grid.appendChild(o);objs.push(o);}
+  setTimeout(()=>{sizeSvg(svg,grid);
+    for(let r=0;r<P.groups;r++)drawRing(svg,objs.slice(r*P.size,r*P.size+P.size),r);},100);
+  $('#chalSteps').innerHTML=`
+    <div class="steprow r-bun lit"><span class="lbl">묶음</span>${P.size}씩 <span class="fill-box" id="chB"><span class="ord">①</span></span> 묶음</div>
+    <div class="steprow r-times"><span class="lbl">배</span>${P.size}의 <span class="fill-box" id="chT"><span class="ord">②</span></span> 배</div>`;
+  $('#chB').style.outline='5px solid #ffd23f';
+  buildChalKey();
+}
+function buildChalKey(){
+  const disp=$('#chalDisp'),kp=$('#chalKey');disp.textContent='';kp.innerHTML='';let val='';
+  ['7','8','9','4','5','6','1','2','3','지우기','0','입력'].forEach(k=>{
+    const b=document.createElement('button');b.className='key'+(k==='지우기'?' act':k==='입력'?' ok':'');
+    b.textContent=k;b.onclick=()=>{
+      if(k==='지우기')val=val.slice(0,-1);
+      else if(k==='입력'){
+        if(+val===CH.P.groups){
+          if(CH.cur===0){
+            $('#chB').classList.add('fill');$('#chB').innerHTML=`<span class="ord">①</span>${val}`;$('#chB').style.outline='none';
+            CH.cur=1;val='';disp.textContent='';
+            $('#chT').style.outline='5px solid #ffd23f';
+            sndOk();toast('① 정답! 이제 배 수를 입력해요');return;
+          }else{
+            $('#chT').classList.add('fill');$('#chT').innerHTML=`<span class="ord">②</span>${val}`;$('#chT').style.outline='none';
+            sndOk();confetti();S.chalRight++;
+            setTimeout(()=>{chalIdx++;
+              if(chalIdx>=CHAL.length){show('scrPost');buildPost();}
+              else renderChal();},900);return;
+          }
+        }else{sndNo();toast(`묶음 수를 세어 봐요!`);}}
+      else if(val.length<3)val+=k;
+      disp.textContent=val;sndPop();};
+    kp.appendChild(b);});
+}
 
-                    [평가 형식]
-                    어린 학생 수준에 맞춰 아주 쉽고 핵심 위주로 1~2문장으로만 피드백하고, 마지막에는 "그래서 친구의 평가 결과는 ~야"로 마무리.
-                    
-                    JSON으로만 응답 (마크다운 없이, 순수 JSON 문자열):
-                    {
-                        "grade": "잘함" | "보통" | "노력요함",
-                        "summary": "Short encouraging point in English (1 sentence)",
-                        "korean_summary": "초등학생 수준에 맞춰 아주 쉽고 짧은 핵심 피드백 (딱 1~2문장만)",
-                        "closing": "격려 섞인 한 마디 (예: 그래서 친구의 평가 결과는 ~야)"
-                    }
-                    [IMPORTANT]
-                    1. "korean_summary" must be PURE KOREAN ONLY.
-                    2. NO English words, alphabets, or special characters like '*' mixed in (e.g., use '학습 팁' 대신 'Learning Tip').
-                    3. Be an encouraging but professional teacher. Provide strictly valid JSON.
+/* ================= 사후 녹음 ================= */
+function buildPost(){
+  buildRecorder($('#postRec'),{rating:true,onDone:t=>{
+    S.postText=t||'(녹음하지 않았어요)';S.stickers++;stickerBurst();
+    setTimeout(()=>{$('#bigSticker').classList.remove('go');$('#bigSticker').textContent='';finishCert();},1500);}});
+  say('활동 후 녹음이에요. 새로 알게 된 점을 말해 주세요.');
+}
 
-                    [학생 문단]
-                    ${paragraph}`;
+/* ================= 탐구질문 팝업 ================= */
+let popState=null;
+function popup(cfg,after){
+  popState={cfg,after,answered:false,hintIdx:0};
+  $('#popQ').innerHTML=cfg.q;
+  const opts=$('#popOpts');opts.innerHTML='';
+  cfg.opts.forEach(o=>{const b=document.createElement('button');b.className='qopt';b.innerHTML=o.text;
+    b.onclick=()=>chooseOpt(b,o);opts.appendChild(b);});
+  $('#popHint').classList.remove('show');$('#popHint').innerHTML='';
+  $('#popMicWrap').classList.remove('show');$('#popKbArea').classList.remove('show');
+  $('#popTrans').textContent='';$('#popKb').value='';$('#popMicStatus').textContent='마이크를 눌러 말해 보세요';
+  $('#popBtn').disabled=true;$('#popBtn').textContent='보기를 하나 골라요';
+  $('#ovPop').classList.add('on');say(cfg.q.replace(/<[^>]+>/g,' '));
+}
+function chooseOpt(btn,o){
+  if(popState.answered)return;
+  if(o.right){btn.classList.add('right');popState.answered=true;sndOk();confetti();
+    [...$('#popOpts').children].forEach(c=>c.disabled=true);
+    showHint(o.fb,true);
+    $('#popBtn').disabled=false;$('#popBtn').textContent='잘했어요! 다음으로 ➡️';say(o.fb);
+  }else{btn.classList.add('wrong');sndNo();setTimeout(()=>btn.classList.remove('wrong'),600);
+    showHint(o.fb||'다시 생각해 봐요!');say(o.fb||'다시 생각해 봐요.');}
+}
+function showHint(t,green){const h=$('#popHint');h.classList.add('show');
+  h.innerHTML=(green?'✅ ':'💡 ')+t;
+  h.style.background=green?'linear-gradient(180deg,#dff7d6,#a8f098)':'linear-gradient(180deg,#fff8d6,#fff2b0)';
+  h.style.borderColor=green?'#5cc24a':'#ffd23f';h.style.color=green?'#2d6921':'#5e4b00';}
+$('#popHintBtn').onclick=()=>{
+  if(!popState)return;const hints=popState.cfg.hints||[];
+  if(popState.hintIdx<hints.length){showHint(hints[popState.hintIdx]);
+    say(hints[popState.hintIdx].replace(/<[^>]+>/g,' '));popState.hintIdx++;
+    if(popState.hintIdx>=hints.length){$('#popBtn').disabled=false;$('#popBtn').textContent='이해했어요! 다음으로 ➡️';}}
+  else toast('힌트를 다 봤어요!');
+};
+$('#popMicToggle').onclick=()=>{const w=$('#popMicWrap');w.classList.toggle('show');
+  if(w.classList.contains('show')){$('#popKbArea').classList.remove('show');}};
+$('#popKbToggle').onclick=()=>{const w=$('#popKbArea');w.classList.toggle('show');
+  if(w.classList.contains('show')){$('#popMicWrap').classList.remove('show');stopPopRec();$('#popKb').focus();
+    $('#popBtn').disabled=false;$('#popBtn').textContent='다 썼어요! 다음으로 ➡️';}};
+let popRec=null;
+function stopPopRec(){if(popRec)try{popRec.stop();}catch(e){}popRec=null;}
+$('#popMicBtn').onclick=()=>{
+  const btn=$('#popMicBtn');
+  if(btn.classList.contains('rec')){btn.classList.remove('rec');btn.textContent='🎤';
+    stopPopRec();$('#popMicStatus').textContent='녹음 완료!';
+    $('#popBtn').disabled=false;$('#popBtn').textContent='말했어요! 다음으로 ➡️';return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast('이 기기는 음성 인식이 안 돼요. 키보드로 써 주세요');return;}
+  btn.classList.add('rec');btn.textContent='⏹️';$('#popMicStatus').textContent='🔴 녹음 중… 말해 보세요';
+  popRec=new SR();popRec.lang='ko-KR';popRec.continuous=true;popRec.interimResults=true;
+  let fin='';
+  popRec.onresult=e=>{let itm='';for(let i=e.resultIndex;i<e.results.length;i++){
+    const r=e.results[i];if(r.isFinal)fin+=r[0].transcript;else itm+=r[0].transcript;}
+    $('#popTrans').textContent=(fin+itm).trim();};
+  popRec.onerror=()=>{};try{popRec.start();}catch(e){}
+};
+$('#popSkip').onclick=()=>{stopPopRec();$('#ovPop').classList.remove('on');if(popState&&popState.after)popState.after();};
+$('#popBtn').onclick=()=>{if($('#popBtn').disabled)return;
+  stopPopRec();$('#ovPop').classList.remove('on');if(popState&&popState.after)popState.after();};
 
-                    const rawText = await callAI(prompt);
-                    const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-                    if (!jsonMatch) throw new Error('Invalid JSON format');
-                    const parsed = JSON.parse(jsonMatch[0]);
-                    // Defensive fallback for missing fields
-                    setResult({
-                        grade: parsed.grade || "보통",
-                        summary: parsed.summary || "Evaluation complete.",
-                        korean_summary: parsed.korean_summary || "문제가 발견되지 않았습니다. 훌륭한 시도입니다!",
-                        closing: parsed.closing || "앞으로도 계속해서 꿈을 키워나가길 응원해요! 그래서 친구의 평가 결과는 보통이야."
-                    });
-                } catch (e) {
-                    console.error("AI Writing API Error:", e);
-                    const status = e.status || 0;
-                    const is429 = status === 429;
-                    const statusDetail = is429 ? "1분만 기다려 주세요 (429: 할당량 초과)" :
-                        status === 401 ? "Unauthorized (API Key 오류)" :
-                            e.message || "Unknown error";
-                    setResult({
-                        grade: '보통',
-                        summary: `The AI is currently processing many requests. (${statusDetail}) Please try again or check your API key.`,
-                        korean_summary: `AI 피드백 로딩 중 연결이 지연되었습니다. (${statusDetail}) 문장을 다시 확인하거나 잠시 후 다시 시도해 주세요!`,
-                        closing: '친구의 노력을 AI가 언제나 응원하고 있어! 그래서 친구의 평가 결과는 보통이야.'
-                    });
-                } finally {
-                    setIsEvaluating(false);
-                }
-            };
+/* ================= 수료증 + 저장 ================= */
+async function finishCert(){
+  $('#certName').textContent=S.name+' 어린이';
+  $('#certPre').textContent=S.preText;$('#certPost').textContent=S.postText;
+  $('#certStars').textContent='⭐ 자기평가: '+(S.stars||0)+'개';
+  $('#certStk').textContent='🎁 칭찬 스티커: '+S.stickers+'개';
+  show('scrCert');confetti();say(S.name+' 어린이, 몇의 몇 배 탐험을 멋지게 마쳤어요!');
+  try{let log=[];
+    try{const r=await window.storage.get('mult2:log');if(r)log=JSON.parse(r.value);}catch(e){}
+    log.push({date:new Date().toLocaleDateString('ko-KR'),name:S.name,
+      bundles:S.bundlesDone,bars:S.barsDone,same:S.sameTried,chal:S.chalRight,
+      help:S.helpUsed,stars:S.stars,stickers:S.stickers,
+      pre:S.preText.slice(0,60),post:S.postText.slice(0,60)});
+    await window.storage.set('mult2:log',JSON.stringify(log));}catch(e){}
+}
 
-            const cfg = result ? (GRADE_CONFIG[result.grade] || GRADE_CONFIG['잘함'] || GRADE_CONFIG['보통']) : null;
+/* ================= 대시보드 ================= */
+async function openDash(){
+  show('scrDash');let log=[];
+  try{const r=await window.storage.get('mult2:log');if(r)log=JSON.parse(r.value);}catch(e){}
+  const mine=log.filter(x=>!S.name||x.name===S.name);
+  const list=$('#dashList');list.innerHTML='';
+  if(!mine.length)list.innerHTML='<div class="dashrow" style="border-color:#9b6ddc;">'+
+    '<b>아직 기록이 없어요.</b><br><span>활동을 마치면 여기에 내 학습기록이 스스로 쌓여요! 🌱</span></div>';
+  else[...mine].reverse().forEach(x=>{const d=document.createElement('div');d.className='dashrow';
+    d.innerHTML=`<b>📅 ${x.date} · ${x.name}</b><br>
+      <span>🧺 묶음·배 ${x.bundles}문제 · 📏 막대 ${x.bars}문제 · 🔄 같은수다른배 ${x.same}회 · ⏱️ 도전 ${x.chal}문제 · 🎁 스티커 ${x.stickers}개</span><br>
+      <span>🌱 활동 후 생각: "${x.post||'-'}"</span>`;list.appendChild(d);});
+  const tb=mine.reduce((a,x)=>a+x.bundles,0),tba=mine.reduce((a,x)=>a+x.bars,0),
+    tc=mine.reduce((a,x)=>a+x.chal,0),ts=mine.reduce((a,x)=>a+x.stickers,0);
+  $('#dashKpi').innerHTML=`
+    <div class="kpicard"><div class="n">${mine.length}</div><div class="l">활동한 날</div></div>
+    <div class="kpicard"><div class="n">${tb}</div><div class="l">묶음·배 문제</div></div>
+    <div class="kpicard"><div class="n">${tba}</div><div class="l">막대 문제</div></div>
+    <div class="kpicard"><div class="n">${ts}</div><div class="l">칭찬 스티커</div></div>`;
+}
 
-            return (
-                <div className="flex flex-col items-center justify-center w-full animate-fade-in py-8">
-                    <div className="bg-white rounded-[3rem] p-12 shadow-neubrutalism shadow-rose-100 w-full max-w-4xl border-4 border-slate-900 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-rose-400 to-pink-400 border-b-4 border-slate-900"></div>
-
-                        <div className="mb-6 flex justify-between items-center">
-                            <span className="bg-rose-50 text-rose-600 px-5 py-2 rounded-full text-sm font-bold tracking-wide border-2 border-rose-200">STEP 6. WRITING</span>
-                            {result && <button onClick={() => { setResult(null); setParagraph(''); }} className="text-slate-400 hover:text-rose-500 font-bold text-sm flex items-center gap-1">다시 쓰기 <RefreshCw size={14} /></button>}
-                        </div>
-
-                        <div className="flex justify-center mb-3">
-                            <KnowledgeBadge types={['PRO', 'INF', 'COM']} />
-                        </div>
-                        <LearningTips
-                            title="이 단계에서 나는..."
-                            color="purple"
-                            items={[
-                                '문장이해: 내가 쓴 문단에 중심 문장과 뒷받침 문장이 잘 연결되어 있나요?',
-                                '학습 내용: 내가 쓴 내용이 주제를 잘 담고 있나요?',
-                                '도구활용: AI 도구로 내 글을 평가받으면 어떤 점을 고칠 수 있는지 알 수 있어요!',
-                            ]}
-                        />
-
-                        {!result ? (
-                            <div className="mt-6">
-                                <h2 className="text-3xl font-black text-slate-800 mb-2 text-center">나의 꿈 에세이 쓰기</h2>
-
-                                {/* Core Inquiry Question Display */}
-                                <div className="bg-indigo-50 border-2 border-indigo-100 rounded-2xl p-4 mb-6 text-center">
-                                    <p className="text-indigo-600 font-bold text-lg">"Who do I want to be?"</p>
-                                    <p className="text-indigo-400 text-sm font-medium">(나는 어떤 사람이 되고 싶나요?)</p>
-                                </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                                    <div className="bg-slate-50 p-4 rounded-2xl border-2 border-slate-100">
-                                        <p className="text-sm font-black text-slate-400 uppercase mb-2">1. WHAT?</p>
-                                        <p className="text-base font-bold text-slate-700 mb-2">내가 하고 싶은 일은?</p>
-                                        <button onClick={() => setParagraph(p => p + (p ? ' ' : '') + "I want to be a...")} className="text-xs bg-white border-2 border-slate-200 px-3 py-1.5 rounded-xl hover:border-indigo-400 text-indigo-500 font-bold transition-colors">Hint: I want to be a...</button>
-                                    </div>
-                                    <div className="bg-slate-50 p-4 rounded-2xl border-2 border-slate-100">
-                                        <p className="text-sm font-black text-slate-400 uppercase mb-2">2. WHY?</p>
-                                        <p className="text-base font-bold text-slate-700 mb-2">그렇게 생각한 이유는?</p>
-                                        <button onClick={() => setParagraph(p => p + (p ? ' ' : '') + "Because I like...")} className="text-xs bg-white border-2 border-slate-200 px-3 py-1.5 rounded-xl hover:border-indigo-400 text-indigo-500 font-bold transition-colors">Hint: Because I like...</button>
-                                    </div>
-                                    <div className="bg-slate-50 p-4 rounded-2xl border-2 border-slate-100">
-                                        <p className="text-sm font-black text-slate-400 uppercase mb-2">3. HOW?</p>
-                                        <p className="text-base font-bold text-slate-700 mb-2">나의 다짐 한마디!</p>
-                                        <button onClick={() => setParagraph(p => p + (p ? ' ' : '') + "I will study hard to...")} className="text-xs bg-white border-2 border-slate-200 px-3 py-1.5 rounded-xl hover:border-indigo-400 text-indigo-500 font-bold transition-colors">Hint: I will...</button>
-                                    </div>
-                                </div>
-                                <div className="relative">
-                                    <textarea
-                                        value={paragraph}
-                                        onChange={e => setParagraph(e.target.value)}
-                                        placeholder="이곳에 나만의 이야기를 멋진 영어 문장으로 적어보세요..."
-                                        className="w-full h-64 p-8 bg-slate-50 rounded-[2.5rem] border-4 border-slate-200 focus:border-rose-400 outline-none text-xl font-bold text-slate-700 resize-none leading-relaxed custom-scrollbar shadow-inner"
-                                    />
-                                    <div className="absolute bottom-4 right-5 text-xs font-bold text-slate-300">{paragraph.length}자</div>
-                                </div>
-                                <button
-                                    onClick={evaluate}
-                                    disabled={isEvaluating || paragraph.trim().length < 10}
-                                    className="mt-6 w-full bg-rose-500 text-white py-5 rounded-3xl font-black text-2xl shadow-neubrutalism hover:bg-rose-600 flex items-center justify-center gap-3 border-4 border-slate-900 disabled:opacity-50 transition-all hover:scale-[1.01]"
-                                >
-                                    {isEvaluating ? <><Loader size={28} className="animate-spin" /> AI가 평가 중...</> : <>평가 받기 <Send size={28} /></>}
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="mt-6 animate-fade-in-up">
-                                <div className={`rounded-3xl border-4 p-8 mb-6 ${cfg.color}`}>
-                                    <div className="flex items-center justify-center gap-4 mb-4">
-                                        <span className="text-5xl">{cfg.icon}</span>
-                                        <span className={`px-8 py-3 rounded-full text-white font-black text-3xl border-4 border-slate-900 shadow-neubrutalism ${cfg.badge}`}>
-                                            {result.grade}
-                                        </span>
-                                    </div>
-                                    <p className="text-slate-700 font-bold text-xl leading-relaxed text-left bg-white/70 rounded-2xl p-6 mb-4 border border-slate-100">
-                                        {result.summary}
-                                    </p>
-                                    {result.korean_summary && (
-                                        <div className="text-indigo-800 font-bold text-lg leading-relaxed text-left bg-indigo-50/50 rounded-2xl p-6 mb-4 border border-indigo-100 italic">
-                                            {result.korean_summary}
-                                        </div>
-                                    )}
-                                    <div className={`text-center font-black text-2xl p-6 rounded-2xl bg-white/80 border-4 shadow-sm ${cfg.color}`}>
-                                        <div className="text-[10px] font-black text-slate-400 mb-2 uppercase tracking-widest border-b border-slate-200 pb-1">{lastModel || "AI Writer"}</div>
-                                        "{result.closing}"
-                                    </div>
-                                </div>
-                                <div className="flex gap-4">
-                                    <button onClick={() => setResult(null)} className="flex-1 bg-white border-4 border-slate-900 text-slate-700 py-4 rounded-2xl font-bold text-lg shadow-neubrutalism hover:bg-slate-50 flex items-center justify-center gap-2">
-                                        <RefreshCw size={20} /> 다시 평가
-                                    </button>
-                                    <button onClick={onComplete} className="flex-1 bg-slate-800 text-white py-4 rounded-2xl font-bold text-lg shadow-neubrutalism hover:bg-slate-700 flex items-center justify-center gap-2 border-4 border-slate-900">
-                                        Dream Card 만들기 <ArrowRight size={20} />
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        function StageProject({ userData, setUserData, goal, onComplete }) {
-            const [view, setView] = useState('create');
-            const [tilt, setTilt] = useState({ x: 0, y: 0 });
-            const canvasRef = useRef(null);
-
-            const handleMouseMove = (e) => {
-                const { clientX, clientY, currentTarget } = e;
-                const { left, top, width, height } = currentTarget.getBoundingClientRect();
-                const x = (clientX - left) / width - 0.5;
-                const y = (clientY - top) / height - 0.5;
-                setTilt({ x, y });
-            };
-
-            const handleJobSelect = (jobObj) => {
-                setUserData({ ...userData, job: jobObj.job, reason: jobObj.reason });
-            };
-
-            useEffect(() => {
-                if (view === 'create' && canvasRef.current) {
-                    const ctx = canvasRef.current.getContext('2d');
-                    const theme = CARD_THEMES.find(t => t.id === userData.theme) || CARD_THEMES[0];
-
-                    const grad = ctx.createLinearGradient(0, 0, 500, 300);
-                    const colors = theme.bg.match(/#[a-fA-F0-9]{6}/g) || ['#fff', '#000'];
-                    grad.addColorStop(0, colors[0]); grad.addColorStop(1, colors[1]);
-                    ctx.fillStyle = grad; ctx.fillRect(0, 0, 500, 300);
-
-                    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
-                    ctx.fillRect(20, 20, 460, 260);
-                    ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
-                    ctx.lineWidth = 2;
-                    ctx.strokeRect(20, 20, 460, 260);
-
-                    ctx.fillStyle = "#1e293b";
-                    ctx.font = "bold 28px Arial";
-                    ctx.fillText("DREAM ID", 40, 70);
-
-                    ctx.font = "14px Arial"; ctx.fillStyle = theme.text; ctx.fillText("FUTURE CAREER", 40, 130);
-                    ctx.font = "bold 36px Arial"; ctx.fillStyle = "#1e293b"; ctx.fillText(userData.job || "YOUR JOB", 40, 170);
-                    ctx.font = "italic 18px Arial"; ctx.fillStyle = "#475569"; ctx.fillText(`"Because I like ${userData.reason || '...'}"`, 40, 240);
-                    ctx.font = "bold 20px Arial"; ctx.fillStyle = theme.text; ctx.fillText(userData.name || "DREAMER", 340, 260); // Repositioned and fixed name
-                }
-            }, [userData, view, goal]);
-
-            const download = () => {
-                const link = document.createElement('a');
-                link.download = `DreamID_${userData.name}.png`;
-                link.href = canvasRef.current.toDataURL();
-                link.click();
-                // Ensure the stage is marked as complete after saving
-                onComplete();
-            };
-
-            return (
-                <div className="w-full h-full flex flex-col md:flex-row gap-8 animate-fade-in p-6 pb-32">
-                    <div className="flex-1 bg-white rounded-[2.5rem] p-10 shadow-neubrutalism border-4 border-slate-900 flex flex-col gap-8 overflow-y-auto max-h-full">
-                        <h2 className="text-3xl font-black text-slate-800 flex items-center gap-3"><Edit3 className="text-emerald-500" size={32} /> Dream Card</h2>
-
-                        <div>
-                            <label className="text-sm font-bold text-slate-400 mb-3 block">CHOOSE A JOB</label>
-                            <div className="flex flex-wrap gap-3">
-                                {JOB_DATABASE.map(j => (
-                                    <button key={j.id} onClick={() => handleJobSelect(j)} className="px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-sm font-bold hover:bg-emerald-50 hover:text-emerald-600 transition-colors flex items-center gap-2 text-slate-600 hover:border-emerald-300">
-                                        <span>{j.icon}</span> {j.job}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="space-y-6">
-                            <div><label className="text-sm font-bold text-slate-400 block mb-2">NAME</label><input className="w-full p-4 bg-slate-50 rounded-2xl font-bold border-2 border-slate-200 focus:border-emerald-400 outline-none text-lg" value={userData.name} onChange={e => setUserData({ ...userData, name: e.target.value })} /></div>
-
-                            <div className="grid grid-cols-2 gap-6">
-                                <div><label className="text-sm font-bold text-slate-400 block mb-2">JOB</label><input className="w-full p-4 bg-slate-50 rounded-2xl font-bold border-2 border-slate-200 focus:border-emerald-400 outline-none text-indigo-600 text-lg" value={userData.job} onChange={e => setUserData({ ...userData, job: e.target.value })} /></div>
-                                <div className="relative">
-                                    <label className="text-sm font-bold text-slate-400 block mb-2">REASON</label>
-                                    <button onClick={() => { const r = JOB_DATABASE[Math.floor(Math.random() * 12)]; setUserData({ ...userData, job: r.job, reason: r.reason }) }} className="absolute right-0 top-0 text-xs bg-slate-100 px-3 py-1 rounded-full hover:bg-slate-200 font-bold border border-slate-200"><Dices size={14} /> Random</button>
-                                    <input className="w-full p-4 bg-slate-50 rounded-2xl font-bold border-2 border-slate-200 focus:border-emerald-400 outline-none text-emerald-600 text-lg" value={userData.reason} onChange={e => setUserData({ ...userData, reason: e.target.value })} />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="text-sm font-bold text-slate-400 mb-3 block">PRETTY THEME</label>
-                            <div className="flex gap-4">
-                                {CARD_THEMES.map(t => (
-                                    <button key={t.id} onClick={() => setUserData({ ...userData, theme: t.id })} className={`w-14 h-14 rounded-full shadow-sm transition-transform hover:scale-110 ${userData.theme === t.id ? 'ring-4 ring-offset-4 ring-emerald-200' : 'border-2 border-white'}`} style={{ background: t.bg }}></button>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 bg-slate-100 rounded-[2.5rem] flex flex-col items-center justify-center relative overflow-hidden group border-4 border-slate-900"
-                        onMouseMove={handleMouseMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })}>
-                        <div className="flex items-center gap-3 text-emerald-500 font-black text-sm tracking-widest mb-10">
-                            <Sparkles size={18} /> 3D CARD PREVIEW
-                        </div>
-                        <div style={{ transform: `perspective(1000px) rotateX(${tilt.y * 15}deg) rotateY(${tilt.x * -15}deg)`, transition: 'transform 0.1s' }} className="relative shadow-2xl shadow-emerald-200 rounded-2xl transform scale-110">
-                            <canvas ref={canvasRef} width={500} height={300} className="w-full max-w-[480px] rounded-2xl cursor-pointer" />
-                            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
-
-                        {/* Learning Reflection Rubric */}
-                        <div className="mt-8 bg-white/70 backdrop-blur-sm p-6 rounded-2xl border-2 border-indigo-100 w-[90%]">
-                            <div className="flex items-center gap-2 mb-1">
-                                <Award size={16} className="text-indigo-500" />
-                                <p className="text-sm font-black text-indigo-600 uppercase tracking-wide">나의 성장 체크</p>
-                            </div>
-                            <div className="flex justify-start mb-4">
-                                <KnowledgeBadge types={['AES', 'COL', 'INF', 'CRE', 'SEL', 'COM', 'REC', 'PRO', 'INT']} />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label className="group flex items-center gap-3 text-lg font-bold text-slate-700 cursor-pointer hover:bg-white/60 p-3 rounded-xl transition-colors relative">
-                                    <input type="checkbox" className="w-6 h-6 accent-[#00B5E2] rounded-md shrink-0" />
-                                    <span><span className="text-[#0066A1] font-black">[이해]</span> 주제 관련 핵심 어휘와 문장을 소리로 들으며 이해했다.</span>
-                                </label>
-                                <label className="group flex items-center gap-3 text-lg font-bold text-slate-700 cursor-pointer hover:bg-white/60 p-3 rounded-xl transition-colors relative">
-                                    <input type="checkbox" className="w-6 h-6 accent-[#86C786] rounded-md shrink-0" />
-                                    <span><span className="text-[#5DA15D] font-black">[자기관리]</span> 오늘 학습 목표를 스스로 설정하고 달성하기 위해 노력했다.</span>
-                                </label>
-                                <label className="group flex items-center gap-3 text-lg font-bold text-slate-700 cursor-pointer hover:bg-white/60 p-3 rounded-xl transition-colors relative">
-                                    <input type="checkbox" className="w-6 h-6 accent-[#0066A1] rounded-md shrink-0" />
-                                    <span><span className="text-[#004D7A] font-black">[지식정보처리]</span> 디지털 도구를 활용하여 정보를 지능적으로 처리했다.</span>
-                                </label>
-                                <label className="group flex items-center gap-3 text-lg font-bold text-slate-700 cursor-pointer hover:bg-white/60 p-3 rounded-xl transition-colors relative">
-                                    <input type="checkbox" className="w-6 h-6 accent-[#B8D994] rounded-md shrink-0" />
-                                    <span><span className="text-[#1E3A1E] font-black font-black">[표현]</span> 문장 구조를 생각하며 나만의 영어 드림 에세이를 작성했다.</span>
-                                </label>
-                                <label className="group flex items-center gap-3 text-lg font-bold text-slate-700 cursor-pointer hover:bg-white/60 p-3 rounded-xl transition-colors relative">
-                                    <input type="checkbox" className="w-6 h-6 accent-[#E2F2FF] rounded-md shrink-0" />
-                                    <span><span className="text-[#0066A1] font-black font-black font-black">[심미적 감성]</span> 언어와 문화를 통해 다양한 직업의 세계를 간접 체험했다.</span>
-                                </label>
-                                <label className="group flex items-center gap-3 text-lg font-bold text-slate-700 cursor-pointer hover:bg-white/60 p-3 rounded-xl transition-colors relative">
-                                    <input type="checkbox" className="w-6 h-6 accent-[#D6EFFF] rounded-md shrink-0" />
-                                    <span><span className="text-[#0066A1] font-black">[상호작용]</span> AI 친구와 대화하며 실시간 영어 소통 능력을 발휘했다.</span>
-                                </label>
-                                <label className="group flex items-center gap-3 text-lg font-bold text-slate-700 cursor-pointer hover:bg-white/60 p-3 rounded-xl transition-colors relative">
-                                    <input type="checkbox" className="w-6 h-6 accent-[#00B5E2] rounded-md shrink-0" />
-                                    <span><span className="text-indigo-600 font-black">[공동체]</span> 내가 되고 싶은 모습이 사회에 어떤 도움을 줄지 상상해 보았다.</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <button onClick={download} className="mt-6 bg-slate-800 text-white px-10 py-4 rounded-2xl font-bold hover:bg-slate-700 shadow-neubrutalism flex items-center gap-3 transition-all hover:-translate-y-1 text-lg border-4 border-slate-900">
-                            <Save size={20} /> Save to Device
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        const root = createRoot(document.getElementById('root'));
-        root.render(<VibeLearningBig />);
-    </script>
+/* ================= 시작 ================= */
+$('#startBtn').onclick=async()=>{S.name=sel.value;
+  try{await navigator.mediaDevices.getUserMedia({audio:true})
+    .then(s=>s.getTracks().forEach(t=>t.stop()));}catch(e){}
+  show('scrTut');initTut();say(S.name+' 어린이, 함께 몇의 몇 배를 배워 봐요!');};
+$('#toDashBtn').onclick=()=>{S.name=sel.value;openDash();};
+$('#dashBack').onclick=()=>show(S.preText?'scrCert':'scrStart');
+$('#certDash').onclick=openDash;
+$('#certAgain').onclick=()=>{S={name:S.name,helpUsed:0,stickers:0,stars:0,preText:'',postText:'',
+  bundlesDone:0,barsDone:0,sameTried:0,chalRight:0};show('scrTut');initTut();};
+</script>
 </body>
-
 </html>
