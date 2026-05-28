@@ -688,6 +688,37 @@ textarea.kb{width:500px;height:50px;border:3px solid #cfe6ea;border-radius:12px;
 .dashRow span{font-size:18px;color:#5b7585;font-weight:700;}
 /* 빈 박스 숨김 — 화면 진입 직후 빈 상태 가림 */
 .instrTxt:empty,.picCard:empty,.evalCard:has(>.evalQ:empty){visibility:hidden;}
+/* 줄바꿈 — 한국어 어절 단위로 자연스럽게 */
+body,.bubble,.mascotBubble,#bubble,.instrTxt,.goal,.goal p,.tutCard,.tutCard *,.chapMsg,
+.chMsg,.tutBox,.tip,.instr,.fbBox,.helpBox,.miniInstr,.bigtxt,.title,
+.sitQBox,.sitQ,.evalQ,.swapQ,.danIntro,.tutSub,.assistTxt,h1,h2,h3,h4,p,span,div,button{
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+/* 인라인 코드/숫자 등은 끊지 않음 */
+.qa,.qb,.qbox,.q,.ans,.num,.numBig,.cnt,.eOpt,.eOpt *,
+.balloon,.balQ,.fcAns,.evalInput,.quizInput,.timerNum{
+  word-break: normal;
+  overflow-wrap: normal;
+}
+/* 탐구 모달 — 사물 직접 클릭 */
+.inquireOv{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9999;animation:fadeIn .25s;}
+.inquireBox{background:#fff;border:6px solid #ffd23f;border-radius:28px;padding:22px 36px;max-width:780px;width:92%;max-height:92vh;overflow:auto;box-shadow:0 18px 50px rgba(0,0,0,.32);display:flex;flex-direction:column;align-items:center;gap:14px;animation:popIn .35s cubic-bezier(.34,1.56,.64,1);}
+.inquireHead{font-size:28px;font-weight:900;color:#1a4a6e;}
+.inquireQ{font-size:22px;font-weight:800;color:#1a4a6e;text-align:center;background:#fff8d6;padding:10px 18px;border-radius:12px;border:3px dashed #ffb01f;}
+.inquirePics{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 8px;background:#f5f9ff;padding:16px 20px;border-radius:14px;border:2px solid #c9def0;max-width:640px;}
+.iObj{cursor:pointer;transition:.15s;font-size:38px;line-height:1;padding:4px;border-radius:10px;border:3px solid transparent;user-select:none;}
+.iObj:hover{background:#fff8d6;}
+.iObj.iOn{transform:scale(1.2);background:#fff8d6;border-color:#ff5a1f;box-shadow:0 0 0 3px #ffd23f;}
+.inquireCount{font-size:20px;font-weight:800;color:#1a4a6e;}
+.inquireCount #iCount{color:#ff5a1f;font-size:30px;font-weight:900;padding:0 6px;}
+.inquireDone{font-size:22px;padding:12px 38px;}
+.inquireFb{font-size:18px;font-weight:800;min-height:28px;text-align:center;line-height:1.4;}
+.inquireFb.ok{color:#2d7d22;background:#e6f9f0;padding:10px 16px;border-radius:12px;}
+.inquireFb.hint{color:#7841c4;background:#f0e8ff;padding:10px 16px;border-radius:12px;border:2px dashed #b07bff;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 </style>
 </head>
 <body>
@@ -1315,22 +1346,42 @@ function sizeSvg(svg,grid){svg.setAttribute('width',grid.clientWidth);
   svg.setAttribute('height',grid.clientHeight);
   svg.setAttribute('viewBox',`0 0 ${grid.clientWidth} ${grid.clientHeight}`);}
 function drawRing(svg,objs,colorIdx){
-  let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
-  objs.forEach(o=>{minX=Math.min(minX,o.offsetLeft);minY=Math.min(minY,o.offsetTop);
-    maxX=Math.max(maxX,o.offsetLeft+o.offsetWidth);maxY=Math.max(maxY,o.offsetTop+o.offsetHeight);});
-  const pad=12,cx2=(minX+maxX)/2,cy2=(minY+maxY)/2,
-    rx=(maxX-minX)/2+pad,ry=(maxY-minY)/2+pad;
-  const el=document.createElementNS(SVGNS,'ellipse');
-  el.setAttribute('cx',cx2);el.setAttribute('cy',cy2);
-  el.setAttribute('rx',rx);el.setAttribute('ry',ry);
-  el.setAttribute('stroke',RINGCOL[colorIdx%6]);
-  const C=2*Math.PI*Math.sqrt((rx*rx+ry*ry)/2);
-  el.style.strokeDasharray=C;el.style.strokeDashoffset=C;
-  svg.appendChild(el);
-  requestAnimationFrame(()=>{el.style.transition='stroke-dashoffset .9s cubic-bezier(.4,.1,.3,1)';
-    el.style.strokeDashoffset=0;});
-  return el;
+  if(!objs||objs.length===0)return;
+  const color=RINGCOL[colorIdx%6];
+  const pad=30;
+  const g=document.createElementNS(SVGNS,'g');
+  objs.forEach((o,i)=>{
+    const cx=o.offsetLeft+o.offsetWidth/2;
+    const cy=o.offsetTop+o.offsetHeight/2;
+    const c=document.createElementNS(SVGNS,'circle');
+    c.setAttribute('cx',cx);c.setAttribute('cy',cy);c.setAttribute('r',pad);
+    c.setAttribute('stroke',color);c.style.fill='none';c.style.strokeWidth='3.5';
+    const C=2*Math.PI*pad;
+    c.style.strokeDasharray=C;c.style.strokeDashoffset=C;
+    g.appendChild(c);
+    requestAnimationFrame(()=>{
+      c.style.transition='stroke-dashoffset .4s ease '+(i*0.07)+'s';
+      c.style.strokeDashoffset='0';
+    });
+  });
+  // 인접 사물 사이만 점선 연결 (거리 제한 — 멀리 떨어진 사물은 연결 X)
+  for(let i=0;i<objs.length-1;i++){
+    const o1=objs[i],o2=objs[i+1];
+    const x1=o1.offsetLeft+o1.offsetWidth/2,y1=o1.offsetTop+o1.offsetHeight/2;
+    const x2=o2.offsetLeft+o2.offsetWidth/2,y2=o2.offsetTop+o2.offsetHeight/2;
+    const dx=x2-x1,dy=y2-y1,dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<pad*2||dist>180)continue;
+    const ux=dx/dist,uy=dy/dist;
+    const ln=document.createElementNS(SVGNS,'line');
+    ln.setAttribute('x1',x1+ux*pad);ln.setAttribute('y1',y1+uy*pad);
+    ln.setAttribute('x2',x2-ux*pad);ln.setAttribute('y2',y2-uy*pad);
+    ln.setAttribute('stroke',color);ln.style.strokeWidth='3';ln.style.strokeDasharray='5,4';ln.style.opacity='0.5';
+    g.appendChild(ln);
+  }
+  svg.appendChild(g);
+  return g;
 }
+
 
 /* 카운터 */
 function setCounter(numEl,dotsEl,n,total){
@@ -1601,13 +1652,57 @@ function showBdChapter(idx, cb){
   else cb();
 }
 
-function startBundle(){show('scrBundle');renderBundle();}
+function startBundle(){show('scrBundle');showInquireBundle();}
+
+/* 탐구 모달 — 사물 직접 클릭으로 묶음 크기 결정 (키패드 없음) */
+let _iPicked=[];
+function showInquireBundle(){
+  const P=BD_PROBLEMS[bdIdx];
+  const total=P.size*P.groups;
+  document.querySelectorAll('.inquireOv').forEach(o=>o.remove());
+  const ov=document.createElement('div');
+  ov.className='inquireOv';
+  let picsHtml='';
+  for(let i=0;i<total;i++)picsHtml+=`<span class="iObj" data-i="${i}">${P.emoji}</span>`;
+  ov.innerHTML=`<div class="inquireBox">
+    <div class="inquireHead">🤔 ${P.ctx} <b style="color:#ff5a1f;">${total}개</b>를 어떻게 묶을까요?</div>
+    <div class="inquireQ">💭 사물을 클릭해서 <b style="color:#ff5a1f;">한 묶음</b>을 직접 만들어 봐요!</div>
+    <div class="inquirePics">${picsHtml}</div>
+    <div class="inquireCount">짚은 개수: <span id="iCount">0</span> 개</div>
+    <button class="btn btn-go inquireDone" onclick="iComplete(${total})">✓ 이 크기로 묶기</button>
+    <div class="inquireFb" id="iFb">&nbsp;</div>
+  </div>`;
+  document.body.appendChild(ov);
+  _iPicked=[];
+  ov.querySelectorAll('.iObj').forEach(o=>{
+    o.onclick=()=>{
+      const i=+o.dataset.i;
+      if(_iPicked.includes(i)){_iPicked=_iPicked.filter(x=>x!==i);o.classList.remove('iOn');}
+      else{_iPicked.push(i);o.classList.add('iOn');}
+      document.getElementById('iCount').textContent=_iPicked.length;
+    };
+  });
+}
+function iComplete(total){
+  const N=_iPicked.length;
+  const fb=document.getElementById('iFb');
+  if(N<2){fb.innerHTML='💡 적어도 2개는 짚어 봐요!';fb.className='inquireFb hint';return;}
+  if(total%N!==0){
+    fb.innerHTML=`💭 ${N}씩 묶으면 <b>${Math.floor(total/N)}묶음에 ${total%N}개가 남아요</b>. 딱 떨어지는 크기로 다시 짚어봐요!`;
+    fb.className='inquireFb hint';return;
+  }
+  fb.innerHTML=`🎉 <b>${N}씩 ${total/N}묶음</b>으로 묶을 수 있어요!`;
+  fb.className='inquireFb ok';
+  BD_PROBLEMS[bdIdx]={...BD_PROBLEMS[bdIdx],size:N,groups:total/N};
+  setTimeout(()=>{document.querySelector('.inquireOv')?.remove();_iPicked=[];renderBundle();},1600);
+}
+
 function renderBundle(){
   const P=BD_PROBLEMS[bdIdx];
   BD={P,picked:[],bundles:[],done:false};
   progress($('#pgBundle'),BD_PROBLEMS.length,bdIdx);
   $('#bdTitle').innerHTML=`🧺 <span class="kw kw-bd">묶음</span>=배 (${bdIdx+1}/${BD_PROBLEMS.length})`;
-  $('#bdInstr').innerHTML=`${eul(P.ctx)} <b style="color:#ffd23f;">${P.size}개씩</b> 콕콕 묶어 보세요!`;
+  $('#bdInstr').innerHTML=`✨ <b style="color:#ffd23f;">${P.size}씩</b> 묶어 봐요! (총 ${P.size*P.groups}개)`;
   updateBdConcept(0,0);
   $('#bdAdd').classList.remove('on');$('#bdAddTxt').textContent='-';
   $('#bdNext').style.display='none';
@@ -1678,7 +1773,7 @@ $('#bdNext').onclick=()=>{
         '👉 답은 "🤝 같은 뜻이에요"']
     },()=>startBundle());
   }else if(bdIdx>=BD_PROBLEMS.length){barIdx=0;startBar();}
-  else startBundle();
+  else showInquireBundle();
 };
 
 /* ================ 막대 이어 붙이기 ================ */
